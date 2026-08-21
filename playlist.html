@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortis Italia - Playlist</title>
+    
+    <!-- Importazione dei font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Stili Generali --- */
+        :root {
+            --white: #ffffff;
+            --green-light: #81b093;
+            --green-dark: #30593f;
+            --black: #000000;
+            --beige: #f5f1e6;
+            --beige-darker: #dbd4c0;
+            --text-dark: #1a1a1a;
+            --font-logo: 'Anton', sans-serif;
+            --font-titles: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--beige);
+            background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
+            background-size: 25px 25px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--green-light);
+            position: relative;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-text {
+            font-family: var(--font-logo);
+            color: var(--green-light);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .logo-text:hover { transform: scale(1.05); color: var(--green-dark); }
+
+        .nav-tabs { display: flex; gap: 10px; }
+        .nav-tabs a {
+            padding: 8px 15px;
+            border: 2px solid var(--green-light);
+            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--black);
+            background-color: var(--white);
+            display: block;
+        }
+        /* Qui evidenziamo MUSICA perché siamo sempre in quella sezione */
+        .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
+        .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
+
+        /* --- Sub-Nav (Mini Barra Categorie) --- */
+        .subnav-container {
+            background-color: var(--white);
+            border-bottom: 3px solid var(--green-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+        .subnav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 5px;
+        }
+        .subnav::-webkit-scrollbar { display: none; }
+        
+        .subnav a {
+            font-family: var(--font-titles);
+            font-size: 1.5rem;
+            color: var(--green-light);
+            padding: 5px 20px;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            letter-spacing: 1px;
+        }
+        .subnav a:hover { color: var(--green-dark); }
+        .subnav a.active-sub {
+            background-color: var(--green-light);
+            color: var(--white);
+            border: 2px solid var(--green-dark);
+        }
+
+        /* --- Sezione Playlist (simile agli album ma personalizzata) --- */
+        .page-title {
+            text-align: center;
+            font-family: var(--font-titles);
+            font-size: 3.5rem;
+            color: var(--green-dark);
+            margin: 40px 0 20px;
+            text-shadow: 2px 2px 0px var(--white);
+        }
+
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 20px 0 60px;
+        }
+
+        .playlist-card {
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            border-radius: 15px;
+            box-shadow: 8px 8px 0px var(--green-light);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .playlist-card:hover { transform: translateY(-5px); }
+
+        .playlist-logo {
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            /* object-fit: contain assicura che il logo non venga tagliato */
+            object-fit: contain; 
+            padding: 30px; /* Diamo spazio al logo dentro al riquadro */
+            border: 2px solid var(--green-dark);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: var(--beige);
+        }
+
+        .playlist-title {
+            font-family: var(--font-titles);
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            font-family: var(--font-titles);
+            font-size: 1.4rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            border: 2px solid;
+            background-color: var(--white);
+        }
+
+        /* --- Personalizzazione Colori Piattaforme --- */
+        .color-spotify { color: #1DB954; }
+        .btn-spotify { border-color: #1DB954; color: #1DB954; }
+        .btn-spotify:hover { background-color: #1DB954; color: var(--white); }
+
+        .color-youtube { color: #FF0000; }
+        .btn-youtube { border-color: #FF0000; color: #FF0000; }
+        .btn-youtube:hover { background-color: #FF0000; color: var(--white); }
+
+        .color-apple { color: #FA243C; }
+        .btn-apple { border-color: #FA243C; color: #FA243C; }
+        .btn-apple:hover { background-color: #FA243C; color: var(--white); }
+
+        /* --- Piè di pagina --- */
+        footer {
+            background-color: var(--white);
+            color: var(--green-dark);
+            padding: 30px 0 10px;
+            margin-top: 50px;
+            border-top: 3px solid var(--green-dark);
+        }
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-column { flex: 1; padding: 0 15px; }
+        .footer-column h3 { font-family: var(--font-titles); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 10px; color: var(--green-dark); }
+        .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
+        .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Mobile Responsive --- */
+        @media screen and (max-width: 768px) {
+            .logo-text { font-size: 1.8rem; }
+            .hamburger { display: block; }
+            .nav-tabs { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white); border-bottom: 3px solid var(--green-dark); z-index: 1000; gap: 0; }
+            .nav-tabs.active { display: flex; }
+            .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
+            
+            .subnav { justify-content: flex-start; padding-left: 20px; padding-right: 20px; } 
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Cortis Italia Online</span>
+            </a>
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-tabs" id="nav-menu">
+                    <li><a href="introduzione.html">INTRODUZIONE</a></li>
+                    <li><a href="musica.html" class="active">MUSICA</a></li>
+                    <li><a href="#">CALENDARIO</a></li>
+                    <li><a href="#">GUIDA</a></li>
+                    <li><a href="#">DOVE ACQUISTARE IN ITALIA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mini Barra Categorie Musica -->
+    <div class="subnav-container">
+        <div class="container subnav">
+            <a href="musica.html">DISCOGRAFIA</a>
+            <!-- Evidenziamo PLAYLIST perché siamo in questa pagina -->
+            <a href="playlist.html" class="active-sub">PLAYLIST</a>
+            <a href="canzoniita.html">TRADUZIONI CANZONI</a>
+        </div>
+    </div>
+
+    <!-- Sezione Playlist -->
+    <section class="container">
+        <h1 class="page-title">LE NOSTRE PLAYLIST</h1>
+        
+        <div class="playlist-grid">
+            
+            <!-- SPOTIFY -->
+            <div class="playlist-card">
+                <!-- Sostituisci il link qui sotto con una foto del logo di Spotify -->
+                <img src="LINK_LOGO_SPOTIFY_QUI.png" alt="Logo Spotify" class="playlist-logo">
+                
+                <h2 class="playlist-title color-spotify">SPOTIFY</h2>
+                
+                <!-- Inserisci qui il link alla vostra playlist Spotify -->
+                <a href="INSERISCI_LINK_PLAYLIST_SPOTIFY" target="_blank" class="btn btn-spotify">VAI ALLA PLAYLIST</a>
+            </div>
+            
+            <!-- YOUTUBE -->
+            <div class="playlist-card">
+                <!-- Sostituisci il link qui sotto con una foto del logo di YouTube -->
+                <img src="LINK_LOGO_YOUTUBE_QUI.png" alt="Logo YouTube" class="playlist-logo">
+                
+                <h2 class="playlist-title color-youtube">YOUTUBE</h2>
+                
+                <!-- Inserisci qui il link alla vostra playlist YouTube -->
+                <a href="INSERISCI_LINK_PLAYLIST_YOUTUBE" target="_blank" class="btn btn-youtube">VAI ALLA PLAYLIST</a>
+            </div>
+
+            <!-- APPLE MUSIC -->
+            <div class="playlist-card">
+                <!-- Sostituisci il link qui sotto con una foto del logo di Apple Music -->
+                <img src="LINK_LOGO_APPLE_MUSIC_QUI.png" alt="Logo Apple Music" class="playlist-logo">
+                
+                <h2 class="playlist-title color-apple">APPLE MUSIC</h2>
+                
+                <!-- Inserisci qui il link alla vostra playlist Apple Music -->
+                <a href="INSERISCI_LINK_PLAYLIST_APPLE" target="_blank" class="btn btn-apple">VAI ALLA PLAYLIST</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="relative-footer">
+            <div class="footer-container">
+                <div class="footer-column logo-col">
+                    <a href="index.html"><span class="logo-text">Cortis Italia Online</span></a>
+                </div>
+                <div class="footer-column contacts-col">
+                    <h3>contatti</h3>
+                    <p>cortisitalia@gmail.com</p>
+                </div>
+                <div class="footer-column about-col">
+                    <h3>chi siamo</h3>
+                </div>
+                <div class="footer-column legal-col">
+                    <p>Diritti riservati a CORTIS ITALIA</p>
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Menu Mobile (Hamburger)
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+    </script>
+</body>
+</html>
