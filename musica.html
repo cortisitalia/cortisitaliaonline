@@ -86,11 +86,10 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            overflow-x: auto; /* Permette lo slide orizzontale su telefono */
+            overflow-x: auto;
             white-space: nowrap;
-            padding-bottom: 5px; /* Spazio per la barra di scorrimento se appare */
+            padding-bottom: 5px;
         }
-        /* Nascondi barra scorrimento ma mantieni funzione (Chrome/Safari) */
         .subnav::-webkit-scrollbar { display: none; }
         
         .subnav a {
@@ -144,7 +143,7 @@
 
         .album-cover {
             width: 100%;
-            aspect-ratio: 1 / 1; /* Mantiene l'immagine quadrata */
+            aspect-ratio: 1 / 1; 
             object-fit: cover;
             border: 2px solid var(--green-dark);
             border-radius: 8px;
@@ -176,7 +175,7 @@
             display: flex;
             gap: 10px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* Ridotto un po' il margine */
         }
 
         .btn {
@@ -204,14 +203,6 @@
         }
         .btn-tracklist:hover { background-color: var(--black); border-color: var(--black); }
 
-        .translation-link {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--green-light);
-            text-decoration: underline;
-        }
-        .translation-link:hover { color: var(--green-dark); }
-
         /* --- Pop-up Spotify (Modal) --- */
         .modal {
             display: none;
@@ -230,8 +221,8 @@
             border: 4px solid var(--green-dark);
             border-radius: 15px;
             width: 90%;
-            max-width: 500px; /* Più stretto per il player di Spotify */
-            padding: 40px 20px 20px;
+            max-width: 500px;
+            padding: 40px 20px 25px; /* Aggiunto un po' di spazio sotto */
             position: relative;
             box-shadow: 15px 15px 0px var(--green-light);
             text-align: center;
@@ -239,7 +230,7 @@
 
         .close-btn {
             position: absolute;
-            top: -20px; right: -20px; /* Posizionata a cavallo del bordo */
+            top: -20px; right: -20px; 
             width: 50px;
             height: 50px;
             background-color: var(--green-dark);
@@ -269,8 +260,20 @@
             border-radius: 12px;
             overflow: hidden;
             background-color: var(--white);
-            min-height: 352px; /* Altezza standard del player Spotify */
+            min-height: 352px; 
+            margin-bottom: 15px; /* Spazio tra il player e il link della traduzione */
         }
+
+        /* Stile per il link Traduzione nel Pop-up */
+        .translation-link {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            text-decoration: underline;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        .translation-link:hover { color: var(--green-light); }
 
         /* --- Piè di pagina --- */
         footer {
@@ -294,9 +297,9 @@
             .nav-tabs.active { display: flex; }
             .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
             
-            .subnav { justify-content: flex-start; padding-left: 20px; padding-right: 20px; } /* Allinea a sinistra per permettere lo scroll */
+            .subnav { justify-content: flex-start; padding-left: 20px; padding-right: 20px; } 
             
-            .close-btn { top: -15px; right: -5px; } /* Aggiusta la X su cellulare */
+            .close-btn { top: -15px; right: -5px; }
 
             .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
         }
@@ -314,7 +317,6 @@
             <nav>
                 <ul class="nav-tabs" id="nav-menu">
                     <li><a href="introduzione.html">INTRODUZIONE</a></li>
-                    <!-- Evidenziamo MUSICA -->
                     <li><a href="musica.html" class="active">MUSICA</a></li>
                     <li><a href="#">CALENDARIO</a></li>
                     <li><a href="#">GUIDA</a></li>
@@ -347,11 +349,9 @@
                 
                 <div class="album-buttons">
                     <a href="LINK_SPOTIFY_ESTERNO" target="_blank" class="btn btn-spotify">SPOTIFY</a>
-                    <!-- Quando si clicca questo, si apre il popup. Ho passato l'id 'greengreen' -->
+                    <!-- Bottone per il popup -->
                     <button class="btn btn-tracklist" onclick="openTracklist('greengreen')">TRACKLIST</button>
                 </div>
-                
-                <a href="#" class="translation-link">traduzione in italiano</a>
             </div>
             
             <!-- Album 2 -->
@@ -364,8 +364,6 @@
                     <a href="#" target="_blank" class="btn btn-spotify">SPOTIFY</a>
                     <button class="btn btn-tracklist" onclick="openTracklist('album2')">TRACKLIST</button>
                 </div>
-                
-                <a href="#" class="translation-link">traduzione in italiano</a>
             </div>
 
             <!-- Album 3 -->
@@ -378,8 +376,6 @@
                     <a href="#" target="_blank" class="btn btn-spotify">SPOTIFY</a>
                     <button class="btn btn-tracklist" onclick="openTracklist('album3')">TRACKLIST</button>
                 </div>
-                
-                <a href="#" class="translation-link">traduzione in italiano</a>
             </div>
 
         </div>
@@ -391,14 +387,17 @@
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2 class="modal-title" id="modalAlbumTitle">TITOLO ALBUM</h2>
             
-            <!-- Qui dentro verrà "iniettato" il codice di Spotify dal JavaScript -->
+            <!-- Player Spotify -->
             <div class="spotify-container" id="spotifyEmbedContainer">
-                <!-- Il player Spotify apparirà qui -->
+                <!-- Verrà iniettato dal JS -->
             </div>
+            
+            <!-- Il link delle traduzioni è ora qui dentro! -->
+            <a href="#" id="modalTranslationLink" class="translation-link">traduzione in italiano</a>
         </div>
     </div>
 
-    <!-- Footer Pulito (Senza scritta Pedice) -->
+    <!-- Footer Pulito -->
     <footer>
         <div class="relative-footer">
             <div class="footer-container">
@@ -429,31 +428,29 @@
 
         /* 
            DATI DEGLI ALBUM PER IL POP-UP
-           Qui devi inserire il titolo dell'album e il codice Embed di Spotify!
-           Per prendere l'embed di Spotify:
-           1. Vai su Spotify da PC
-           2. Clicca sui 3 puntini dell'album > Condividi > Incorpora album
-           3. Copia il codice fornito (che inizia con <iframe...) e incollalo dentro agli apici ` ` qui sotto!
+           Qui ora puoi inserire anche il link specifico per le traduzioni di ogni album!
         */
         const albumsData = {
             greengreen: {
                 title: "GREEN GREEN",
-                // Ho messo un iframe generico di esempio. Sostituiscilo con il vostro!
-                embedCode: `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/0bgE3u7H9m0vB9i2E6rVfI?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+                embedCode: `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/0bgE3u7H9m0vB9i2E6rVfI?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
+                translationLink: "#" // <-- Quando avrai il link per Green Green, mettilo qui!
             },
             album2: {
                 title: "TITOLO ALBUM 2",
-                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 2 nel JavaScript!</p>`
+                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 2 nel JavaScript!</p>`,
+                translationLink: "#"
             },
             album3: {
                 title: "TITOLO ALBUM 3",
-                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 3 nel JavaScript!</p>`
+                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 3 nel JavaScript!</p>`,
+                translationLink: "#"
             }
         };
 
         const modal = document.getElementById("tracklistModal");
 
-        // Funzione per aprire il Modal e caricare il player Spotify
+        // Funzione per aprire il Modal e caricare i dati specifici
         function openTracklist(albumId) {
             const data = albumsData[albumId];
             
@@ -462,6 +459,9 @@
             
             // Inserisce il player di Spotify!
             document.getElementById("spotifyEmbedContainer").innerHTML = data.embedCode;
+            
+            // Aggiorna il link della traduzione specifico per quell'album!
+            document.getElementById("modalTranslationLink").href = data.translationLink;
 
             // Mostra il Pop-up
             modal.classList.add("active");
@@ -470,7 +470,7 @@
         // Funzione per chiudere
         function closeModal() {
             modal.classList.remove("active");
-            // Svuota il contenitore Spotify quando chiudi per far smettere di suonare la canzone!
+            // Svuota il contenitore Spotify quando chiudi per far smettere di suonare la canzone
             document.getElementById("spotifyEmbedContainer").innerHTML = ""; 
         }
 
