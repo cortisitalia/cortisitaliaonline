@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortis Italia</title>
+    
+    <!-- Importazione dei font Urban/Moderni, incluso ANTON per il logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Stili Generali --- */
+        :root {
+            --white: #ffffff;
+            --green-light: #81b093; /* Il tuo primo verde */
+            --green-dark: #30593f;
+            --black: #000000;
+            --beige: #f5f1e6;
+            --beige-darker: #dbd4c0; /* Colore per il pattern */
+            --text-dark: #1a1a1a;
+            --font-logo: 'Anton', sans-serif; /* Font per il logo */
+            --font-titles: 'Bebas Neue', sans-serif; /* Font street per i titoli */
+            --font-body: 'Montserrat', sans-serif; /* Font moderno per i testi */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--beige);
+            /* Pattern a pallini per un effetto urban/texture */
+            background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
+            background-size: 25px 25px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- Intestazione (Header) --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--green-light);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Stile per il Logo Testuale */
+        .logo-text {
+            font-family: var(--font-logo);
+            color: var(--green-light);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .logo-text:hover {
+            transform: scale(1.05);
+            color: var(--green-dark); /* Diventa verde scuro quando ci passi sopra col mouse */
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-tabs a {
+            padding: 8px 15px;
+            border: 2px solid var(--green-light);
+            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        .nav-tabs a:hover {
+            background-color: var(--green-light);
+        }
+
+        /* --- Area Eroe (Foto dei Cortis) --- */
+        .hero-section {
+            margin: 40px auto;
+            max-width: 1000px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 3px solid var(--green-dark);
+            box-shadow: 10px 10px 0px var(--green-light);
+            display: block;
+        }
+
+        /* --- Contenuto Centrale --- */
+        .content-section {
+            padding: 10px 0 60px;
+        }
+        
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .info-block {
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .info-block h2 {
+            font-family: var(--font-titles);
+            color: var(--green-dark);
+            font-size: 3rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px var(--white);
+        }
+
+        .info-block p {
+            font-size: 1.15rem;
+            font-weight: 600;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- Sezione Social --- */
+        .social-section {
+            padding: 50px 0;
+            background-color: var(--white);
+            border-top: 3px solid var(--green-dark);
+            border-bottom: 3px solid var(--green-dark);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .social-title {
+            font-family: var(--font-titles);
+            font-size: 2.5rem;
+            color: var(--green-dark);
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-button {
+            display: inline-block;
+            padding: 12px 35px;
+            border: 2px solid var(--green-dark);
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--green-dark);
+            background-color: var(--beige);
+            text-transform: lowercase;
+            transition: all 0.2s ease;
+            box-shadow: 4px 4px 0px var(--green-light);
+        }
+
+        .social-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green-light);
+        }
+
+        /* --- Piè di pagina (Footer) --- */
+        footer {
+            background-color: var(--white);
+            color: var(--green-dark);
+            padding: 30px 0 10px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            margin-left: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .footer-column h3 {
+            font-family: var(--font-titles);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: var(--green-dark);
+        }
+
+        .footer-column p, .footer-column ul li {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .pedice-text {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-family: var(--font-titles);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--green-dark);
+        }
+
+        /* Contenitore relativo per il footer */
+        .relative-footer {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Intestazione (Header) -->
+    <header>
+        <div class="container header-container">
+            <!-- Logo Testuale (Cliccabile, riporta alla Home) -->
+            <a href="index.html" class="logo">
+                <span class="logo-text">Cortis Italia Online</span>
+            </a>
+            
+            <!-- Menu di navigazione -->
+            <nav>
+                <ul class="nav-tabs">
+                    <li><a href="#">INTRODUZIONE</a></li>
+                    <li><a href="#">MUSICA</a></li>
+                    <li><a href="#">CALENDARIO</a></li>
+                    <li><a href="#">GUIDA</a></li>
+                    <li><a href="#">DOVE ACQUISTARE IN ITALIA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Area Eroe (Foto dei Cortis) -->
+    <section class="hero-section">
+        <img src="https://0.soompi.io/wp-content/uploads/2026/03/05172724/CORTIS_a20bdd.jpg" alt="Cortis - Green Green Era">
+    </section>
+
+    <!-- Contenuto Centrale con Testi per i Coer -->
+    <section class="content-section">
+        <div class="container content-container">
+            
+            <div class="info-block">
+                <h2>Benvenuti su Cortis Italia</h2>
+                <p>Il nuovo sito web interamente dedicato alla nostra cara fanbase dei <strong>Coer</strong>! Questo spazio è stato pensato per tutti i fan che desiderano informarsi e tenersi costantemente aggiornati su ogni singola novità riguardante i Cortis.</p>
+            </div>
+            
+            <div class="info-block">
+                <h2>Il Progetto Online</h2>
+                <p>Abbiamo creato questo progetto per offrirvi tutto ciò di cui avete bisogno in un unico posto. Qui potrete trovare l'introduzione dettagliata ai membri e al gruppo, ascoltare le varie playlist (comprensive di tutta la discografia e della musica per eventi speciali organizzati per voi). Inoltre, avrete a disposizione le guide per aiutarvi a votare, un calendario utilissimo per non perdersi mai gli eventi dei Cortis e, infine, una pratica guida per capire dove acquistare gli album in modo da far salire i ragazzi nelle classifiche italiane!</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sezione Social -->
+    <section class="social-section">
+        <div class="container">
+            <h2 class="social-title">I NOSTRI SOCIAL</h2>
+            <div class="social-container">
+                <a href="https://www.instagram.com/cortisitalia/" target="_blank" class="social-button">
+                    instagram
+                </a>
+                <a href="https://x.com/cortisitalia?s=11" target="_blank" class="social-button">
+                    twitter
+                </a>
+                <a href="https://www.tiktok.com/@cortisitalia?_r=1&_t=ZN-994reCU2guE" target="_blank" class="social-button">
+                    tiktok
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Piè di pagina (Footer) -->
+    <footer>
+        <div class="relative-footer">
+            <div class="footer-container">
+                <div class="footer-column logo-col">
+                    <!-- Logo Testuale Footer (Cliccabile, riporta alla Home) -->
+                    <a href="index.html">
+                        <span class="logo-text">Cortis Italia Online</span>
+                    </a>
+                </div>
+                
+                <div class="footer-column contacts-col">
+                    <h3>contatti</h3>
+                    <p>cortisitalia@gmail.com</p>
+                </div>
+                
+                <div class="footer-column about-col">
+                    <h3>chi siamo</h3>
+                </div>
+                
+                <div class="footer-column legal-col">
+                    <p>Diritti riservati</p>
+                    <p>a CORTIS ITALIA</p>
+                    <br>
+                    <p style="font-size: 0.8rem; opacity: 0.7;">coded by Mao and cortisitalia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
