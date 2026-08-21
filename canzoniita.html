@@ -123,7 +123,7 @@
 
         .translation-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Riquadri un pelo più piccoli per farne stare di più */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             padding: 20px 0 60px;
         }
@@ -158,19 +158,20 @@
             font-size: 2rem;
             color: var(--green-dark);
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            margin-bottom: 5px; /* Margine ridotto perché ho tolto il badge da qui */
             line-height: 1.1;
         }
 
-        /* Etichette Status */
+        /* Etichette Status (Ora usate nei bottoni delle tracce) */
         .status-badge {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            padding: 5px 15px;
+            padding: 4px 12px;
             border-radius: 20px;
             color: var(--white);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
         .status-badge.done { background-color: var(--status-done); }
         .status-badge.wip { background-color: var(--status-wip); }
@@ -194,8 +195,8 @@
             border: 4px solid var(--green-dark);
             border-radius: 15px;
             width: 90%;
-            max-width: 600px; /* Perfetto per leggere i testi */
-            max-height: 85vh; /* Evita che esca dallo schermo */
+            max-width: 600px; 
+            max-height: 85vh; 
             padding: 40px 30px;
             position: relative;
             box-shadow: 15px 15px 0px var(--green-light);
@@ -234,9 +235,8 @@
         /* Contenitore interno scrollabile */
         .modal-body {
             overflow-y: auto;
-            padding-right: 10px; /* Spazio per la scrollbar */
+            padding-right: 10px; 
         }
-        /* Scrollbar personalizzata per il modal */
         .modal-body::-webkit-scrollbar { width: 8px; }
         .modal-body::-webkit-scrollbar-track { background: var(--beige-darker); border-radius: 4px; }
         .modal-body::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 4px; }
@@ -247,6 +247,7 @@
             flex-direction: column;
             gap: 10px;
         }
+        
         .track-btn {
             background-color: var(--white);
             border: 2px solid var(--green-dark);
@@ -257,23 +258,31 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
-            text-align: left;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            gap: 10px;
         }
         .track-btn:hover {
             background-color: var(--green-light);
             color: var(--text-dark);
             transform: translateX(5px);
         }
-        .track-btn::after {
-            content: "➔"; /* Freccina che fa capire di cliccare */
+        
+        .track-btn-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .track-arrow {
             font-weight: bold;
+            font-size: 1.2rem;
         }
 
         /* Livello 2: Testo Canzone */
         .lyrics-view {
-            display: none; /* Nascosto di base */
+            display: none; 
             flex-direction: column;
         }
         
@@ -301,7 +310,7 @@
         .lyrics-text {
             font-size: 1.05rem;
             line-height: 1.8;
-            white-space: pre-wrap; /* Fondamentale! Mantiene gli a capo esattamente come li scrivi nel JS */
+            white-space: pre-wrap; 
             background-color: var(--white);
             padding: 25px;
             border-radius: 10px;
@@ -334,6 +343,10 @@
             
             .modal-content { padding: 30px 15px; width: 95%; max-height: 90vh; }
             .close-btn { top: -15px; right: -5px; width: 45px; height: 45px; font-size: 1.8rem; }
+
+            /* Aggiustamento per bottoni tracce su mobile */
+            .track-btn { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .track-btn-right { width: 100%; justify-content: space-between; }
 
             .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
         }
@@ -375,33 +388,29 @@
         
         <div class="translation-grid">
             
-            <!-- GREENGREEN -->
-            <div class="translation-card" onclick="openAlbum('greengreen')">
-                <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen" class="album-cover">
-                <h2 class="album-title">GREENGREEN</h2>
-                <!-- Usa classe "done", "wip" o "todo" -->
-                <span class="status-badge done">Tradotta</span>
-            </div>
-            
             <!-- COTL -->
             <div class="translation-card" onclick="openAlbum('cotl')">
                 <img src="https://i.pinimg.com/736x/74/28/18/74281849ddfcb85d414013d9388906e3.jpg" alt="Copertina COTL" class="album-cover">
                 <h2 class="album-title">Color Outside The Lines</h2>
-                <span class="status-badge wip">In Traduzione</span>
+                <!-- Niente più badge qui fuori! -->
             </div>
 
-            <!-- MENTION ME -->
+            <!-- MENTION ME (Spostato PRIMA di Green Green) -->
             <div class="translation-card" onclick="openAlbum('mentionme')">
                 <img src="https://i.pinimg.com/736x/5f/ef/37/5fef37b68c205b9542a7c79411ee9173.jpg" alt="Copertina mentionme" class="album-cover">
                 <h2 class="album-title">MENTION ME</h2>
-                <span class="status-badge done">Tradotta</span>
+            </div>
+            
+            <!-- GREENGREEN -->
+            <div class="translation-card" onclick="openAlbum('greengreen')">
+                <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen" class="album-cover">
+                <h2 class="album-title">GREENGREEN</h2>
             </div>
             
             <!-- MOTION -->
             <div class="translation-card" onclick="openAlbum('motion')">
                 <img src="https://i.pinimg.com/736x/d3/7b/9c/d37b9c4ea3cf4ed90c0dcc3b0b19abb5.jpg" alt="Copertina motion" class="album-cover">
                 <h2 class="album-title">MOTION</h2>
-                <span class="status-badge todo">Non ancora fatta</span>
             </div>
 
         </div>
@@ -416,7 +425,7 @@
             <div class="modal-body">
                 <!-- VISTA 1: Lista delle Canzoni (si svuota/riempie col JS) -->
                 <div class="tracklist-view" id="tracklistView">
-                    <!-- Bottoni canzoni -->
+                    <!-- Bottoni canzoni (e relativi status) verranno generati qui dal JS -->
                 </div>
                 
                 <!-- VISTA 2: Testo della Canzone -->
@@ -460,51 +469,22 @@
 
         /* 
            DATI DELLE TRADUZIONI 
-           Usa l'accento grave ( ` ) per scrivere il testo, così puoi andare a capo 
-           premendo normalmente INVIO senza rompere il codice!
+           Aggiunto il parametro "status" per ogni traccia! Può essere: "done", "wip" o "todo".
+           Il testo della traduzione qui sotto segue il formato ideale per non avere problemi col copyright.
         */
         const translationsData = {
-            greengreen: {
-                title: "GREENGREEN",
-                tracks: [
-                    {
-                        songName: "Red Red",
-                        lyrics: `(Strofa 1)
-Ehi, guardami negli occhi
-Sai che il rosso è il mio colore preferito
-Ma quando vedo te, tutto si ferma.
-
-(Ritornello)
-Red Red, il mio cuore batte forte
-Red Red, non riesco a respirare
-Siamo come fuoco nella notte.`
-                    },
-                    {
-                        songName: "Green Green",
-                        lyrics: `(Strofa 1)
-Camminiamo in questo prato verde
-Niente ci può fermare oggi.
-Questa canzone è solo per voi, Coer!
-
-(Ritornello)
-Green Green, la speranza non muore mai.`
-                    },
-                    {
-                        songName: "Blue Blue",
-                        lyrics: `Traduzione in arrivo...`
-                    }
-                ]
-            },
             cotl: {
                 title: "COLOR OUTSIDE THE LINES",
                 tracks: [
                     {
                         songName: "Intro: COTL",
-                        lyrics: `Traduzione in arrivo...`
+                        status: "wip",
+                        lyrics: "La traduzione di questo brano è attualmente in lavorazione. Torna presto!"
                     },
                     {
                         songName: "Main Track",
-                        lyrics: `Testo della Main Track qui...`
+                        status: "todo",
+                        lyrics: "Questa canzone non è ancora stata tradotta."
                     }
                 ]
             },
@@ -513,7 +493,28 @@ Green Green, la speranza non muore mai.`
                 tracks: [
                     {
                         songName: "Mention Me",
-                        lyrics: `Menzionami quando parli di stelle...`
+                        status: "done",
+                        lyrics: `Questa canzone parla di un legame speciale che non svanisce mai, e di come i ricordi restino vivi anche quando si è lontani.\n\n"Menzionami quando parli di stelle\nPerché io sarò lì a brillare per te"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
+                    }
+                ]
+            },
+            greengreen: {
+                title: "GREENGREEN",
+                tracks: [
+                    {
+                        songName: "Red Red",
+                        status: "done",
+                        lyrics: `Una canzone potente che esprime la passione travolgente e l'energia di un amore improvviso.\n\n"Red Red, il mio cuore batte forte\nRed Red, non riesco a respirare\nSiamo come fuoco nella notte"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
+                    },
+                    {
+                        songName: "Green Green",
+                        status: "done",
+                        lyrics: `Un brano fresco e pieno di speranza, dedicato interamente ai Coer e al viaggio luminoso che li aspetta.\n\n"Camminiamo in questo prato verde\nNiente ci può fermare oggi\nGreen Green, la speranza non muore mai"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
+                    },
+                    {
+                        songName: "Blue Blue",
+                        status: "wip",
+                        lyrics: "La traduzione di questo brano è attualmente in lavorazione. Torna presto!"
                     }
                 ]
             },
@@ -522,7 +523,8 @@ Green Green, la speranza non muore mai.`
                 tracks: [
                     {
                         songName: "Motion",
-                        lyrics: `Testo non ancora disponibile.`
+                        status: "todo",
+                        lyrics: "Questa canzone non è ancora stata tradotta."
                     }
                 ]
             }
@@ -532,28 +534,40 @@ Green Green, la speranza non muore mai.`
         const tracklistView = document.getElementById("tracklistView");
         const lyricsView = document.getElementById("lyricsView");
 
-        let currentAlbumId = ""; // Serve per ricordarsi in che album siamo
+        let currentAlbumId = ""; 
 
-        // Funzione per aprire il Pop-up con la lista delle canzoni
+        // Funzione per aprire il Pop-up con la lista delle canzoni e gli status integrati!
         function openAlbum(albumId) {
             currentAlbumId = albumId;
             const data = translationsData[albumId];
             
             document.getElementById("modalAlbumTitle").innerText = data.title;
-            
-            // Crea i bottoni per ogni canzone
-            tracklistView.innerHTML = ""; // Pulisce roba vecchia
+            tracklistView.innerHTML = ""; 
             
             data.tracks.forEach((track, index) => {
                 const btn = document.createElement("button");
                 btn.className = "track-btn";
-                btn.innerText = track.songName;
-                // Quando clicco una canzone, passa il numero della canzone (index)
+
+                // Imposta il testo del badge in base allo status
+                let badgeText = "";
+                let badgeClass = "";
+                if(track.status === 'done') { badgeText = "Tradotta"; badgeClass = "done"; }
+                else if(track.status === 'wip') { badgeText = "In Traduzione"; badgeClass = "wip"; }
+                else if(track.status === 'todo') { badgeText = "Non Fatta"; badgeClass = "todo"; }
+
+                // Costruisce la struttura interna del bottone
+                btn.innerHTML = `
+                    <span class="track-name">${track.songName}</span>
+                    <div class="track-btn-right">
+                        <span class="status-badge ${badgeClass}">${badgeText}</span>
+                        <span class="track-arrow">➔</span>
+                    </div>
+                `;
+
                 btn.onclick = () => showLyrics(index);
                 tracklistView.appendChild(btn);
             });
 
-            // Mostra la lista, nasconde i testi vecchi
             tracklistView.style.display = "flex";
             lyricsView.style.display = "none";
             
@@ -568,23 +582,19 @@ Green Green, la speranza non muore mai.`
             document.getElementById("songTitle").innerText = song.songName;
             document.getElementById("lyricsText").innerText = song.lyrics;
             
-            // Nasconde la lista, mostra il testo
             tracklistView.style.display = "none";
             lyricsView.style.display = "flex";
         }
 
-        // Funzione bottone "Indietro"
         function backToTracklist() {
             lyricsView.style.display = "none";
             tracklistView.style.display = "flex";
         }
 
-        // Funzione per chiudere del tutto
         function closeModal() {
             modal.classList.remove("active");
         }
 
-        // Chiudi cliccando fuori
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
