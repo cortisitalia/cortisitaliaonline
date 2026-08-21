@@ -175,7 +175,7 @@
             display: flex;
             gap: 10px;
             width: 100%;
-            margin-bottom: 10px; /* Ridotto un po' il margine */
+            margin-bottom: 10px;
         }
 
         .btn {
@@ -222,7 +222,7 @@
             border-radius: 15px;
             width: 90%;
             max-width: 500px;
-            padding: 40px 20px 25px; /* Aggiunto un po' di spazio sotto */
+            padding: 40px 20px 25px;
             position: relative;
             box-shadow: 15px 15px 0px var(--green-light);
             text-align: center;
@@ -261,10 +261,9 @@
             overflow: hidden;
             background-color: var(--white);
             min-height: 352px; 
-            margin-bottom: 15px; /* Spazio tra il player e il link della traduzione */
+            margin-bottom: 15px;
         }
 
-        /* Stile per il link Traduzione nel Pop-up */
         .translation-link {
             font-size: 0.95rem;
             font-weight: 700;
@@ -341,7 +340,7 @@
         
         <div class="album-grid">
             
-            <!-- Album 1: Green Green -->
+            <!-- Album 1: COTL -->
             <div class="album-card">
                 <img src="https://i.pinimg.com/736x/74/28/18/74281849ddfcb85d414013d9388906e3.jpg" alt="Copertina COTL" class="album-cover">
                 <span class="album-tag">Debut Album</span>
@@ -349,12 +348,12 @@
                 
                 <div class="album-buttons">
                     <a href="https://open.spotify.com/album/2yMfaynthtWVAkJ5A3Kwrf?si=CcVjP7jBTBqOV1qS4ASWaQ" target="_blank" class="btn btn-spotify">SPOTIFY</a>
-                    <!-- Bottone per il popup -->
+                    <!-- ERRORE RISOLTO: cotl -->
                     <button class="btn btn-tracklist" onclick="openTracklist('cotl')">TRACKLIST</button>
                 </div>
             </div>
             
-            <!-- Album 2 -->
+            <!-- Album 2: MENTION ME -->
             <div class="album-card">
                 <img src="https://i.pinimg.com/736x/5f/ef/37/5fef37b68c205b9542a7c79411ee9173.jpg" alt="Copertina mentionme" class="album-cover">
                 <span class="album-tag">Singolo</span>
@@ -366,7 +365,7 @@
                 </div>
             </div>
 
-            <!-- Album 3 -->
+            <!-- Album 3: GREENGREEN -->
             <div class="album-card">
                 <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen" class="album-cover">
                 <span class="album-tag">Mini Album</span>
@@ -377,7 +376,8 @@
                     <button class="btn btn-tracklist" onclick="openTracklist('greengreen')">TRACKLIST</button>
                 </div>
             </div>
-            <!-- Album 4 -->
+            
+            <!-- Album 4: MOTION -->
             <div class="album-card">
                 <img src="https://i.pinimg.com/736x/d3/7b/9c/d37b9c4ea3cf4ed90c0dcc3b0b19abb5.jpg" alt="Copertina motion" class="album-cover">
                 <span class="album-tag">Singolo</span>
@@ -385,7 +385,8 @@
                 
                 <div class="album-buttons">
                     <a href="https://open.spotify.com/album/7hkn5DHPOpLwrlUpxAbbnp?si=RBmBoPS-Qyy1gw90cRgQzA" target="_blank" class="btn btn-spotify">SPOTIFY</a>
-                    <button class="btn btn-tracklist" onclick="openTracklist('greengreen')">TRACKLIST</button>
+                    <!-- ERRORE RISOLTO: Ora passa 'motion' invece di 'greengreen' -->
+                    <button class="btn btn-tracklist" onclick="openTracklist('motion')">TRACKLIST</button>
                 </div>
             </div>
 
@@ -398,12 +399,10 @@
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2 class="modal-title" id="modalAlbumTitle">TITOLO ALBUM</h2>
             
-            <!-- Player Spotify -->
             <div class="spotify-container" id="spotifyEmbedContainer">
                 <!-- Verrà iniettato dal JS -->
             </div>
             
-            <!-- Il link delle traduzioni è ora qui dentro! -->
             <a href="#" id="modalTranslationLink" class="translation-link">traduzione in italiano</a>
         </div>
     </div>
@@ -432,20 +431,16 @@
 
     <!-- JavaScript -->
     <script>
-        // Menu Mobile (Hamburger)
         const hamburger = document.getElementById('hamburger-menu');
         const navMenu = document.getElementById('nav-menu');
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-        /* 
-           DATI DEGLI ALBUM PER IL POP-UP
-           Qui ora puoi inserire anche il link specifico per le traduzioni di ogni album!
-        */
         const albumsData = {
-            COTL: {
+            // ERRORE RISOLTO: Cambiato COTL in minuscolo per corrispondere al bottone
+            cotl: {
                 title: "COLOR OUTSIDE THE LINES",
                 embedCode: `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2yMfaynthtWVAkJ5A3Kwrf?si=PIraxGlkSZKzoaVPeCC5fQ_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
-                translationLink: "#" // <-- Quando avrai il link per Green Green, mettilo qui!
+                translationLink: "#" 
             },
             mentionme: {
                 title: "MENTION ME",
@@ -466,31 +461,21 @@
 
         const modal = document.getElementById("tracklistModal");
 
-        // Funzione per aprire il Modal e caricare i dati specifici
         function openTracklist(albumId) {
             const data = albumsData[albumId];
             
-            // Cambia il titolo nel Pop-up
             document.getElementById("modalAlbumTitle").innerText = data.title;
-            
-            // Inserisce il player di Spotify!
             document.getElementById("spotifyEmbedContainer").innerHTML = data.embedCode;
-            
-            // Aggiorna il link della traduzione specifico per quell'album!
             document.getElementById("modalTranslationLink").href = data.translationLink;
 
-            // Mostra il Pop-up
             modal.classList.add("active");
         }
 
-        // Funzione per chiudere
         function closeModal() {
             modal.classList.remove("active");
-            // Svuota il contenitore Spotify quando chiudi per far smettere di suonare la canzone
             document.getElementById("spotifyEmbedContainer").innerHTML = ""; 
         }
 
-        // Chiudi cliccando fuori
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
