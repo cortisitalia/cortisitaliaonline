@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- Stili Generali (Uguali alla Home) --- */
+        /* --- Stili Generali --- */
         :root {
             --white: #ffffff;
             --green-light: #81b093;
@@ -194,7 +194,7 @@
             overflow: hidden;
         }
 
-        /* BOTTONE CHIUSURA AGGIORNATO */
+        /* Bottone Chiusura */
         .close-btn {
             position: absolute;
             top: 15px; right: 15px;
@@ -202,7 +202,7 @@
             height: 45px;
             background-color: var(--green-dark);
             color: var(--white);
-            border-radius: 50%; /* Lo rende un cerchio perfetto */
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -244,28 +244,6 @@
         .modal-stats span { color: var(--green-dark); text-transform: uppercase; font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;}
         .modal-stats span.info-text { display: inline; color: var(--text-dark); text-transform: none; font-size: 1rem; font-weight: 500; line-height: 1.5;}
 
-        /* --- Galleria Mini --- */
-        .gallery-section { padding: 40px 0; }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            grid-auto-rows: 200px;
-        }
-        .gallery-item {
-            background-color: var(--white);
-            border: 2px solid var(--green-dark);
-            border-radius: 8px;
-            box-shadow: 4px 4px 0px var(--green-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--green-light);
-            font-weight: bold;
-        }
-        .gallery-item.large { grid-column: span 2; grid-row: span 2; }
-        .gallery-item.wide { grid-column: span 2; }
-
         /* --- Piè di pagina --- */
         footer {
             background-color: var(--white);
@@ -294,7 +272,6 @@
             .modal-left { min-height: 250px; border-right: none; border-bottom: 3px solid var(--green-dark); }
             .modal-right { padding: 20px; overflow-y: visible; }
             
-            /* Tasto chiusura PIU' GRANDE su cellulare */
             .close-btn {
                 top: 10px; right: 10px;
                 width: 50px;
@@ -302,7 +279,14 @@
                 font-size: 2.5rem;
             }
 
-            .footer-container { flex-direction: column; margin-left: 0; gap: 30px; text-align: center; }
+            /* FOOTER CENTRATO PERFETTO SU MOBILE */
+            .footer-container { 
+                flex-direction: column; 
+                align-items: center; /* Centra perfettamente gli elementi in orizzontale */
+                margin-left: 0; 
+                gap: 30px; 
+                text-align: center; 
+            }
             .pedice-text { display: none; }
         }
     </style>
@@ -418,20 +402,6 @@
             </div>
         </div>
     </div>
-
-    <hr class="section-divider">
-
-    <!-- Mini Galleria -->
-    <section class="container gallery-section">
-        <h2 class="members-title">MINI GALLERIA</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item large">FOTO GRANDE</div>
-            <div class="gallery-item">FOTO PICCOLA</div>
-            <div class="gallery-item">FOTO PICCOLA</div>
-            <div class="gallery-item wide">FOTO LARGA</div>
-            <div class="gallery-item">FOTO PICCOLA</div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer>
