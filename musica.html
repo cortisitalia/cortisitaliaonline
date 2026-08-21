@@ -329,9 +329,9 @@
     <!-- Mini Barra Categorie Musica -->
     <div class="subnav-container">
         <div class="container subnav">
-            <a href="#" class="active-sub">DISCOGRAFIA</a>
-            <a href="#">PLAYLIST</a>
-            <a href="#">TRADUZIONI CANZONI</a>
+            <a href="musica.html" class="active-sub">DISCOGRAFIA</a>
+            <a href="playlist.html">PLAYLIST</a>
+            <a href="canzoniita.html">TRADUZIONI CANZONI</a>
         </div>
     </div>
 
@@ -344,37 +344,37 @@
             <!-- Album 1: Green Green -->
             <div class="album-card">
                 <img src="https://i.pinimg.com/736x/74/28/18/74281849ddfcb85d414013d9388906e3.jpg" alt="Copertina COTL" class="album-cover">
-                <span class="album-tag">Dbut Album</span>
+                <span class="album-tag">Debut Album</span>
                 <h2 class="album-title">Color Outside The Lines</h2>
                 
                 <div class="album-buttons">
-                    <a href="https://open.spotify.com/album/2yMfaynthtWVAkJ5A3Kwrf?si=PIraxGlkSZKzoaVPeCC5fQ" target="_blank" class="btn btn-spotify">SPOTIFY</a>
+                    <a href="https://open.spotify.com/album/2yMfaynthtWVAkJ5A3Kwrf?si=CcVjP7jBTBqOV1qS4ASWaQ" target="_blank" class="btn btn-spotify">SPOTIFY</a>
                     <!-- Bottone per il popup -->
-                    <button class="btn btn-tracklist" onclick="openTracklist('greengreen')">TRACKLIST</button>
+                    <button class="btn btn-tracklist" onclick="openTracklist('cotl')">TRACKLIST</button>
                 </div>
             </div>
             
             <!-- Album 2 -->
             <div class="album-card">
-                <img src="LINK_COPERTINA_ALBUM_2.jpg" alt="Copertina Album 2" class="album-cover">
+                <img src="https://i.scdn.co/image/ab67616d0000b27312fbc981d094ef600fd0cb42.jpg" alt="Copertina mentionme" class="album-cover">
                 <span class="album-tag">Singolo</span>
-                <h2 class="album-title">TITOLO ALBUM 2</h2>
+                <h2 class="album-title">MENTION ME</h2>
                 
                 <div class="album-buttons">
-                    <a href="#" target="_blank" class="btn btn-spotify">SPOTIFY</a>
-                    <button class="btn btn-tracklist" onclick="openTracklist('album2')">TRACKLIST</button>
+                    <a href="https://open.spotify.com/album/3M3mRFHjiwrVBBYR5tGGzd?si=IHbHYduPQDyi3PreFgIF2Q" target="_blank" class="btn btn-spotify">SPOTIFY</a>
+                    <button class="btn btn-tracklist" onclick="openTracklist('mentionme')">TRACKLIST</button>
                 </div>
             </div>
 
             <!-- Album 3 -->
             <div class="album-card">
-                <img src="LINK_COPERTINA_ALBUM_3.jpg" alt="Copertina Album 3" class="album-cover">
-                <span class="album-tag">Full Album</span>
-                <h2 class="album-title">TITOLO ALBUM 3</h2>
+                <img src="https://i.scdn.co/image/ab67616d0000b2737a702a4c3a18c1439fdc29ff.jpg" alt="Copertina greengreen" class="album-cover">
+                <span class="album-tag">Mini Album</span>
+                <h2 class="album-title">GREENGREEN</h2>
                 
                 <div class="album-buttons">
-                    <a href="#" target="_blank" class="btn btn-spotify">SPOTIFY</a>
-                    <button class="btn btn-tracklist" onclick="openTracklist('album3')">TRACKLIST</button>
+                    <a href="https://open.spotify.com/album/2zEdi42kfgLEySoikGJMFT?si=n3fmS2eZQmSi1TfHRpgCuA" target="_blank" class="btn btn-spotify">SPOTIFY</a>
+                    <button class="btn btn-tracklist" onclick="openTracklist('greengreen')">TRACKLIST</button>
                 </div>
             </div>
 
@@ -431,19 +431,19 @@
            Qui ora puoi inserire anche il link specifico per le traduzioni di ogni album!
         */
         const albumsData = {
-            greengreen: {
+            COTL: {
                 title: "COLOR OUTSIDE THE LINES",
                 embedCode: `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2yMfaynthtWVAkJ5A3Kwrf?si=PIraxGlkSZKzoaVPeCC5fQ_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
                 translationLink: "#" // <-- Quando avrai il link per Green Green, mettilo qui!
             },
-            album2: {
-                title: "TITOLO ALBUM 2",
-                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 2 nel JavaScript!</p>`,
+            mentionme: {
+                title: "MENTION ME",
+                embedCode: `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/3M3mRFHjiwrVBBYR5tGGzd?si=IHbHYduPQDyi3PreFgIF2Q_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
                 translationLink: "#"
             },
-            album3: {
-                title: "TITOLO ALBUM 3",
-                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 3 nel JavaScript!</p>`,
+            greengreen: {
+                title: "GREENGREEN",
+                embedCode: `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2zEdi42kfgLEySoikGJMFT?si=n3fmS2eZQmSi1TfHRpgCuA_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
                 translationLink: "#"
             }
         };
