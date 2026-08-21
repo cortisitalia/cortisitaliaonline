@@ -40,7 +40,7 @@
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
         ul { list-style: none; }
 
-        /* --- Header (Uguale alla Home) --- */
+        /* --- Header --- */
         header {
             background-color: var(--white);
             padding: 20px 0;
@@ -75,7 +75,7 @@
         .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
         .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
 
-        /* --- Sezione Identikit (Nuova) --- */
+        /* --- Sezione Identikit --- */
         .identikit-section {
             display: flex;
             gap: 40px;
@@ -107,7 +107,6 @@
         .identikit-info ul { margin-top: 15px; font-weight: 600; }
         .identikit-info li { margin-bottom: 8px; border-bottom: 1px solid var(--beige-darker); padding-bottom: 5px; }
 
-        /* Divisorio */
         .section-divider {
             border: 0;
             height: 3px;
@@ -154,15 +153,12 @@
             overflow: hidden;
         }
         
-        /* ECCO LA MODIFICA CSS PER LE IMMAGINI! */
         .member-box img { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            display: block; /* Sbloccate! */
+            display: block; 
         }
-        
-        .member-box .placeholder { color: var(--green-light); font-weight: bold; }
 
         .member-name {
             font-family: var(--font-titles);
@@ -190,7 +186,8 @@
             border: 4px solid var(--green-dark);
             border-radius: 15px;
             width: 90%;
-            max-width: 800px;
+            max-width: 900px; /* Allargato un po' per il testo lungo */
+            max-height: 90vh; /* Impedisce che esca dallo schermo */
             display: flex;
             position: relative;
             box-shadow: 15px 15px 0px var(--green-light);
@@ -223,7 +220,7 @@
             padding: 40px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            overflow-y: auto; /* Aggiunge una barra di scorrimento se il testo è lungo */
         }
         
         .modal-name {
@@ -233,8 +230,9 @@
             margin-bottom: 15px;
         }
 
-        .modal-stats li { margin-bottom: 10px; font-weight: 600; }
-        .modal-stats span { color: var(--green-dark); text-transform: uppercase; font-size: 0.85rem; font-weight: bold; }
+        .modal-stats li { margin-bottom: 15px; font-weight: 600; }
+        .modal-stats span { color: var(--green-dark); text-transform: uppercase; font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;}
+        .modal-stats span.info-text { display: inline; color: var(--text-dark); text-transform: none; font-size: 1rem; font-weight: 500; line-height: 1.5;}
 
         /* --- Galleria Mini --- */
         .gallery-section { padding: 40px 0; }
@@ -284,7 +282,7 @@
             .identikit-section { flex-direction: column; }
             .modal-content { flex-direction: column; height: 90vh; overflow-y: auto; }
             .modal-left { min-height: 250px; border-right: none; border-bottom: 3px solid var(--green-dark); }
-            .modal-right { padding: 20px; }
+            .modal-right { padding: 20px; overflow-y: visible; }
             
             .footer-container { flex-direction: column; margin-left: 0; gap: 30px; text-align: center; }
             .pedice-text { display: none; }
@@ -332,7 +330,7 @@
 
     <hr class="section-divider">
 
-    <!-- Sezione Membri (Griglia) -->
+    <!-- Sezione Membri -->
     <section class="container">
         <h2 class="members-title">I MEMBRI</h2>
         <div class="members-grid">
@@ -385,22 +383,19 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             
-            <!-- Lato sinistro: Foto nel popup -->
             <div class="modal-left">
-                <span class="placeholder" id="modalImgPlaceholder" style="color:var(--green-light); font-weight:bold; display:none;">FOTO MEMBRO</span>
-                <img id="modalImg" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
+                <img id="modalImg" src="" style="width:100%; height:100%; object-fit:cover; display:block;">
             </div>
             
-            <!-- Lato destro: Dettagli -->
             <div class="modal-right">
                 <h2 class="modal-name" id="modalName">NOME</h2>
                 <ul class="modal-stats">
-                    <li><span>Vero Nome:</span> <span id="modalRealName" style="color:var(--text-dark); text-transform:none;">...</span></li>
-                    <li><span>Data di nascita:</span> <span id="modalDob" style="color:var(--text-dark); text-transform:none;">...</span></li>
-                    <li><span>MBTI:</span> <span id="modalMbti" style="color:var(--text-dark); text-transform:none;">...</span></li>
-                    <li><span>Cosa ama:</span> <span id="modalLikes" style="color:var(--text-dark); text-transform:none;">...</span></li>
-                    <li><span>Cosa odia:</span> <span id="modalDislikes" style="color:var(--text-dark); text-transform:none;">...</span></li>
-                    <li><span>Background:</span> <span id="modalBackground" style="color:var(--text-dark); text-transform:none;">...</span></li>
+                    <li><span>Vero Nome:</span> <span class="info-text" id="modalRealName">...</span></li>
+                    <li><span>Data di nascita:</span> <span class="info-text" id="modalDob">...</span></li>
+                    <li><span>MBTI:</span> <span class="info-text" id="modalMbti">...</span></li>
+                    <li><span>Cosa ama:</span> <span class="info-text" id="modalLikes">...</span></li>
+                    <li><span>Cosa odia:</span> <span class="info-text" id="modalDislikes">...</span></li>
+                    <li><span>Background:</span> <span class="info-text" id="modalBackground">...</span></li>
                 </ul>
             </div>
         </div>
@@ -445,77 +440,66 @@
 
     <!-- JavaScript per Menu e Modal -->
     <script>
-        // Menu Mobile
         const hamburger = document.getElementById('hamburger-menu');
         const navMenu = document.getElementById('nav-menu');
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-        // DATI DEI MEMBRI: Inserisci qui anche i link delle foto per farle apparire nel pop-up!
         const membersData = {
             martin: {
                 name: "MARTIN", realName: "Martin Edwards", dob: "20 Marzo 2008", 
                 mbti: "ENFP", likes: "Cantare, Moda", dislikes: "Svegliarsi presto",
                 background: "Nato a Seoul da padre canadese e madre sudcoreana, ha vissuto brevemente in Canada ed ha una sorella maggiore; diplomato da privatista dopo sei anni di apprendistato, ha partecipato alle Olimpiadi Invernali del 2018 nel coro e come portabandiera islandese, ed è mancino, con un numero di scarpe molto grande e un’altezza che lo rende il membro più alto del gruppo, frutto di soprannomi ironici sulla sua statura. Di base calmo e gentile, all’interno del team si trasforma nel più rumoroso, nel mangiatore più veloce e in quello più attento a meme e tendenze, condividendo la stanza con due membri e prediligendo cuffie con il filo, mentre ha la costante abitudine di cantare e ascoltare musica prima di dormire o lavorare. Adora l’estate, il colore arancione e i Levrieri Italiani, e a tavola ha gusti vari ma precisi, amando i cibi freddi e pietanze controverse come la pizza hawaiana e il binomio menta-cioccolato. La sua più grande ispirazione è RM dei BTS, che lo spinse a entrare in agenzia, seguito da Mac Miller e Tyler, the Creator; oltre al canto, possiede doti trasversali come il disegno, la batteria, il sintetizzatore e la coreografia, e come leader sogna di fare dei CORTIS l’emblema di una “nuova estetica” musicale, costruendo con i fan un legame speciale fatto di musica e momenti poetici condivisi.",
-                img: "https://i.pinimg.com/736x/7e/ae/57/7eae5706824fd3f46dfa334b59c2e7f0.jpg" /* Esempio foto */
+                img: "https://i.pinimg.com/736x/7e/ae/57/7eae5706824fd3f46dfa334b59c2e7f0.jpg" 
             },
             james: {
                 name: "JAMES", realName: "Chao Yufan", dob: "14 ottobre 2005", 
                 mbti: "INTP", likes: "Danza, Videogiochi", dislikes: "Cibi piccanti",
+                background: "In aggiornamento...",
                 img: "https://i.pinimg.com/736x/a2/6e/04/a26e041cd155a33676a0a3990d85d273.jpg"
             },
             juhoon: {
                 name: "JUHOON", realName: "Lee Juhoon", dob: "23 Maggio 200X", 
                 mbti: "ISFP", likes: "Scrivere testi, Animali", dislikes: "Il disordine",
+                background: "In aggiornamento...",
                 img: "https://i.pinimg.com/736x/e3/96/ce/e396ce29054a892bc5a1d14220dff2b6.jpg"
             },
             seonghyeon: {
                 name: "SEONGHYEON", realName: "Park Seonghyeon", dob: "12 Settembre 200X", 
                 mbti: "INTP", likes: "Fotografia, Viaggiare", dislikes: "Il rumore forte",
+                background: "In aggiornamento...",
                 img: "https://i.pinimg.com/736x/1d/d6/72/1dd672ea5e9be947b8798c2cd5f245c6.jpg"
             },
             keonho: {
                 name: "KEONHO", realName: "Kim Keonho", dob: "30 Novembre 200X", 
                 mbti: "INTP", likes: "Produrre beat, Sport", dislikes: "Aspettare",
+                background: "In aggiornamento...",
                 img: "https://i.pinimg.com/736x/64/08/55/640855ebb6ee6651a967f96a7aac0a14.jpg"
             }
         };
 
         const modal = document.getElementById("memberModal");
 
-        // Funzione per aprire il Modal e caricare i dati e la foto giusta
         function openModal(memberId) {
             const data = membersData[memberId];
             
-            // Inserisce i testi
+            // Qui ho sostituito 'modalZodiac' con 'modalMbti' e aggiunto 'modalBackground'!
             document.getElementById("modalName").innerText = data.name;
             document.getElementById("modalRealName").innerText = data.realName;
             document.getElementById("modalDob").innerText = data.dob;
-            document.getElementById("modalZodiac").innerText = data.zodiac;
+            document.getElementById("modalMbti").innerText = data.mbti;
             document.getElementById("modalLikes").innerText = data.likes;
             document.getElementById("modalDislikes").innerText = data.dislikes;
+            document.getElementById("modalBackground").innerText = data.background;
 
-            // Inserisce la foto nel pop-up
-            const modalImg = document.getElementById("modalImg");
-            const placeholder = document.getElementById("modalImgPlaceholder");
-            
-            if (data.img && data.img !== "" && !data.img.includes("LINK_DELLA_FOTO")) {
-                modalImg.src = data.img;
-                modalImg.style.display = "block";
-                placeholder.style.display = "none";
-            } else {
-                modalImg.style.display = "none";
-                placeholder.style.display = "block";
-            }
+            document.getElementById("modalImg").src = data.img;
 
             modal.classList.add("active");
         }
 
-        // Funzione per chiudere il Modal
         function closeModal() {
             modal.classList.remove("active");
         }
 
-        // Chiudi il modal cliccando fuori dalla finestra
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
