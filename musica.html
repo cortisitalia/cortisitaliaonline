@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortis Italia - Discografia</title>
+    
+    <!-- Importazione dei font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Stili Generali --- */
+        :root {
+            --white: #ffffff;
+            --green-light: #81b093;
+            --green-dark: #30593f;
+            --black: #000000;
+            --beige: #f5f1e6;
+            --beige-darker: #dbd4c0;
+            --text-dark: #1a1a1a;
+            --font-logo: 'Anton', sans-serif;
+            --font-titles: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--beige);
+            background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
+            background-size: 25px 25px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--green-light);
+            position: relative;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-text {
+            font-family: var(--font-logo);
+            color: var(--green-light);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .logo-text:hover { transform: scale(1.05); color: var(--green-dark); }
+
+        .nav-tabs { display: flex; gap: 10px; }
+        .nav-tabs a {
+            padding: 8px 15px;
+            border: 2px solid var(--green-light);
+            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--black);
+            background-color: var(--white);
+            display: block;
+        }
+        .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
+        .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
+
+        /* --- Sub-Nav (Mini Barra Categorie) --- */
+        .subnav-container {
+            background-color: var(--white);
+            border-bottom: 3px solid var(--green-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+        .subnav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            overflow-x: auto; /* Permette lo slide orizzontale su telefono */
+            white-space: nowrap;
+            padding-bottom: 5px; /* Spazio per la barra di scorrimento se appare */
+        }
+        /* Nascondi barra scorrimento ma mantieni funzione (Chrome/Safari) */
+        .subnav::-webkit-scrollbar { display: none; }
+        
+        .subnav a {
+            font-family: var(--font-titles);
+            font-size: 1.5rem;
+            color: var(--green-light);
+            padding: 5px 20px;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            letter-spacing: 1px;
+        }
+        .subnav a:hover {
+            color: var(--green-dark);
+        }
+        .subnav a.active-sub {
+            background-color: var(--green-light);
+            color: var(--white);
+            border: 2px solid var(--green-dark);
+        }
+
+        /* --- Sezione Discografia --- */
+        .page-title {
+            text-align: center;
+            font-family: var(--font-titles);
+            font-size: 3.5rem;
+            color: var(--green-dark);
+            margin: 40px 0 20px;
+            text-shadow: 2px 2px 0px var(--white);
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 20px 0 60px;
+        }
+
+        .album-card {
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            border-radius: 15px;
+            box-shadow: 8px 8px 0px var(--green-light);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .album-card:hover { transform: translateY(-5px); }
+
+        .album-cover {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Mantiene l'immagine quadrata */
+            object-fit: cover;
+            border: 2px solid var(--green-dark);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: var(--beige);
+        }
+
+        .album-tag {
+            background-color: var(--green-dark);
+            color: var(--white);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .album-title {
+            font-family: var(--font-titles);
+            font-size: 2.2rem;
+            color: var(--green-dark);
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .album-buttons {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            font-family: var(--font-titles);
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .btn-spotify {
+            background-color: var(--white);
+            color: var(--green-dark);
+            border: 2px solid var(--green-dark);
+        }
+        .btn-spotify:hover { background-color: var(--green-light); color: var(--text-dark); }
+
+        .btn-tracklist {
+            background-color: var(--green-dark);
+            color: var(--white);
+            border: 2px solid var(--green-dark);
+        }
+        .btn-tracklist:hover { background-color: var(--black); border-color: var(--black); }
+
+        .translation-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--green-light);
+            text-decoration: underline;
+        }
+        .translation-link:hover { color: var(--green-dark); }
+
+        /* --- Pop-up Spotify (Modal) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background-color: var(--beige);
+            border: 4px solid var(--green-dark);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px; /* Più stretto per il player di Spotify */
+            padding: 40px 20px 20px;
+            position: relative;
+            box-shadow: 15px 15px 0px var(--green-light);
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -20px; right: -20px; /* Posizionata a cavallo del bordo */
+            width: 50px;
+            height: 50px;
+            background-color: var(--green-dark);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .close-btn:hover { background-color: var(--black); transform: scale(1.1); }
+
+        .modal-title {
+            font-family: var(--font-titles);
+            font-size: 2.5rem;
+            color: var(--green-dark);
+            margin-bottom: 20px;
+        }
+
+        .spotify-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--white);
+            min-height: 352px; /* Altezza standard del player Spotify */
+        }
+
+        /* --- Piè di pagina --- */
+        footer {
+            background-color: var(--white);
+            color: var(--green-dark);
+            padding: 30px 0 10px;
+            margin-top: 50px;
+            border-top: 3px solid var(--green-dark);
+        }
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-column { flex: 1; padding: 0 15px; }
+        .footer-column h3 { font-family: var(--font-titles); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 10px; color: var(--green-dark); }
+        .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
+        .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Mobile Responsive --- */
+        @media screen and (max-width: 768px) {
+            .logo-text { font-size: 1.8rem; }
+            .hamburger { display: block; }
+            .nav-tabs { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white); border-bottom: 3px solid var(--green-dark); z-index: 1000; gap: 0; }
+            .nav-tabs.active { display: flex; }
+            .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
+            
+            .subnav { justify-content: flex-start; padding-left: 20px; padding-right: 20px; } /* Allinea a sinistra per permettere lo scroll */
+            
+            .close-btn { top: -15px; right: -5px; } /* Aggiusta la X su cellulare */
+
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Cortis Italia Online</span>
+            </a>
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-tabs" id="nav-menu">
+                    <li><a href="introduzione.html">INTRODUZIONE</a></li>
+                    <!-- Evidenziamo MUSICA -->
+                    <li><a href="musica.html" class="active">MUSICA</a></li>
+                    <li><a href="#">CALENDARIO</a></li>
+                    <li><a href="#">GUIDA</a></li>
+                    <li><a href="#">DOVE ACQUISTARE IN ITALIA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mini Barra Categorie Musica -->
+    <div class="subnav-container">
+        <div class="container subnav">
+            <a href="#" class="active-sub">DISCOGRAFIA</a>
+            <a href="#">PLAYLIST</a>
+            <a href="#">TRADUZIONI CANZONI</a>
+        </div>
+    </div>
+
+    <!-- Sezione Album -->
+    <section class="container">
+        <h1 class="page-title">DISCOGRAFIA UFFICIALE</h1>
+        
+        <div class="album-grid">
+            
+            <!-- Album 1: Green Green -->
+            <div class="album-card">
+                <img src="LINK_COPERTINA_GREEN_GREEN.jpg" alt="Copertina Green Green" class="album-cover">
+                <span class="album-tag">Mini-Album</span>
+                <h2 class="album-title">GREEN GREEN</h2>
+                
+                <div class="album-buttons">
+                    <a href="LINK_SPOTIFY_ESTERNO" target="_blank" class="btn btn-spotify">SPOTIFY</a>
+                    <!-- Quando si clicca questo, si apre il popup. Ho passato l'id 'greengreen' -->
+                    <button class="btn btn-tracklist" onclick="openTracklist('greengreen')">TRACKLIST</button>
+                </div>
+                
+                <a href="#" class="translation-link">traduzione in italiano</a>
+            </div>
+            
+            <!-- Album 2 -->
+            <div class="album-card">
+                <img src="LINK_COPERTINA_ALBUM_2.jpg" alt="Copertina Album 2" class="album-cover">
+                <span class="album-tag">Singolo</span>
+                <h2 class="album-title">TITOLO ALBUM 2</h2>
+                
+                <div class="album-buttons">
+                    <a href="#" target="_blank" class="btn btn-spotify">SPOTIFY</a>
+                    <button class="btn btn-tracklist" onclick="openTracklist('album2')">TRACKLIST</button>
+                </div>
+                
+                <a href="#" class="translation-link">traduzione in italiano</a>
+            </div>
+
+            <!-- Album 3 -->
+            <div class="album-card">
+                <img src="LINK_COPERTINA_ALBUM_3.jpg" alt="Copertina Album 3" class="album-cover">
+                <span class="album-tag">Full Album</span>
+                <h2 class="album-title">TITOLO ALBUM 3</h2>
+                
+                <div class="album-buttons">
+                    <a href="#" target="_blank" class="btn btn-spotify">SPOTIFY</a>
+                    <button class="btn btn-tracklist" onclick="openTracklist('album3')">TRACKLIST</button>
+                </div>
+                
+                <a href="#" class="translation-link">traduzione in italiano</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Pop-Up (Modal) per la Tracklist / Spotify Embed -->
+    <div class="modal" id="tracklistModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title" id="modalAlbumTitle">TITOLO ALBUM</h2>
+            
+            <!-- Qui dentro verrà "iniettato" il codice di Spotify dal JavaScript -->
+            <div class="spotify-container" id="spotifyEmbedContainer">
+                <!-- Il player Spotify apparirà qui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Pulito (Senza scritta Pedice) -->
+    <footer>
+        <div class="relative-footer">
+            <div class="footer-container">
+                <div class="footer-column logo-col">
+                    <a href="index.html"><span class="logo-text">Cortis Italia Online</span></a>
+                </div>
+                <div class="footer-column contacts-col">
+                    <h3>contatti</h3>
+                    <p>cortisitalia@gmail.com</p>
+                </div>
+                <div class="footer-column about-col">
+                    <h3>chi siamo</h3>
+                </div>
+                <div class="footer-column legal-col">
+                    <p>Diritti riservati a CORTIS ITALIA</p>
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Menu Mobile (Hamburger)
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+        /* 
+           DATI DEGLI ALBUM PER IL POP-UP
+           Qui devi inserire il titolo dell'album e il codice Embed di Spotify!
+           Per prendere l'embed di Spotify:
+           1. Vai su Spotify da PC
+           2. Clicca sui 3 puntini dell'album > Condividi > Incorpora album
+           3. Copia il codice fornito (che inizia con <iframe...) e incollalo dentro agli apici ` ` qui sotto!
+        */
+        const albumsData = {
+            greengreen: {
+                title: "GREEN GREEN",
+                // Ho messo un iframe generico di esempio. Sostituiscilo con il vostro!
+                embedCode: `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/0bgE3u7H9m0vB9i2E6rVfI?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+            },
+            album2: {
+                title: "TITOLO ALBUM 2",
+                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 2 nel JavaScript!</p>`
+            },
+            album3: {
+                title: "TITOLO ALBUM 3",
+                embedCode: `<p style="padding: 40px; font-weight: bold; color: var(--green-dark);">Incolla l'iframe di Spotify per l'Album 3 nel JavaScript!</p>`
+            }
+        };
+
+        const modal = document.getElementById("tracklistModal");
+
+        // Funzione per aprire il Modal e caricare il player Spotify
+        function openTracklist(albumId) {
+            const data = albumsData[albumId];
+            
+            // Cambia il titolo nel Pop-up
+            document.getElementById("modalAlbumTitle").innerText = data.title;
+            
+            // Inserisce il player di Spotify!
+            document.getElementById("spotifyEmbedContainer").innerHTML = data.embedCode;
+
+            // Mostra il Pop-up
+            modal.classList.add("active");
+        }
+
+        // Funzione per chiudere
+        function closeModal() {
+            modal.classList.remove("active");
+            // Svuota il contenitore Spotify quando chiudi per far smettere di suonare la canzone!
+            document.getElementById("spotifyEmbedContainer").innerHTML = ""; 
+        }
+
+        // Chiudi cliccando fuori
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
