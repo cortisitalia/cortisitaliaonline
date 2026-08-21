@@ -14,15 +14,15 @@
         /* --- Stili Generali --- */
         :root {
             --white: #ffffff;
-            --green-light: #81b093; /* Il tuo primo verde */
+            --green-light: #81b093;
             --green-dark: #30593f;
             --black: #000000;
             --beige: #f5f1e6;
-            --beige-darker: #dbd4c0; /* Colore per il pattern */
+            --beige-darker: #dbd4c0;
             --text-dark: #1a1a1a;
-            --font-logo: 'Anton', sans-serif; /* Font per il logo */
-            --font-titles: 'Bebas Neue', sans-serif; /* Font street per i titoli */
-            --font-body: 'Montserrat', sans-serif; /* Font moderno per i testi */
+            --font-logo: 'Anton', sans-serif;
+            --font-titles: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
         }
 
         * {
@@ -34,7 +34,6 @@
         body {
             font-family: var(--font-body);
             background-color: var(--beige);
-            /* Pattern a pallini per un effetto urban/texture */
             background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
             background-size: 25px 25px;
             color: var(--text-dark);
@@ -62,6 +61,7 @@
             background-color: var(--white);
             padding: 20px 0;
             border-bottom: 2px solid var(--green-light);
+            position: relative; /* Serve per il menu a tendina su mobile */
         }
 
         .header-container {
@@ -70,7 +70,7 @@
             align-items: center;
         }
 
-        /* Stile per il Logo Testuale */
+        /* Logo Testuale */
         .logo-text {
             font-family: var(--font-logo);
             color: var(--green-light);
@@ -83,9 +83,10 @@
         
         .logo-text:hover {
             transform: scale(1.05);
-            color: var(--green-dark); /* Diventa verde scuro quando ci passi sopra col mouse */
+            color: var(--green-dark);
         }
 
+        /* Menu Navigazione Desktop */
         .nav-tabs {
             display: flex;
             gap: 10px;
@@ -100,13 +101,23 @@
             text-transform: uppercase;
             color: var(--black);
             background-color: var(--white);
+            display: block;
         }
 
         .nav-tabs a:hover {
             background-color: var(--green-light);
         }
 
-        /* --- Area Eroe (Foto dei Cortis) --- */
+        /* Pulsante Hamburger (nascosto su PC) */
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            color: var(--green-dark);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* --- Area Eroe (Foto) --- */
         .hero-section {
             margin: 40px auto;
             max-width: 1000px;
@@ -180,6 +191,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap; /* Permette di andare a capo su mobile */
         }
 
         .social-button {
@@ -206,6 +218,7 @@
             background-color: var(--white);
             color: var(--green-dark);
             padding: 30px 0 10px;
+            overflow: hidden; /* Evita problemi con il pedice rotato */
         }
 
         .footer-container {
@@ -246,11 +259,90 @@
             color: var(--green-dark);
         }
 
-        /* Contenitore relativo per il footer */
         .relative-footer {
             position: relative;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        /* =========================================
+           MEDIA QUERIES (REGOLE PER I TELEFONI)
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            
+            /* Logo leggermente più piccolo per far spazio */
+            .logo-text {
+                font-size: 1.8rem;
+            }
+
+            /* Mostra il menu ad hamburger */
+            .hamburger {
+                display: block;
+            }
+
+            /* Nascondi il menu classico e fallo diventare a tendina */
+            .nav-tabs {
+                display: none; /* Nascosto di base su mobile */
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%; /* Si posiziona subito sotto l'header */
+                left: 0;
+                background-color: var(--white);
+                border-bottom: 3px solid var(--green-dark);
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                z-index: 1000;
+                gap: 0;
+            }
+
+            /* Classe che viene aggiunta dal JavaScript per far apparire il menu */
+            .nav-tabs.active {
+                display: flex;
+            }
+
+            /* Modifica i bottoni del menu per la visuale a tendina */
+            .nav-tabs a {
+                border: none;
+                border-bottom: 1px solid var(--beige-darker);
+                border-radius: 0;
+                padding: 15px 20px;
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            .nav-tabs a:last-child {
+                border-bottom: none;
+            }
+
+            /* Riduci un po' i titoli e le ombre della foto */
+            .info-block h2 {
+                font-size: 2.2rem;
+            }
+            .hero-section img {
+                box-shadow: 5px 5px 0px var(--green-light);
+            }
+
+            /* I social si impilano uno sull'altro */
+            .social-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .social-button {
+                width: 80%; /* Bottoni belli larghi da cliccare col dito */
+                text-align: center;
+            }
+
+            /* Il footer si impila in colonna */
+            .footer-container {
+                flex-direction: column;
+                margin-left: 0;
+                gap: 30px;
+                text-align: center;
+            }
+            .pedice-text {
+                display: none; /* Su telefono togliamo il pedice rotato perché rompe il design */
+            }
         }
     </style>
 </head>
@@ -259,14 +351,19 @@
     <!-- Intestazione (Header) -->
     <header>
         <div class="container header-container">
-            <!-- Logo Testuale (Cliccabile, riporta alla Home) -->
+            <!-- Logo Testuale -->
             <a href="index.html" class="logo">
                 <span class="logo-text">Cortis Italia Online</span>
             </a>
             
+            <!-- Pulsante Hamburger per Mobile -->
+            <div class="hamburger" id="hamburger-menu">
+                &#9776; <!-- Codice HTML per le tre lineette -->
+            </div>
+            
             <!-- Menu di navigazione -->
             <nav>
-                <ul class="nav-tabs">
+                <ul class="nav-tabs" id="nav-menu">
                     <li><a href="#">INTRODUZIONE</a></li>
                     <li><a href="#">MUSICA</a></li>
                     <li><a href="#">CALENDARIO</a></li>
@@ -282,7 +379,7 @@
         <img src="https://0.soompi.io/wp-content/uploads/2026/03/05172724/CORTIS_a20bdd.jpg" alt="Cortis - Green Green Era">
     </section>
 
-    <!-- Contenuto Centrale con Testi per i Coer -->
+    <!-- Contenuto Centrale -->
     <section class="content-section">
         <div class="container content-container">
             
@@ -320,9 +417,9 @@
     <!-- Piè di pagina (Footer) -->
     <footer>
         <div class="relative-footer">
+            <div class="pedice-text">PEDICE</div>
             <div class="footer-container">
                 <div class="footer-column logo-col">
-                    <!-- Logo Testuale Footer (Cliccabile, riporta alla Home) -->
                     <a href="index.html">
                         <span class="logo-text">Cortis Italia Online</span>
                     </a>
@@ -346,6 +443,17 @@
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript per far funzionare il menu ad hamburger -->
+    <script>
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            // Aggiunge o toglie la classe "active" quando clicchi sulle tre lineette
+            navMenu.classList.toggle('active');
+        });
+    </script>
 
 </body>
 </html>
