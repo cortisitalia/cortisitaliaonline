@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortis Italia - Guida al Voting</title>
+    
+    <!-- Importazione dei font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Stili Generali --- */
+        :root {
+            --white: #ffffff;
+            --green-light: #81b093;
+            --green-dark: #30593f;
+            --black: #000000;
+            --beige: #f5f1e6;
+            --beige-darker: #dbd4c0;
+            --text-dark: #1a1a1a;
+            
+            /* Colori per gli show musicali */
+            --color-showchamp: #5D9CEC;
+            --color-mcore: #ED5565;
+            --color-inkigayo: #FFCE54;
+            --color-mcountdown: #AC92EC;
+
+            --font-logo: 'Anton', sans-serif;
+            --font-titles: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--beige);
+            background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
+            background-size: 25px 25px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--green-light);
+            position: relative;
+            z-index: 10;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-text {
+            font-family: var(--font-logo);
+            color: var(--green-light);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .logo-text:hover { transform: scale(1.05); color: var(--green-dark); }
+
+        .nav-tabs { display: flex; gap: 10px; }
+        .nav-tabs a {
+            padding: 8px 15px;
+            border: 2px solid var(--green-light);
+            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--black);
+            background-color: var(--white);
+            display: block;
+        }
+        .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
+        .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
+
+        /* --- Intro Guida --- */
+        .page-title {
+            text-align: center;
+            font-family: var(--font-titles);
+            font-size: 4rem;
+            color: var(--green-dark);
+            margin: 40px 0 10px;
+            text-shadow: 2px 2px 0px var(--white);
+            line-height: 1;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-weight: 600;
+            color: var(--green-dark);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* --- Barra Filtri Show --- */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        .filter-btn {
+            background-color: var(--white);
+            border: 2px solid var(--green-dark);
+            color: var(--green-dark);
+            font-family: var(--font-titles);
+            font-size: 1.2rem;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 3px 3px 0px var(--green-light);
+            letter-spacing: 1px;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--green-dark);
+            color: var(--white);
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--green-light);
+        }
+
+        /* --- Griglia App --- */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            padding-bottom: 60px;
+        }
+
+        /* --- Design Card App --- */
+        .app-card {
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            border-radius: 20px;
+            box-shadow: 8px 8px 0px var(--green-light);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .app-card:hover { transform: translateY(-5px); }
+
+        /* Etichetta Mobile (Lo Show) */
+        .show-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            color: var(--green-dark);
+            font-family: var(--font-titles);
+            font-size: 1.2rem;
+            padding: 5px 20px;
+            border-radius: 20px;
+            z-index: 2;
+            box-shadow: 3px 3px 0px var(--green-light);
+            white-space: nowrap;
+        }
+
+        /* Header Card (Verde Scuro) */
+        .app-header {
+            background-color: var(--green-dark);
+            color: var(--white);
+            padding: 35px 20px 20px; /* Spazio extra sopra per il badge */
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--beige);
+            border-radius: 12px;
+            border: 2px solid var(--green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--green-dark);
+            font-size: 0.8rem;
+            text-align: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .app-icon img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .app-info { flex: 1; }
+        .app-name { font-family: var(--font-titles); font-size: 2.2rem; line-height: 1; letter-spacing: 1px; }
+        .app-type { font-size: 0.8rem; color: var(--green-light); font-weight: 700; text-transform: uppercase; }
+
+        .store-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .store-btn {
+            background-color: transparent;
+            border: 1px solid var(--green-light);
+            color: var(--green-light);
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Body Card */
+        .app-body { padding: 25px; display: flex; flex-direction: column; flex: 1; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--beige-darker);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .info-label { font-weight: 700; color: var(--green-light); text-transform: uppercase; font-size: 0.8rem;}
+        .info-value { font-weight: 600; text-align: right; }
+
+        .collect-title {
+            font-family: var(--font-titles);
+            font-size: 1.5rem;
+            color: var(--green-dark);
+            margin: 15px 0 10px;
+            letter-spacing: 1px;
+        }
+
+        .collect-list { margin-bottom: 20px; }
+        .collect-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        /* Bullet point personalizzato */
+        .collect-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--green-light);
+            font-size: 1rem;
+        }
+
+        /* Box Consigli */
+        .tip-box {
+            background-color: var(--beige);
+            border: 2px dashed var(--green-light);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: auto; /* Lo spinge in fondo alla card */
+            position: relative;
+        }
+        .tip-box::before {
+            content: 'COER TIP:';
+            display: block;
+            font-family: var(--font-titles);
+            color: var(--green-dark);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* --- Piè di pagina --- */
+        footer {
+            background-color: var(--white);
+            color: var(--green-dark);
+            padding: 30px 0 10px;
+            border-top: 3px solid var(--green-dark);
+        }
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-column { flex: 1; padding: 0 15px; }
+        .footer-column h3 { font-family: var(--font-titles); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 10px; color: var(--green-dark); }
+        .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
+        .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Mobile Responsive --- */
+        @media screen and (max-width: 768px) {
+            .logo-text { font-size: 1.8rem; }
+            .hamburger { display: block; }
+            .nav-tabs { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white); border-bottom: 3px solid var(--green-dark); z-index: 1000; gap: 0; }
+            .nav-tabs.active { display: flex; }
+            .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
+            
+            .page-title { font-size: 3rem; }
+            .app-card { margin-top: 15px; } /* Più spazio per le etichette su mobile */
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Cortis Italia Online</span>
+            </a>
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-tabs" id="nav-menu">
+                    <li><a href="introduzione.html">INTRODUZIONE</a></li>
+                    <li><a href="musica.html">MUSICA</a></li>
+                    <li><a href="calendario.html">CALENDARIO</a></li>
+                    <li><a href="guida.html" class="active">GUIDA</a></li>
+                    <li><a href="shop.html">DOVE ACQUISTARE IN ITALIA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h1 class="page-title">GUIDA AL VOTING</h1>
+        <p class="page-subtitle">Coer, è il nostro momento! Prepara i tuoi account e fai volare i Cortis in cima alle classifiche! 🚀</p>
+
+        <!-- Filtri per Show Musicale -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterApps('all')">TUTTE LE APP</button>
+            <button class="filter-btn" onclick="filterApps('showchamp')">SHOW CHAMPION</button>
+            <button class="filter-btn" onclick="filterApps('musiccore')">MUSIC CORE</button>
+            <button class="filter-btn" onclick="filterApps('inkigayo')">INKIGAYO</button>
+            <button class="filter-btn" onclick="filterApps('mcountdown')">M COUNTDOWN</button>
+            <button class="filter-btn" onclick="filterApps('musicbank')">MUSIC BANK</button>
+        </div>
+
+        <!-- Griglia App -->
+        <div class="guide-grid" id="guideGrid">
+            
+            <!-- 1. IDOLCHAMP (Show Champion) -->
+            <div class="app-card" data-show="showchamp">
+                <div class="show-badge" style="color: var(--color-showchamp); border-color: var(--color-showchamp);">SHOW CHAMPION</div>
+                
+                <div class="app-header">
+                    <div class="app-icon">LOGO</div>
+                    <div class="app-info">
+                        <div class="app-name">IDOLCHAMP</div>
+                        <div class="app-type">Pre-vote</div>
+                    </div>
+                    <div class="store-buttons">
+                        <span class="store-btn">App Store</span>
+                        <span class="store-btn">Google Play</span>
+                    </div>
+                </div>
+
+                <div class="app-body">
+                    <div class="info-row">
+                        <span class="info-label">Valuta:</span>
+                        <span class="info-value">Ruby Chamsim<br>+ Time Chamsim</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Scadenza:</span>
+                        <span class="info-value">Ruby = Nessuna<br>Time = Fine del mese</span>
+                    </div>
+
+                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <ul class="collect-list">
+                        <li>Attendance giornaliera</li>
+                        <li>Mini game e Quiz</li>
+                        <li>Pubblicità e roulette</li>
+                        <li>Missioni nell'app</li>
+                        <li>Star Chamsim convertibili in Ruby</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        Nel pre-vote di Show Champion il voto è <strong>illimitato</strong>: tutto quello che accumuli lo puoi usare. Risparmia i Ruby per il comeback!
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. MUBEAT (Music Core) -->
+            <div class="app-card" data-show="musiccore">
+                <div class="show-badge" style="color: var(--color-mcore); border-color: var(--color-mcore);">SHOW! MUSIC CORE</div>
+                
+                <div class="app-header">
+                    <div class="app-icon">LOGO</div>
+                    <div class="app-info">
+                        <div class="app-name">MUBEAT</div>
+                        <div class="app-type">Pre-vote / Live vote</div>
+                    </div>
+                    <div class="store-buttons">
+                        <span class="store-btn">App Store</span>
+                        <span class="store-btn">Google Play</span>
+                    </div>
+                </div>
+
+                <div class="app-body">
+                    <div class="info-row">
+                        <span class="info-label">Valuta:</span>
+                        <span class="info-value">Heart Beats</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Scadenza:</span>
+                        <span class="info-value">90 giorni</span>
+                    </div>
+
+                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <ul class="collect-list">
+                        <li>15 pubblicità al giorno (3 HB ciascuna)</li>
+                        <li>Missioni e Quiz</li>
+                        <li>Roulette e dadi giornalieri</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        Per il voto live su Music Core servono <strong>5 voti per account</strong>. Li ottieni convertendo 150 Heart Beats in Ticket, fallo solo prima della diretta!
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. HIGHER / LINC (Inkigayo) -->
+            <div class="app-card" data-show="inkigayo">
+                <div class="show-badge" style="color: var(--color-inkigayo); border-color: var(--color-inkigayo);">INKIGAYO</div>
+                
+                <div class="app-header">
+                    <div class="app-icon">LOGO</div>
+                    <div class="app-info">
+                        <div class="app-name">LINC / HIGHER</div>
+                        <div class="app-type">Pre-vote / Live vote</div>
+                    </div>
+                    <div class="store-buttons">
+                        <span class="store-btn">App Store</span>
+                        <span class="store-btn">Google Play</span>
+                    </div>
+                </div>
+
+                <div class="app-body">
+                    <div class="info-row">
+                        <span class="info-label">Valuta:</span>
+                        <span class="info-value">Fan Points / Rubies</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Scadenza:</span>
+                        <span class="info-value">Fino a 180 giorni</span>
+                    </div>
+
+                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <ul class="collect-list">
+                        <li>Attendance giornaliera</li>
+                        <li>Fino a 50 pubblicità al giorno</li>
+                        <li>Roulette e giochi 3 volte al giorno</li>
+                        <li>Missioni dentro l'app</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        Il pre-vote su LINC ti permette di votare 10 volte al giorno. Il Live Vote (su Higher) costa ben 250 rubini per 5 voti, <strong>inizia a raccoglierli presto!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. MNET PLUS (M Countdown) -->
+            <div class="app-card" data-show="mcountdown">
+                <div class="show-badge" style="color: var(--color-mcountdown); border-color: var(--color-mcountdown);">M COUNTDOWN</div>
+                
+                <div class="app-header">
+                    <div class="app-icon">LOGO</div>
+                    <div class="app-info">
+                        <div class="app-name">MNET PLUS</div>
+                        <div class="app-type">Pre-vote / Live vote</div>
+                    </div>
+                    <div class="store-buttons">
+                        <span class="store-btn">App Store</span>
+                        <span class="store-btn">Google Play</span>
+                    </div>
+                </div>
+
+                <div class="app-body">
+                    <div class="info-row">
+                        <span class="info-label">Valuta:</span>
+                        <span class="info-value">Nessuna!</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Scadenza:</span>
+                        <span class="info-value">-</span>
+                    </div>
+
+                    <h3 class="collect-title">COME VOTARE</h3>
+                    <ul class="collect-list">
+                        <li>Crea più account (email) in anticipo</li>
+                        <li>Unisciti alla community dei Cortis</li>
+                        <li>Nel pre-vote: 1 voto al giorno per account</li>
+                        <li>Nel live vote: 1 voto in diretta</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        Qui non serve accumulare niente, <strong>conta solo avere gli account pronti!</strong> Ogni dispositivo/browser conta come un voto in più.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Pulito -->
+    <footer>
+        <div class="relative-footer">
+            <div class="footer-container">
+                <div class="footer-column logo-col">
+                    <a href="index.html"><span class="logo-text">Cortis Italia Online</span></a>
+                </div>
+                <div class="footer-column contacts-col">
+                    <h3>contatti</h3>
+                    <p>cortisitalia@gmail.com</p>
+                </div>
+                <div class="footer-column about-col">
+                    <h3>chi siamo</h3>
+                </div>
+                <div class="footer-column legal-col">
+                    <p>Diritti riservati a CORTIS ITALIA</p>
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+        // Logica per i filtri (La magia delle app a scomparsa)
+        function filterApps(showCategory) {
+            // Aggiorna i bottoni
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Mostra/Nasconde le Card
+            const cards = document.querySelectorAll('.app-card');
+            cards.forEach(card => {
+                if (showCategory === 'all' || card.getAttribute('data-show') === showCategory) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
