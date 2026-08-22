@@ -20,9 +20,9 @@
             --beige: #f5f1e6;
             --beige-darker: #dbd4c0;
             --text-dark: #1a1a1a;
-            --status-done: #81b093; /* Verde chiaro per "Tradotta" */
-            --status-wip: #e8a838; /* Giallo scuro per "In traduzione" */
-            --status-todo: #c45b5b; /* Rosso spento per "Non fatta" */
+            --status-done: #81b093;
+            --status-wip: #e8a838;
+            --status-todo: #c45b5b;
             --font-logo: 'Anton', sans-serif;
             --font-titles: 'Bebas Neue', sans-serif;
             --font-body: 'Montserrat', sans-serif;
@@ -162,7 +162,6 @@
             line-height: 1.1;
         }
 
-        /* Etichette Status */
         .status-badge {
             font-size: 0.75rem;
             font-weight: 700;
@@ -338,11 +337,18 @@
             
             .subnav { justify-content: flex-start; padding-left: 20px; padding-right: 20px; } 
             
+            /* Miglioramenti Modal Telefono */
             .modal-content { padding: 30px 15px; width: 95%; max-height: 90vh; }
             .close-btn { top: -15px; right: -5px; width: 45px; height: 45px; font-size: 1.8rem; }
-
-            .track-btn { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .modal-title { font-size: 2rem; margin-bottom: 15px; }
+            .song-title { font-size: 1.8rem; }
+            
+            /* Spazio ai bottoni delle canzoni */
+            .track-btn { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px; }
             .track-btn-right { width: 100%; justify-content: space-between; }
+            
+            /* Testo più leggibile su piccoli schermi */
+            .lyrics-text { font-size: 0.95rem; padding: 15px; }
 
             .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
         }
@@ -465,7 +471,7 @@
                     {
                         songName: "GO!",
                         status: "done",
-                        lyrics: `Pre-Chorus: Seonghyeon]
+                        lyrics: `[Pre-Chorus: Seonghyeon]
 We don't need any other sign
 Paint the town with the green lights
 Pedal to the metal, like a bike
@@ -538,7 +544,8 @@ We make the new shit
 Bring the new beat
 Bring the new hit
 Bring the new sheet
-I'm on the new shit'},
+I'm on the new shit`
+                    },
                     {
                         songName: "What You Want",
                         status: "wip",
@@ -572,7 +579,7 @@ I'm on the new shit'},
                     {
                         songName: "Mention Me",
                         status: "done",
-                        lyrics: "Questa canzone parla di un legame speciale che non svanisce mai e di come i ricordi restino vivi anche quando si è lontani Menzionami quando parli di stelle\nPerché io sarò lì a brillare per te Puoi trovare il testo completo cercando la canzone su Google!"
+                        lyrics: `Questa canzone parla di un legame speciale che non svanisce mai, e di come i ricordi restino vivi anche quando si è lontani.\n\n"Menzionami quando parli di stelle\nPerché io sarò lì a brillare per te"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
                     }
                 ]
             },
@@ -582,12 +589,12 @@ I'm on the new shit'},
                     {
                         songName: "TNT",
                         status: "done",
-                        lyrics: "Una canzone potente che esprime la passione travolgente e l'energia di un amore improvviso.\n\n"Red Red, il mio cuore batte forte\nRed Red, non riesco a respirare\nSiamo come fuoco nella notte"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!"
+                        lyrics: `Una canzone potente che esprime la passione travolgente e l'energia di un amore improvviso.\n\n"Red Red, il mio cuore batte forte\nRed Red, non riesco a respirare\nSiamo come fuoco nella notte"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
                     },
                     {
                         songName: "REDRED",
                         status: "done",
-                        lyrics: "Un brano fresco e pieno di speranza, dedicato interamente ai Coer e al viaggio luminoso che li aspetta.\n\n"Camminiamo in questo prato verde\nNiente ci può fermare oggi\nGreen Green, la speranza non muore mai"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!"
+                        lyrics: `Un brano fresco e pieno di speranza, dedicato interamente ai Coer e al viaggio luminoso che li aspetta.\n\n"Camminiamo in questo prato verde\nNiente ci può fermare oggi\nGreen Green, la speranza non muore mai"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
                     },
                     {
                         songName: "Acai",
