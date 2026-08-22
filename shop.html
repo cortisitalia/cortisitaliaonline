@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortis Italia - Dove Acquistare</title>
+    
+    <!-- Importazione dei font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Stili Generali --- */
+        :root {
+            --white: #ffffff;
+            --green-light: #81b093;
+            --green-dark: #30593f;
+            --black: #000000;
+            --beige: #f5f1e6;
+            --beige-darker: #dbd4c0;
+            --text-dark: #1a1a1a;
+            
+            --font-logo: 'Anton', sans-serif;
+            --font-titles: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--beige);
+            background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
+            background-size: 25px 25px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--green-light);
+            position: relative;
+            z-index: 10;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-text {
+            font-family: var(--font-logo);
+            color: var(--green-light);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .logo-text:hover { transform: scale(1.05); color: var(--green-dark); }
+
+        .nav-tabs { display: flex; gap: 10px; }
+        .nav-tabs a {
+            padding: 8px 15px;
+            border: 2px solid var(--green-light);
+            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--black);
+            background-color: var(--white);
+            display: block;
+        }
+        .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
+        .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
+
+        /* --- Sezione Shop --- */
+        .page-title {
+            text-align: center;
+            font-family: var(--font-titles);
+            font-size: 4rem;
+            color: var(--green-dark);
+            margin: 40px 0 10px;
+            text-shadow: 2px 2px 0px var(--white);
+            line-height: 1;
+        }
+
+        /* Banner FIMI (Nuovo stile) */
+        .fimi-banner {
+            background-color: var(--green-dark);
+            color: var(--beige);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 0 auto 50px;
+            max-width: 900px;
+            box-shadow: 8px 8px 0px var(--green-light);
+            position: relative;
+            border: 2px dashed var(--green-light);
+        }
+        .fimi-banner h2 {
+            font-family: var(--font-titles);
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .fimi-banner p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .fimi-banner strong {
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        /* Griglia Negozi */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 80px;
+        }
+
+        /* Card Negozio (Cliccabile interamente) */
+        .shop-card {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 6px 6px 0px var(--green-light);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .shop-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 10px 10px 0px var(--green-dark);
+        }
+
+        /* Spazio per i loghi */
+        .shop-logo-container {
+            height: 180px;
+            padding: 30px;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid var(--beige-darker);
+        }
+        .shop-logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Evita che i loghi si deformino */
+        }
+
+        /* Info Negozio e Bottone */
+        .shop-info {
+            padding: 25px;
+            background-color: var(--beige);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+        .shop-name {
+            font-family: var(--font-titles);
+            font-size: 2.2rem;
+            color: var(--green-dark);
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--green-dark);
+            border: 2px solid var(--green-dark);
+            font-family: var(--font-titles);
+            font-size: 1.2rem;
+            padding: 10px 25px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            letter-spacing: 1px;
+            margin-top: auto;
+        }
+        .shop-card:hover .shop-btn {
+            background-color: var(--green-dark);
+            color: var(--white);
+        }
+
+        /* --- Piè di pagina --- */
+        footer {
+            background-color: var(--white);
+            color: var(--green-dark);
+            padding: 30px 0 10px;
+            border-top: 3px solid var(--green-dark);
+        }
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-column { flex: 1; padding: 0 15px; }
+        .footer-column h3 { font-family: var(--font-titles); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 10px; color: var(--green-dark); }
+        .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
+        .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Mobile Responsive --- */
+        @media screen and (max-width: 768px) {
+            .logo-text { font-size: 1.8rem; }
+            .hamburger { display: block; }
+            .nav-tabs { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white); border-bottom: 3px solid var(--green-dark); z-index: 1000; gap: 0; }
+            .nav-tabs.active { display: flex; }
+            .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
+            
+            .page-title { font-size: 3rem; }
+            .fimi-banner { padding: 20px; }
+            .fimi-banner h2 { font-size: 2rem; }
+
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Cortis Italia Online</span>
+            </a>
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-tabs" id="nav-menu">
+                    <li><a href="introduzione.html">INTRODUZIONE</a></li>
+                    <li><a href="musica.html">MUSICA</a></li>
+                    <li><a href="calendario.html">CALENDARIO</a></li>
+                    <li><a href="guida.html">GUIDA</a></li>
+                    <!-- Evidenziamo l'ultima voce del menù! -->
+                    <li><a href="shop.html" class="active">DOVE ACQUISTARE IN ITALIA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">SHOP UFFICIALI ITALIANI</h1>
+
+        <!-- Banner Spiegazione FIMI -->
+        <div class="fimi-banner">
+            <h2>PERCHÉ COMPRARE DA QUI? 🇮🇹</h2>
+            <p>Acquistando gli album fisici tramite i siti elencati qui sotto, le tue vendite verranno conteggiate al <strong>100% per le classifiche FIMI (Federazione Industria Musicale Italiana)</strong>. È fondamentale utilizzare questi store per far debuttare e salire i Cortis nelle classifiche del nostro paese. Compriamo locale, vinciamo globale!</p>
+        </div>
+
+        <!-- Griglia dei Negozi -->
+        <div class="shop-grid">
+            
+            <!-- 1. MONDADORI -->
+            <a href="https://www.mondadoristore.it/search-empty?query=cortis%20color%20outside%20the%20lines" target="_blank" class="shop-card">
+                <div class="shop-logo-container">
+                    <img src="https://www.brandforum.it/wp-content/uploads/2021/05/mondadori-marchio_-_Copia-scaled.jpg" alt="Mondadori Store Logo">
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">MONDADORI STORE</h3>
+                    <span class="shop-btn">Acquista Ora ➔</span>
+                </div>
+            </a>
+
+            <!-- 2. LA FELTRINELLI -->
+            <a href="https://www.lafeltrinelli.it/algolia-search?ts=as&query=Cortis&query_seo=Cortis&qs=true" target="_blank" class="shop-card">
+                <div class="shop-logo-container">
+                    <img src="https://www.anfiteatrodelvittoriale.it/wp-content/uploads/2016/06/feltrinelli.jpg" alt="La Feltrinelli Logo">
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">LA FELTRINELLI</h3>
+                    <span class="shop-btn">Acquista Ora ➔</span>
+                </div>
+            </a>
+
+            <!-- 3. DISCOTECA LAZIALE -->
+            <a href="https://www.discotecalaziale.com/cerca?q=Cortis" target="_blank" class="shop-card">
+                <div class="shop-logo-container">
+                    <!-- Questo logo aveva uno sfondo bianco, il contain lo fa adattare perfettamente -->
+                    <img src="https://yt3.googleusercontent.com/ZJP15dyfu4JiB2i9QNBYrnmKsJqyqFfQroqPJ-gs4KCIo-6mUZHAwpjI4_BXYP7y1bpFsL_i1g=w226-c-h226-k-c0x00ffffff-no-l90-rj" alt="Discoteca Laziale Logo">
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">DISCOTECA LAZIALE</h3>
+                    <span class="shop-btn">Acquista Ora ➔</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer Pulito -->
+    <footer>
+        <div class="relative-footer">
+            <div class="footer-container">
+                <div class="footer-column logo-col">
+                    <a href="index.html"><span class="logo-text">Cortis Italia Online</span></a>
+                </div>
+                <div class="footer-column contacts-col">
+                    <h3>contatti</h3>
+                    <p>cortisitalia@gmail.com</p>
+                </div>
+                <div class="footer-column about-col">
+                    <h3>chi siamo</h3>
+                </div>
+                <div class="footer-column legal-col">
+                    <p>Diritti riservati a CORTIS ITALIA</p>
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Menu Mobile (Hamburger)
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+    </script>
+</body>
+</html>
