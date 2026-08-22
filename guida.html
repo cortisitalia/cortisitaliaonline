@@ -146,16 +146,17 @@
             box-shadow: 8px 8px 0px var(--green-light);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            /* Tolto l'overflow: hidden per non tagliare le etichette! */
             position: relative;
             transition: transform 0.3s ease;
+            margin-top: 20px; /* Spazio extra per l'etichetta fuori bordo */
         }
         .app-card:hover { transform: translateY(-5px); }
 
-        /* Etichetta Mobile (Lo Show) */
+        /* Etichetta Mobile (Lo Show) - ORA NON SI TAGLIA PIÙ! */
         .show-badge {
             position: absolute;
-            top: -15px;
+            top: -20px; /* Spinta ancora più in su */
             left: 50%;
             transform: translateX(-50%);
             background-color: var(--white);
@@ -165,7 +166,7 @@
             font-size: 1.2rem;
             padding: 5px 20px;
             border-radius: 20px;
-            z-index: 2;
+            z-index: 5;
             box-shadow: 3px 3px 0px var(--green-light);
             white-space: nowrap;
         }
@@ -174,29 +175,32 @@
         .app-header {
             background-color: var(--green-dark);
             color: var(--white);
-            padding: 35px 25px 25px; /* Spazio sistemato */
+            padding: 35px 25px 20px;
             display: flex;
             align-items: center;
             gap: 20px;
+            /* Arrotondo io gli angoli alti altrimenti escono dal bordo card */
+            border-top-left-radius: 17px;
+            border-top-right-radius: 17px;
         }
         
         .app-icon {
-            width: 75px;
-            height: 75px;
+            width: 80px;
+            height: 80px;
             background-color: var(--white);
-            border-radius: 18px; /* Arrotondamento stile App vere */
+            border-radius: 18px; 
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Ombreggiatura carina */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
         }
         .app-icon img { width: 100%; height: 100%; object-fit: cover; }
         
         .app-info { flex: 1; }
-        .app-name { font-family: var(--font-titles); font-size: 2.5rem; line-height: 1; letter-spacing: 1px; margin-bottom: 5px; }
-        .app-type { font-size: 0.9rem; color: var(--green-light); font-weight: 700; text-transform: uppercase; }
+        .app-name { font-family: var(--font-titles); font-size: 2.6rem; line-height: 1; letter-spacing: 1px; margin-bottom: 5px; }
+        .app-type { font-size: 0.85rem; color: var(--green-light); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
         /* Body Card */
         .app-body { padding: 25px; display: flex; flex-direction: column; flex: 1; }
@@ -206,30 +210,30 @@
             justify-content: space-between;
             border-bottom: 1px solid var(--beige-darker);
             padding-bottom: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-size: 0.95rem;
             gap: 10px;
         }
         .info-label { font-weight: 700; color: var(--green-light); text-transform: uppercase; font-size: 0.85rem;}
-        .info-value { font-weight: 600; text-align: right; }
+        .info-value { font-weight: 600; text-align: right; color: var(--text-dark); }
 
         .collect-title {
             font-family: var(--font-titles);
             font-size: 1.6rem;
             color: var(--green-dark);
-            margin: 15px 0 10px;
+            margin: 10px 0 15px;
             letter-spacing: 1px;
         }
 
-        .collect-list { margin-bottom: 25px; }
+        .collect-list { margin-bottom: 25px; list-style: none; }
         .collect-list li {
             position: relative;
             padding-left: 20px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 0.95rem;
             font-weight: 500;
+            line-height: 1.4;
         }
-        /* Bullet point personalizzato */
         .collect-list li::before {
             content: '✦';
             position: absolute;
@@ -248,6 +252,7 @@
             font-weight: 600;
             margin-top: auto; 
             position: relative;
+            color: var(--text-dark);
         }
         .tip-box::before {
             content: 'COER TIP:';
@@ -256,6 +261,7 @@
             color: var(--green-dark);
             font-size: 1.2rem;
             margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
 
         /* --- Piè di pagina --- */
@@ -280,10 +286,10 @@
             .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
             
             .page-title { font-size: 3rem; }
-            .app-card { margin-top: 15px; } 
+            .app-card { margin-top: 30px; } /* Ancora più spazio su mobile per le etichette */
             
-            .app-icon { width: 60px; height: 60px; border-radius: 12px; }
-            .app-name { font-size: 2rem; }
+            .app-icon { width: 65px; height: 65px; border-radius: 14px; }
+            .app-name { font-size: 2.2rem; }
 
             .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
         }
@@ -327,13 +333,13 @@
         <!-- Griglia App -->
         <div class="guide-grid" id="guideGrid">
             
-            <!-- 1. IDOLCHAMP (Show Champion) -->
+            <!-- 1. IDOLCHAMP -->
             <div class="app-card" data-show="showchamp">
                 <div class="show-badge" style="color: var(--color-showchamp); border-color: var(--color-showchamp);">SHOW CHAMPION</div>
                 
                 <div class="app-header">
                     <div class="app-icon">
-                        <img src="https://tse4.mm.bing.net/th/id/OIP.MXtNhJ-AOUuHvtXkegSqLwHaHZ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Idolchamp Logo">
+                        <img src="https://tse4.mm.bing.net/th/id/OIP.MXtNhJ-AOUuHvtXkegSqLwHaHZ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Idolchamp">
                     </div>
                     <div class="app-info">
                         <div class="app-name">IDOLCHAMP</div>
@@ -343,36 +349,36 @@
 
                 <div class="app-body">
                     <div class="info-row">
-                        <span class="info-label">Valuta:</span>
-                        <span class="info-value">Ruby Chamsim<br>+ Time Chamsim</span>
+                        <span class="info-label">Punti Base:</span>
+                        <span class="info-value">Chamsim<br>(Ruby & Time)</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Scadenza:</span>
-                        <span class="info-value">Ruby = 90 giorni<br>Time = Fine del mese</span>
+                        <span class="info-value">I Ruby sono per sempre<br>I Time scadono a fine mese!</span>
                     </div>
 
-                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
-                        <li>Attendance giornaliera</li>
-                        <li>Mini game</li>
-                        <li>Pubblicità – roulette</li>
-                        <li>Missioni</li>
-                        <li>Star Chamsim convertibili in Ruby</li>
+                        <li>Fai il check-in giornaliero.</li>
+                        <li>Sfidati nei mini-game integrati.</li>
+                        <li>Gira la roulette guardando le ads.</li>
+                        <li>Completa le missioni dell'app.</li>
+                        <li>Converti gli Star Chamsim in Ruby.</li>
                     </ul>
 
                     <div class="tip-box">
-                        Nel pre-vote di Show Champion il voto è <strong>illimitato</strong>: tutto quello che accumuli lo puoi usare.
+                        Nel pre-vote di Show Champion il voto è <strong>illimitato</strong>: tutto quello che accumuli lo puoi scatenare. Il segreto? Risparmia i Ruby in vista del comeback!
                     </div>
                 </div>
             </div>
 
-            <!-- 2. MUBEAT (Music Core) -->
+            <!-- 2. MUBEAT -->
             <div class="app-card" data-show="musiccore">
                 <div class="show-badge" style="color: var(--color-mcore); border-color: var(--color-mcore);">SHOW! MUSIC CORE</div>
                 
                 <div class="app-header">
                     <div class="app-icon">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8a/70/8b/8a708b74-8fea-97ab-f64c-47b93ba737b5/MubeatAppIcon-0-0-1x_U007epad-0-11-0-85-220.png/246x0w.webp" alt="Mubeat Logo">
+                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8a/70/8b/8a708b74-8fea-97ab-f64c-47b93ba737b5/MubeatAppIcon-0-0-1x_U007epad-0-11-0-85-220.png/246x0w.webp" alt="Mubeat">
                     </div>
                     <div class="app-info">
                         <div class="app-name">MUBEAT</div>
@@ -382,36 +388,35 @@
 
                 <div class="app-body">
                     <div class="info-row">
-                        <span class="info-label">Valuta:</span>
-                        <span class="info-value">Heart Beats</span>
+                        <span class="info-label">Cuoricini:</span>
+                        <span class="info-value">Heart Beats (HB)</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Scadenza:</span>
-                        <span class="info-value">90 giorni</span>
+                        <span class="info-value">Usali entro 90 giorni!</span>
                     </div>
 
-                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
-                        <li>15 pubblicità al giorno | 3 HB ciascuna</li>
-                        <li>Quiz</li>
-                        <li>Missioni</li>
-                        <li>Roulette e dadi</li>
-                        <li>Pubblicità extra: click 1 HB | 1 minuto 2 HB | video intero 3 HB</li>
+                        <li>Guardati 15 ads al giorno (ti danno 3 HB l'una).</li>
+                        <li>Spacca tutto nei quiz musicali.</li>
+                        <li>Tenta la fortuna con dadi e roulette.</li>
+                        <li>Svolgi le missioni extra.</li>
                     </ul>
 
                     <div class="tip-box">
-                        Per il voto live su Music Core servono <strong>5 voti per account</strong>: si ottengono convertendo 150 Heart Beats, oppure comprandoli.
+                        Per il voto live ti serviranno <strong>5 voti per account</strong>. Li ottieni sacrificando 150 Heart Beats in Ticket, ma occhio: convertili solo prima della diretta!
                     </div>
                 </div>
             </div>
 
-            <!-- 3. MUNIVERSE (Music Core) -->
+            <!-- 3. MUNIVERSE -->
             <div class="app-card" data-show="musiccore">
                 <div class="show-badge" style="color: var(--color-mcore); border-color: var(--color-mcore);">SHOW! MUSIC CORE</div>
                 
                 <div class="app-header">
                     <div class="app-icon">
-                        <img src="https://play-lh.googleusercontent.com/2NcCWZ066uCROqzoNNB3J3e_4Hndh3o0_WeD3E6kWywHuW2xOwIG_sd2TDfqsbSmgvsusxTBbDwAsn2IGT-2b24" alt="Muniverse Logo">
+                        <img src="https://play-lh.googleusercontent.com/2NcCWZ066uCROqzoNNB3J3e_4Hndh3o0_WeD3E6kWywHuW2xOwIG_sd2TDfqsbSmgvsusxTBbDwAsn2IGT-2b24" alt="Muniverse">
                     </div>
                     <div class="app-info">
                         <div class="app-name">MUNIVERSE</div>
@@ -421,37 +426,35 @@
 
                 <div class="app-body">
                     <div class="info-row">
-                        <span class="info-label">Valuta:</span>
-                        <span class="info-value">Lumy</span>
+                        <span class="info-label">Cristalli:</span>
+                        <span class="info-value">Lumy (Free & Ad)</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Scadenza:</span>
-                        <span class="info-value">Free Lumy = 30 giorni<br>Ad Lumy = 60 giorni</span>
+                        <span class="info-value">Free Lumy: 30 giorni<br>Ad Lumy: 60 giorni</span>
                     </div>
 
-                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
-                        <li>Attendance giornaliera</li>
-                        <li>Roulette</li>
-                        <li>20 pubblicità al giorno</li>
-                        <li>Missioni</li>
-                        <li>Lucky Wheel</li>
-                        <li>Gold Lumy a pagamento, se vuoi</li>
+                        <li>Loggati tutti i giorni.</li>
+                        <li>Macina fino a 20 pubblicità quotidiane.</li>
+                        <li>Gira la Lucky Wheel e le roulette.</li>
+                        <li>Svolgi le varie missioni proposte.</li>
                     </ul>
 
                     <div class="tip-box">
-                        Sugli Stage M Pick aspetta le indicazioni del voting team prima di spendere. Per il voto live su Music Core servono 250 Ad Lumy o 300 Gold Lumy per account.
+                        Per le votazioni speciali "Stage M Pick" attendi sempre il via libera del team voting. Per il voto live, tieni da parte 250 Ad Lumy (o 300 Gold Lumy) per ogni account!
                     </div>
                 </div>
             </div>
 
-            <!-- 4. HIGHER (Inkigayo) -->
+            <!-- 4. HIGHER -->
             <div class="app-card" data-show="inkigayo">
                 <div class="show-badge" style="color: var(--color-inkigayo); border-color: var(--color-inkigayo);">INKIGAYO</div>
                 
                 <div class="app-header">
                     <div class="app-icon">
-                        <img src="https://play-lh.googleusercontent.com/6A27zyI0g6olyxqUpQiOnW1KrwX7rR94DPwfhlzHBP1Ig5IpCTUKQ6MLTfu4K5OULw" alt="Higher Logo">
+                        <img src="https://play-lh.googleusercontent.com/6A27zyI0g6olyxqUpQiOnW1KrwX7rR94DPwfhlzHBP1Ig5IpCTUKQ6MLTfu4K5OULw" alt="Higher">
                     </div>
                     <div class="app-info">
                         <div class="app-name">HIGHER</div>
@@ -461,36 +464,35 @@
 
                 <div class="app-body">
                     <div class="info-row">
-                        <span class="info-label">Valuta:</span>
-                        <span class="info-value">Rubies</span>
+                        <span class="info-label">Gemme:</span>
+                        <span class="info-value">Rubini</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Scadenza:</span>
-                        <span class="info-value">90 giorni</span>
+                        <span class="info-value">Validi per 90 giorni</span>
                     </div>
 
-                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
-                        <li>Attendance giornaliera</li>
-                        <li>50 pubblicità al giorno</li>
-                        <li>Roulette, 3 volte al giorno</li>
-                        <li>Ladder Game, 3 volte al giorno</li>
-                        <li>Missioni</li>
+                        <li>Fai l'attendance quotidiana.</li>
+                        <li>Resisti a ben 50 pubblicità al giorno!</li>
+                        <li>Gira la roulette (fino a 3 volte al dì).</li>
+                        <li>Gioca al Ladder Game (sempre 3 volte).</li>
                     </ul>
 
                     <div class="tip-box">
-                        Il voto live su Inkigayo costa 250 rubini oppure 25 diamanti, per 5 voti a account.
+                        Il Live Vote è caro: costa 250 rubini o 25 diamanti per sparare 5 voti ad account. Il consiglio? <strong>Inizia a farmare rubini con larghissimo anticipo!</strong>
                     </div>
                 </div>
             </div>
 
-            <!-- 5. LINC (Inkigayo) -->
+            <!-- 5. LINC -->
             <div class="app-card" data-show="inkigayo">
                 <div class="show-badge" style="color: var(--color-inkigayo); border-color: var(--color-inkigayo);">INKIGAYO</div>
                 
                 <div class="app-header">
                     <div class="app-icon">
-                        <img src="https://tse2.mm.bing.net/th/id/OIP.wHof-Lzc7EDHEP_Xwrl18gHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="LINC Logo">
+                        <img src="https://tse2.mm.bing.net/th/id/OIP.wHof-Lzc7EDHEP_Xwrl18gHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="LINC">
                     </div>
                     <div class="app-info">
                         <div class="app-name">LINC</div>
@@ -500,74 +502,73 @@
 
                 <div class="app-body">
                     <div class="info-row">
-                        <span class="info-label">Valuta:</span>
+                        <span class="info-label">Punti:</span>
                         <span class="info-value">Fan Points</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Scadenza:</span>
-                        <span class="info-value">180 giorni</span>
+                        <span class="info-value">Ottimi per ben 180 giorni</span>
                     </div>
 
-                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
-                        <li>Entra nelle Open Chat disponibili</li>
-                        <li>Guarda i video e le pubblicità fino alla fine</li>
-                        <li>Fan Point Roulette</li>
-                        <li>Giochi</li>
-                        <li>Missioni dentro l'app</li>
+                        <li>Bazzica nelle Open Chat ufficiali.</li>
+                        <li>Guarda video e pubblicità fino alla fine.</li>
+                        <li>Divertiti con la Fan Point Roulette.</li>
+                        <li>Gioca ai minigiochi nell'app.</li>
                     </ul>
 
                     <div class="tip-box">
-                        Nel pre-vote di Inkigayo si può votare 10 volte al giorno per account, e si possono usare più account.
+                        Nel pre-vote di Inkigayo ti è concesso votare 10 volte al giorno per ogni account. Se hai più profili, usali tutti per dominare le classifiche!
                     </div>
                 </div>
             </div>
 
-            <!-- 6. COOGOONG (Music Bank) -->
+            <!-- 6. COOGOONG -->
             <div class="app-card" data-show="musicbank">
                 <div class="show-badge" style="color: var(--color-mbank); border-color: var(--color-mbank);">MUSIC BANK</div>
                 
                 <div class="app-header">
                     <div class="app-icon">
-                        <img src="https://cdn3.appshunter.io/i/Purple211/481297080390b3689316005a8e94ebe0/AppIcon-1x_U007emarketing-0-11-0-85-220-0.png/130x0w.webp" alt="Coogoong Logo">
+                        <img src="https://cdn3.appshunter.io/i/Purple211/481297080390b3689316005a8e94ebe0/AppIcon-1x_U007emarketing-0-11-0-85-220-0.png/130x0w.webp" alt="Coogoong">
                     </div>
                     <div class="app-info">
                         <div class="app-name">COOGOONG</div>
-                        <div class="app-type">Da confermare</div>
+                        <div class="app-type">Status da confermare</div>
                     </div>
                 </div>
 
                 <div class="app-body">
                     <div class="info-row">
                         <span class="info-label">Valuta:</span>
-                        <span class="info-value">Blue Hearts 💙</span>
+                        <span class="info-value">Cuori Blu 💙</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Scadenza:</span>
                         <span class="info-value">Da confermare</span>
                     </div>
 
-                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
-                        <li>Attendance giornaliera</li>
-                        <li>Pubblicità</li>
-                        <li>Missioni giornaliere</li>
-                        <li>Roulette per vincere 💙</li>
+                        <li>Log-in giornaliero.</li>
+                        <li>Guarda tutte le pubblicità.</li>
+                        <li>Completa le missioni giornaliere.</li>
+                        <li>Gira la roulette e spera nei cuori.</li>
                     </ul>
 
                     <div class="tip-box">
-                        Nel pre-vote di Music Bank il voto è illimitato: usa tutto quello che hai. App nuova, le regole possono cambiare: ricontrolla prima di votare.
+                        Sul pre-vote di Music Bank non ci sono freni: il voto è illimitato! Dato che l'app è nuova, ricorda sempre di controllare se le regole cambiano prima di votare.
                     </div>
                 </div>
             </div>
 
-            <!-- 7. MNET PLUS (M Countdown) -->
+            <!-- 7. MNET PLUS -->
             <div class="app-card" data-show="mcountdown">
                 <div class="show-badge" style="color: var(--color-mcountdown); border-color: var(--color-mcountdown);">M COUNTDOWN</div>
                 
                 <div class="app-header">
                     <div class="app-icon">
-                        <img src="https://is4-ssl.mzstatic.com/image/thumb/Purple116/v4/bd/71/3e/bd713e5b-d332-eb84-d9a1-8fd00d63a1cc/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/200x200bb.jpg" alt="Mnet Plus Logo">
+                        <img src="https://is4-ssl.mzstatic.com/image/thumb/Purple116/v4/bd/71/3e/bd713e5b-d332-eb84-d9a1-8fd00d63a1cc/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/200x200bb.jpg" alt="Mnet Plus">
                     </div>
                     <div class="app-info">
                         <div class="app-name">MNET PLUS</div>
@@ -577,23 +578,23 @@
 
                 <div class="app-body">
                     <div class="info-row">
-                        <span class="info-label">Valuta:</span>
-                        <span class="info-value">Nessuna valuta<br>da accumulare</span>
+                        <span class="info-label">Zero stress:</span>
+                        <span class="info-value">Nessuna valuta necessaria!</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Scadenza:</span>
                         <span class="info-value">-</span>
                     </div>
 
-                    <h3 class="collect-title">COME RACCOGLIERE</h3>
+                    <h3 class="collect-title">STRATEGIA DI VOTO</h3>
                     <ul class="collect-list">
-                        <li>Crea più account in anticipo, almeno 10 (¬‿¬)</li>
-                        <li>Il voto è limitato per account e per device</li>
-                        <li>Nel pre-vote: 5 voti per account/device</li>
+                        <li>Crea in anticipo una marea di account (almeno 10!).</li>
+                        <li>Attento al limite: voti bloccati per account/device.</li>
+                        <li>Nel pre-vote spari 5 voti per account.</li>
                     </ul>
 
                     <div class="tip-box">
-                        Qui non serve accumulare niente, conta solo avere gli account pronti. Il pre-vote resta aperto fino al martedì della settimana di messa in onda, e ogni device conta come un account in più.
+                        Il bello di Mnet Plus è che non si farma nulla. Fai incetta di account email! Il pre-vote resta aperto fino a martedì e ogni device extra in casa conta come un voto in più.
                     </div>
                 </div>
             </div>
