@@ -158,11 +158,11 @@
             font-size: 2rem;
             color: var(--green-dark);
             letter-spacing: 1px;
-            margin-bottom: 5px; /* Margine ridotto perché ho tolto il badge da qui */
+            margin-bottom: 5px;
             line-height: 1.1;
         }
 
-        /* Etichette Status (Ora usate nei bottoni delle tracce) */
+        /* Etichette Status */
         .status-badge {
             font-size: 0.75rem;
             font-weight: 700;
@@ -232,7 +232,6 @@
             text-align: center;
         }
 
-        /* Contenitore interno scrollabile */
         .modal-body {
             overflow-y: auto;
             padding-right: 10px; 
@@ -241,7 +240,6 @@
         .modal-body::-webkit-scrollbar-track { background: var(--beige-darker); border-radius: 4px; }
         .modal-body::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 4px; }
 
-        /* Livello 1: Lista Canzoni */
         .tracklist-view {
             display: flex;
             flex-direction: column;
@@ -280,7 +278,6 @@
             font-size: 1.2rem;
         }
 
-        /* Livello 2: Testo Canzone */
         .lyrics-view {
             display: none; 
             flex-direction: column;
@@ -344,7 +341,6 @@
             .modal-content { padding: 30px 15px; width: 95%; max-height: 90vh; }
             .close-btn { top: -15px; right: -5px; width: 45px; height: 45px; font-size: 1.8rem; }
 
-            /* Aggiustamento per bottoni tracce su mobile */
             .track-btn { flex-direction: column; align-items: flex-start; gap: 8px; }
             .track-btn-right { width: 100%; justify-content: space-between; }
 
@@ -392,10 +388,9 @@
             <div class="translation-card" onclick="openAlbum('cotl')">
                 <img src="https://i.pinimg.com/736x/74/28/18/74281849ddfcb85d414013d9388906e3.jpg" alt="Copertina COTL" class="album-cover">
                 <h2 class="album-title">Color Outside The Lines</h2>
-                <!-- Niente più badge qui fuori! -->
             </div>
 
-            <!-- MENTION ME (Spostato PRIMA di Green Green) -->
+            <!-- MENTION ME -->
             <div class="translation-card" onclick="openAlbum('mentionme')">
                 <img src="https://i.pinimg.com/736x/5f/ef/37/5fef37b68c205b9542a7c79411ee9173.jpg" alt="Copertina mentionme" class="album-cover">
                 <h2 class="album-title">MENTION ME</h2>
@@ -423,16 +418,12 @@
             <h2 class="modal-title" id="modalAlbumTitle">TITOLO ALBUM</h2>
             
             <div class="modal-body">
-                <!-- VISTA 1: Lista delle Canzoni (si svuota/riempie col JS) -->
                 <div class="tracklist-view" id="tracklistView">
-                    <!-- Bottoni canzoni (e relativi status) verranno generati qui dal JS -->
                 </div>
                 
-                <!-- VISTA 2: Testo della Canzone -->
                 <div class="lyrics-view" id="lyricsView">
                     <button class="back-btn" onclick="backToTracklist()">&#8592; Torna alla lista brani</button>
                     <h3 class="song-title" id="songTitle">Titolo Canzone</h3>
-                    <!-- Il testo va qui dentro -->
                     <div class="lyrics-text" id="lyricsText"></div>
                 </div>
             </div>
@@ -467,20 +458,14 @@
         const navMenu = document.getElementById('nav-menu');
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-        /* 
-           DATI DELLE TRADUZIONI 
-           Aggiunto il parametro "status" per ogni traccia! Può essere: "done", "wip" o "todo".
-           Il testo della traduzione qui sotto segue il formato ideale per non avere problemi col copyright.
-        */
         const translationsData = {
-           cotl: {
-    title: "COLOR OUTSIDE THE LINES",
-    tracks: [
-        {
-            songName: "GO!",
-            status: "done",
-            // NOTA IL SIMBOLO ` SUBITO DOPO I DUE PUNTI E ALLA FINE!
-            lyrics: `Pre-Chorus: Seonghyeon]
+            cotl: {
+                title: "COLOR OUTSIDE THE LINES",
+                tracks: [
+                    {
+                        songName: "GO!",
+                        status: "done",
+                        lyrics: `[Pre-Chorus: Seonghyeon]
 We don't need any other sign
 Paint the town with the green lights
 Pedal to the metal, like a bike
@@ -554,26 +539,27 @@ Bring the new beat
 Bring the new hit
 Bring the new sheet
 I'm on the new shit`
+                    },
                     {
                         songName: "What You Want",
                         status: "wip",
                         lyrics: "La traduzione di questo brano è attualmente in lavorazione. Torna presto!"
-                    }
+                    },
                     {
                         songName: "FaSHioN",
                         status: "todo",
                         lyrics: "Questa canzone non è ancora stata tradotta."
-                    }
+                    },
                     {
                         songName: "JoyRide",
                         status: "todo",
                         lyrics: "Questa canzone non è ancora stata tradotta."
-                    }
+                    },
                     {
                         songName: "Lullaby",
                         status: "todo",
                         lyrics: "Questa canzone non è ancora stata tradotta."
-                    }
+                    },
                     {
                         songName: "What You Want (feat. Teezo Touchdown)",
                         status: "todo",
@@ -629,7 +615,6 @@ I'm on the new shit`
 
         let currentAlbumId = ""; 
 
-        // Funzione per aprire il Pop-up con la lista delle canzoni e gli status integrati!
         function openAlbum(albumId) {
             currentAlbumId = albumId;
             const data = translationsData[albumId];
@@ -641,14 +626,12 @@ I'm on the new shit`
                 const btn = document.createElement("button");
                 btn.className = "track-btn";
 
-                // Imposta il testo del badge in base allo status
                 let badgeText = "";
                 let badgeClass = "";
                 if(track.status === 'done') { badgeText = "Tradotta"; badgeClass = "done"; }
                 else if(track.status === 'wip') { badgeText = "In Traduzione"; badgeClass = "wip"; }
                 else if(track.status === 'todo') { badgeText = "Non Fatta"; badgeClass = "todo"; }
 
-                // Costruisce la struttura interna del bottone
                 btn.innerHTML = `
                     <span class="track-name">${track.songName}</span>
                     <div class="track-btn-right">
@@ -667,7 +650,6 @@ I'm on the new shit`
             modal.classList.add("active");
         }
 
-        // Funzione per mostrare il testo della canzone cliccata
         function showLyrics(trackIndex) {
             const data = translationsData[currentAlbumId];
             const song = data.tracks[trackIndex];
