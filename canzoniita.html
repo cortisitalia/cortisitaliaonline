@@ -465,7 +465,7 @@
                     {
                         songName: "GO!",
                         status: "done",
-                        lyrics: `[Pre-Chorus: Seonghyeon]
+                        lyrics: `Pre-Chorus: Seonghyeon]
 We don't need any other sign
 Paint the town with the green lights
 Pedal to the metal, like a bike
@@ -538,8 +538,7 @@ We make the new shit
 Bring the new beat
 Bring the new hit
 Bring the new sheet
-I'm on the new shit`
-                    },
+I'm on the new shit'},
                     {
                         songName: "What You Want",
                         status: "wip",
@@ -573,7 +572,7 @@ I'm on the new shit`
                     {
                         songName: "Mention Me",
                         status: "done",
-                        lyrics: `Questa canzone parla di un legame speciale che non svanisce mai, e di come i ricordi restino vivi anche quando si è lontani.\n\n"Menzionami quando parli di stelle\nPerché io sarò lì a brillare per te"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
+                        lyrics: "Questa canzone parla di un legame speciale che non svanisce mai e di come i ricordi restino vivi anche quando si è lontani Menzionami quando parli di stelle\nPerché io sarò lì a brillare per te Puoi trovare il testo completo cercando la canzone su Google!"
                     }
                 ]
             },
@@ -583,28 +582,28 @@ I'm on the new shit`
                     {
                         songName: "TNT",
                         status: "done",
-                        lyrics: `Una canzone potente che esprime la passione travolgente e l'energia di un amore improvviso.\n\n"Red Red, il mio cuore batte forte\nRed Red, non riesco a respirare\nSiamo come fuoco nella notte"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
+                        lyrics: "Una canzone potente che esprime la passione travolgente e l'energia di un amore improvviso.\n\n"Red Red, il mio cuore batte forte\nRed Red, non riesco a respirare\nSiamo come fuoco nella notte"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!"
                     },
                     {
                         songName: "REDRED",
                         status: "done",
-                        lyrics: `Un brano fresco e pieno di speranza, dedicato interamente ai Coer e al viaggio luminoso che li aspetta.\n\n"Camminiamo in questo prato verde\nNiente ci può fermare oggi\nGreen Green, la speranza non muore mai"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!`
+                        lyrics: "Un brano fresco e pieno di speranza, dedicato interamente ai Coer e al viaggio luminoso che li aspetta.\n\n"Camminiamo in questo prato verde\nNiente ci può fermare oggi\nGreen Green, la speranza non muore mai"\n(Cortis)\n\nPuoi trovare il testo completo cercando la canzone su Google!"
                     },
                     {
                         songName: "Acai",
                         status: "wip",
                         lyrics: "La traduzione di questo brano è attualmente in lavorazione. Torna presto!"
-                    }
+                    },
                     {
                         songName: "YoungCreatorCrew",
                         status: "wip",
                         lyrics: "La traduzione di questo brano è attualmente in lavorazione. Torna presto!"
-                    }
+                    },
                     {
                         songName: "WASSUP",
                         status: "wip",
                         lyrics: "La traduzione di questo brano è attualmente in lavorazione. Torna presto!"
-                    }
+                    },
                     {
                         songName: "Blue Lips",
                         status: "wip",
@@ -690,6 +689,16 @@ I'm on the new shit`
                 closeModal();
             }
         }
+
+        // MAGIA PER APRIRE IL POP-UP IN AUTOMATICO DAL LINK (pagina Discografia)!
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash) {
+                const albumIdDalLink = window.location.hash.substring(1);
+                if (translationsData[albumIdDalLink]) {
+                    openAlbum(albumIdDalLink);
+                }
+            }
+        });
     </script>
 </body>
 </html>
