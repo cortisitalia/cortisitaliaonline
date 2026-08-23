@@ -337,17 +337,14 @@
             
             .subnav { justify-content: flex-start; padding-left: 20px; padding-right: 20px; } 
             
-            /* Miglioramenti Modal Telefono */
             .modal-content { padding: 30px 15px; width: 95%; max-height: 90vh; }
             .close-btn { top: -15px; right: -5px; width: 45px; height: 45px; font-size: 1.8rem; }
             .modal-title { font-size: 2rem; margin-bottom: 15px; }
             .song-title { font-size: 1.8rem; }
             
-            /* Spazio ai bottoni delle canzoni */
             .track-btn { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px; }
             .track-btn-right { width: 100%; justify-content: space-between; }
             
-            /* Testo più leggibile su piccoli schermi */
             .lyrics-text { font-size: 0.95rem; padding: 15px; }
 
             .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
@@ -407,6 +404,12 @@
                 <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen" class="album-cover">
                 <h2 class="album-title">GREENGREEN</h2>
             </div>
+
+            <!-- NUOVO QUADRATO: GREENGREEN_playextended -->
+            <div class="translation-card" onclick="openAlbum('greengreen_playextended')">
+                <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen extended" class="album-cover">
+                <h2 class="album-title">GREENGREEN_playextended</h2>
+            </div>
             
             <!-- MOTION -->
             <div class="translation-card" onclick="openAlbum('motion')">
@@ -448,8 +451,8 @@
                     <p>cortisitalia@gmail.com</p>
                 </div>
                 <div class="footer-column about-col">
-    <h3><a href="chisiamo.html">chi siamo</a></h3>
-</div>
+                    <h3><a href="chisiamo.html">chi siamo</a></h3>
+                </div>
                 <div class="footer-column legal-col">
                     <p>Diritti riservati a CORTIS ITALIA</p>
                     <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
@@ -618,6 +621,7 @@ I'm on the new shit`
                     }
                 ]
             },
+            // IL NUOVO ALBUM INSERITO QUI SOTTO! 👇
             motion: {
                 title: "MOTION",
                 tracks: [
@@ -625,6 +629,46 @@ I'm on the new shit`
                         songName: "Motion",
                         status: "todo",
                         lyrics: "Questa canzone non è ancora stata tradotta."
+                    }
+                ]
+            },
+                        greengreen_playextended: {
+                title: "GREENGREEN_playextended",
+                tracks: [
+                    {
+                        songName: "TNT",
+                        status: "todo",
+                        lyrics: "La traduzione di questo brano non è ancora stata inserita."
+                    },
+                    {
+                        songName: "REDRED",
+                        status: "todo",
+                        lyrics: "La traduzione di questo brano non è ancora stata inserita."
+                    },
+                    {
+                        songName: "Acai",
+                        status: "todo",
+                        lyrics: "La traduzione di questo brano non è ancora stata inserita."
+                    },
+                    {
+                        songName: "Wassup",
+                        status: "todo",
+                        lyrics: "La traduzione di questo brano non è ancora stata inserita."
+                    },
+                    {
+                        songName: "Blue Lips",
+                        status: "todo",
+                        lyrics: "La traduzione di questo brano non è ancora stata inserita."
+                    },
+                    {
+                        songName: "PACK IT UP",
+                        status: "todo",
+                        lyrics: "La traduzione di questo brano non è ancora stata inserita."
+                    },
+                    {
+                        songName: "MONEYMONEYMONEY",
+                        status: "todo",
+                        lyrics: "La traduzione di questo brano non è ancora stata inserita."
                     }
                 ]
             }
