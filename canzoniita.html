@@ -160,6 +160,10 @@
             letter-spacing: 1px;
             margin-bottom: 5px;
             line-height: 1.1;
+            /* ECCO LA MAGIA CHE IMPEDISCE DI SBORDARE! 👇 */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            width: 100%;
         }
 
         .status-badge {
@@ -229,6 +233,7 @@
             color: var(--green-dark);
             margin-bottom: 20px;
             text-align: center;
+            word-wrap: break-word; /* Aiuta anche il titolo dentro il pop-up */
         }
 
         .modal-body {
@@ -301,6 +306,7 @@
             color: var(--green-dark);
             margin-bottom: 20px;
             text-align: center;
+            word-wrap: break-word;
         }
 
         .lyrics-text {
@@ -404,17 +410,17 @@
                 <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen" class="album-cover">
                 <h2 class="album-title">GREENGREEN</h2>
             </div>
-
-            <!-- NUOVO QUADRATO: GREENGREEN_playextended -->
-            <div class="translation-card" onclick="openAlbum('greengreen_playextended')">
-                <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen extended" class="album-cover">
-                <h2 class="album-title">GREENGREEN_playextended</h2>
-            </div>
             
             <!-- MOTION -->
             <div class="translation-card" onclick="openAlbum('motion')">
                 <img src="https://i.pinimg.com/736x/d3/7b/9c/d37b9c4ea3cf4ed90c0dcc3b0b19abb5.jpg" alt="Copertina motion" class="album-cover">
                 <h2 class="album-title">MOTION</h2>
+            </div>
+
+            <!-- GREENGREEN_playextended SPOSTATO DOPO MOTION! -->
+            <div class="translation-card" onclick="openAlbum('greengreen_playextended')">
+                <img src="https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg" alt="Copertina greengreen extended" class="album-cover">
+                <h2 class="album-title">GREENGREEN_playextended</h2>
             </div>
 
         </div>
@@ -621,7 +627,6 @@ I'm on the new shit`
                     }
                 ]
             },
-            // IL NUOVO ALBUM INSERITO QUI SOTTO! 👇
             motion: {
                 title: "MOTION",
                 tracks: [
@@ -632,7 +637,7 @@ I'm on the new shit`
                     }
                 ]
             },
-                        greengreen_playextended: {
+            greengreen_playextended: {
                 title: "GREENGREEN_playextended",
                 tracks: [
                     {
