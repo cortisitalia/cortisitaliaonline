@@ -61,7 +61,7 @@
             background-color: var(--white);
             padding: 20px 0;
             border-bottom: 2px solid var(--green-light);
-            position: relative; /* Serve per il menu a tendina su mobile */
+            position: relative; 
         }
 
         .header-container {
@@ -70,7 +70,6 @@
             align-items: center;
         }
 
-        /* Logo Testuale */
         .logo-text {
             font-family: var(--font-logo);
             color: var(--green-light);
@@ -86,7 +85,6 @@
             color: var(--green-dark);
         }
 
-        /* Menu Navigazione Desktop */
         .nav-tabs {
             display: flex;
             gap: 10px;
@@ -108,7 +106,6 @@
             background-color: var(--green-light);
         }
 
-        /* Pulsante Hamburger (nascosto su PC) */
         .hamburger {
             display: none;
             font-size: 2rem;
@@ -136,7 +133,7 @@
 
         /* --- Contenuto Centrale --- */
         .content-section {
-            padding: 10px 0 60px;
+            padding: 10px 0 20px; /* Ridotto un po' il padding sotto */
         }
         
         .content-container {
@@ -171,11 +168,10 @@
 
         /* --- Sezione Social --- */
         .social-section {
-            padding: 50px 0;
+            padding: 40px 0;
             background-color: var(--white);
             border-top: 3px solid var(--green-dark);
             border-bottom: 3px solid var(--green-dark);
-            margin-bottom: 50px;
             text-align: center;
         }
 
@@ -191,7 +187,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap; /* Permette di andare a capo su mobile */
+            flex-wrap: wrap; 
         }
 
         .social-button {
@@ -213,12 +209,153 @@
             box-shadow: 2px 2px 0px var(--green-light);
         }
 
+        /* --- Nuova Sezione: Community & Admin --- */
+        .action-section {
+            padding: 50px 0;
+        }
+        
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .action-card {
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 8px 8px 0px var(--green-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .action-card h3 {
+            font-family: var(--font-titles);
+            font-size: 2.5rem;
+            color: var(--green-dark);
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .action-card p {
+            font-weight: 500;
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        .btn-action {
+            background-color: var(--green-dark);
+            color: var(--white);
+            font-family: var(--font-titles);
+            font-size: 1.3rem;
+            padding: 10px 30px;
+            border-radius: 30px;
+            border: 2px solid var(--green-dark);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .btn-action:hover {
+            background-color: var(--white);
+            color: var(--green-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- Nuova Sezione: Cortis Day Projects --- */
+        .cortis-day-section {
+            background-color: var(--green-dark);
+            padding: 60px 0;
+            border-top: 4px solid var(--green-light);
+        }
+
+        .cd-title {
+            text-align: center;
+            font-family: var(--font-titles);
+            font-size: 4rem;
+            color: var(--beige);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .cd-subtitle {
+            text-align: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .cd-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .cd-card {
+            background-color: var(--beige);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 2px dashed var(--green-light);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cd-card:hover {
+            transform: translateY(-8px);
+            background-color: var(--white);
+            border-style: solid;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .cd-card h4 {
+            font-family: var(--font-titles);
+            font-size: 2rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .cd-card p {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .btn-cd {
+            display: inline-block;
+            background-color: var(--green-light);
+            color: var(--white);
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cd:hover {
+            background-color: var(--green-dark);
+        }
+
         /* --- Piè di pagina (Footer) --- */
         footer {
             background-color: var(--white);
             color: var(--green-dark);
             padding: 30px 0 10px;
-            overflow: hidden; /* Evita problemi con il pedice rotato */
+            overflow: hidden; 
         }
 
         .footer-container {
@@ -269,24 +406,15 @@
            MEDIA QUERIES (REGOLE PER I TELEFONI)
            ========================================= */
         @media screen and (max-width: 768px) {
-            
-            /* Logo leggermente più piccolo per far spazio */
-            .logo-text {
-                font-size: 1.8rem;
-            }
+            .logo-text { font-size: 1.8rem; }
+            .hamburger { display: block; }
 
-            /* Mostra il menu ad hamburger */
-            .hamburger {
-                display: block;
-            }
-
-            /* Nascondi il menu classico e fallo diventare a tendina */
             .nav-tabs {
-                display: none; /* Nascosto di base su mobile */
+                display: none; 
                 flex-direction: column;
                 width: 100%;
                 position: absolute;
-                top: 100%; /* Si posiziona subito sotto l'header */
+                top: 100%; 
                 left: 0;
                 background-color: var(--white);
                 border-bottom: 3px solid var(--green-dark);
@@ -295,12 +423,8 @@
                 gap: 0;
             }
 
-            /* Classe che viene aggiunta dal JavaScript per far apparire il menu */
-            .nav-tabs.active {
-                display: flex;
-            }
+            .nav-tabs.active { display: flex; }
 
-            /* Modifica i bottoni del menu per la visuale a tendina */
             .nav-tabs a {
                 border: none;
                 border-bottom: 1px solid var(--beige-darker);
@@ -309,40 +433,28 @@
                 text-align: center;
                 font-size: 1rem;
             }
+            .nav-tabs a:last-child { border-bottom: none; }
 
-            .nav-tabs a:last-child {
-                border-bottom: none;
-            }
+            .info-block h2 { font-size: 2.2rem; }
+            .hero-section img { box-shadow: 5px 5px 0px var(--green-light); }
 
-            /* Riduci un po' i titoli e le ombre della foto */
-            .info-block h2 {
-                font-size: 2.2rem;
-            }
-            .hero-section img {
-                box-shadow: 5px 5px 0px var(--green-light);
-            }
-
-            /* I social si impilano uno sull'altro */
             .social-container {
                 flex-direction: column;
                 align-items: center;
                 gap: 15px;
             }
-            .social-button {
-                width: 80%; /* Bottoni belli larghi da cliccare col dito */
-                text-align: center;
-            }
+            .social-button { width: 80%; text-align: center; }
 
-            /* Il footer si impila in colonna */
+            .action-grid, .cd-grid { grid-template-columns: 1fr; }
+            .cd-title { font-size: 3rem; }
+
             .footer-container {
                 flex-direction: column;
                 margin-left: 0;
                 gap: 30px;
                 text-align: center;
             }
-            .pedice-text {
-                display: none; /* Su telefono togliamo il pedice rotato perché rompe il design */
-            }
+            .pedice-text { display: none; }
         }
     </style>
 </head>
@@ -351,21 +463,19 @@
     <!-- Intestazione (Header) -->
     <header>
         <div class="container header-container">
-            <!-- Logo Testuale -->
             <a href="index.html" class="logo">
                 <span class="logo-text">Cortis Italia Online</span>
             </a>
             
-            <!-- Pulsante Hamburger per Mobile -->
             <div class="hamburger" id="hamburger-menu">
-                &#9776; <!-- Codice HTML per le tre lineette -->
+                &#9776; 
             </div>
             
-            <!-- Menu di navigazione -->
             <nav>
                 <ul class="nav-tabs" id="nav-menu">
+                    <!-- Nessuna scheda "active" per far capire che questa è la Home! -->
                     <li><a href="introduzione.html">INTRODUZIONE</a></li>
-                    <li><a href="musica.html" class="active">MUSICA</a></li>
+                    <li><a href="musica.html">MUSICA</a></li>
                     <li><a href="calendario.html">CALENDARIO</a></li>
                     <li><a href="guida.html">GUIDA</a></li>
                     <li><a href="shop.html">DOVE ACQUISTARE IN ITALIA</a></li>
@@ -374,7 +484,7 @@
         </div>
     </header>
 
-    <!-- Area Eroe (Foto dei Cortis) -->
+    <!-- Area Eroe (Foto) -->
     <section class="hero-section">
         <img src="https://0.soompi.io/wp-content/uploads/2026/03/05172724/CORTIS_a20bdd.jpg" alt="Cortis - Green Green Era">
     </section>
@@ -401,15 +511,63 @@
         <div class="container">
             <h2 class="social-title">I NOSTRI SOCIAL</h2>
             <div class="social-container">
-                <a href="https://www.instagram.com/cortisitalia/" target="_blank" class="social-button">
-                    instagram
-                </a>
-                <a href="https://x.com/cortisitalia?s=11" target="_blank" class="social-button">
-                    twitter
-                </a>
-                <a href="https://www.tiktok.com/@cortisitalia?_r=1&_t=ZN-994reCU2guE" target="_blank" class="social-button">
-                    tiktok
-                </a>
+                <a href="https://www.instagram.com/cortisitalia/" target="_blank" class="social-button">instagram</a>
+                <a href="https://x.com/cortisitalia?s=11" target="_blank" class="social-button">twitter</a>
+                <a href="https://www.tiktok.com/@cortisitalia?_r=1&_t=ZN-994reCU2guE" target="_blank" class="social-button">tiktok</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nuova Sezione: Community & Team -->
+    <section class="action-section">
+        <div class="container action-grid">
+            
+            <!-- WhatsApp -->
+            <div class="action-card">
+                <h3>LA NOSTRA COMMUNITY</h3>
+                <p>Vuoi conoscere altre Coer italiane, commentare i comeback in diretta e scleri di gruppo notturni? Il nostro gruppo WhatsApp è il posto perfetto per te. Ti aspettiamo a braccia aperte!</p>
+                <a href="https://chat.whatsapp.com/EaIgGaZv5N2EYMlwPUY2a7" target="_blank" class="btn-action">ENTRA NEL GRUPPO 💬</a>
+            </div>
+
+            <!-- Cerca Admin -->
+            <div class="action-card">
+                <h3>LAVORA CON NOI</h3>
+                <p>We Want You! 👑 Vuoi aiutarci a supportare attivamente i Cortis? Stiamo cercando nuove admin. Se hai passione, creatività e voglia di metterti in gioco nel dietro le quinte, compila il modulo!</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSctR603txOGNBX2T9QRNEKMCNQ9_UbdEEEXLo6yGUfsiP38Ow/viewform?usp=header" target="_blank" class="btn-action">COMPILA IL MODULO 📝</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Nuova Sezione: CORTIS DAY -->
+    <section class="cortis-day-section">
+        <div class="container">
+            <h2 class="cd-title">CORTIS DAY PROJETCS</h2>
+            <p class="cd-subtitle">Per celebrare il primo anno dal debutto, abbiamo creato questi progetti speciali per voi!</p>
+            
+            <div class="cd-grid">
+                
+                <!-- Quiz -->
+                <div class="cd-card">
+                    <h4>CHE MEMBRO DEI CORTIS SEI?</h4>
+                    <p>Mettiti alla prova con il nostro test della personalità ufficiale. Scopri quale dei cinque ragazzi ti somiglia di più!</p>
+                    <a href="https://cortisitaliaquiz.netlify.app/" target="_blank" class="btn-cd">Fai il Quiz</a>
+                </div>
+
+                <!-- Profiling -->
+                <div class="cd-card">
+                    <h4>I CORTIS ITALIANI</h4>
+                    <p>E se i ragazzi fossero nati in Italia? Abbiamo profilato le loro vibe regionali in un file tutto da ridere.</p>
+                    <a href="https://profilingitabycortisita.netlify.app/" target="_blank" class="btn-cd">Scopri i profili</a>
+                </div>
+
+                <!-- Playlist -->
+                <div class="cd-card">
+                    <h4>PLAYLIST DEDICATE</h4>
+                    <p>Ascolta le compilation fatte su misura per rappresentare l'estetica e i gusti di ogni singolo membro del gruppo.</p>
+                    <a href="https://cortisitaliaplaylists.netlify.app/" target="_blank" class="btn-cd">Ascolta Ora</a>
+                </div>
+
             </div>
         </div>
     </section>
@@ -428,10 +586,9 @@
                     <h3>contatti</h3>
                     <p>cortisitalia@gmail.com</p>
                 </div>
-                
-                <div class="footer-column about-col">
-                    <h3>chi siamo</h3>
-                </div>
+               <div class="footer-column about-col">
+    <h3><a href="chisiamo.html">chi siamo</a></h3>
+</div>
                 
                 <div class="footer-column legal-col">
                     <p>Diritti riservati</p>
@@ -449,7 +606,6 @@
         const navMenu = document.getElementById('nav-menu');
 
         hamburger.addEventListener('click', () => {
-            // Aggiunge o toglie la classe "active" quando clicchi sulle tre lineette
             navMenu.classList.toggle('active');
         });
     </script>
