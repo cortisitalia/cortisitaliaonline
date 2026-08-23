@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortis Italia - Chi Siamo</title>
+    
+    <!-- Importazione dei font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Stili Generali --- */
+        :root {
+            --white: #ffffff;
+            --green-light: #81b093;
+            --green-dark: #30593f;
+            --black: #000000;
+            --beige: #f5f1e6;
+            --beige-darker: #dbd4c0;
+            --text-dark: #1a1a1a;
+            --font-logo: 'Anton', sans-serif;
+            --font-titles: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--beige);
+            background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
+            background-size: 25px 25px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--green-light);
+            position: relative;
+            z-index: 10;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-text {
+            font-family: var(--font-logo);
+            color: var(--green-light);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .logo-text:hover { transform: scale(1.05); color: var(--green-dark); }
+
+        .nav-tabs { display: flex; gap: 10px; }
+        .nav-tabs a {
+            padding: 8px 15px;
+            border: 2px solid var(--green-light);
+            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--black);
+            background-color: var(--white);
+            display: block;
+        }
+        .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
+        .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
+
+        /* --- Intro Chi Siamo --- */
+        .intro-section {
+            text-align: center;
+            padding: 50px 20px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .page-title {
+            font-family: var(--font-titles);
+            font-size: 4rem;
+            color: var(--green-dark);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px var(--white);
+            line-height: 1;
+        }
+        .intro-box {
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 8px 8px 0px var(--green-light);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .intro-box strong {
+            color: var(--green-dark);
+            font-weight: 700;
+        }
+        .intro-box h3 {
+            font-family: var(--font-titles);
+            color: var(--green-light);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* --- Griglia Identikit Admin --- */
+        .admin-grid {
+            /* Abbassato minmax a 280px per ottimizzare la visuale su telefoni stretti */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 40px 0 80px;
+        }
+
+        /* Design Singola ID Card */
+        .id-card {
+            background-color: var(--white);
+            border: 3px solid var(--green-dark);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 6px 6px 0px var(--green-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Forza tutte le card della stessa riga ad avere la stessa altezza */
+        }
+        .id-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 10px 10px 0px var(--green-dark);
+        }
+
+        /* Foto Profilo: IL TRUCCO INFALLIBILE PER IL QUADRATO PERFETTO */
+        .id-photo-container {
+            width: 100%;
+            padding-top: 100%; /* Forza un rapporto 1:1 */
+            position: relative;
+            border-bottom: 3px solid var(--green-dark);
+            background-color: var(--beige-darker);
+            overflow: hidden;
+        }
+        .id-photo-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Taglia le eccedenze centrando l'immagine */
+        }
+
+        /* Header della card (Nome e Ruolo) */
+        .id-header {
+            background-color: var(--green-dark);
+            color: var(--white);
+            padding: 15px 20px;
+            text-align: center;
+        }
+        .id-nickname {
+            font-family: var(--font-titles);
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .id-role {
+            display: inline-block;
+            background-color: var(--green-light);
+            color: var(--white);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        /* Corpo della card (I Dati) */
+        .id-body {
+            padding: 20px;
+            background-color: var(--white);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .data-row {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--beige-darker);
+            padding-bottom: 8px;
+        }
+        .data-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .data-label {
+            font-size: 0.8rem;
+            color: var(--green-light);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        .data-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        /* --- Piè di pagina --- */
+        footer {
+            background-color: var(--white);
+            color: var(--green-dark);
+            padding: 30px 0 10px;
+            border-top: 3px solid var(--green-dark);
+        }
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-column { flex: 1; padding: 0 15px; }
+        .footer-column h3 { font-family: var(--font-titles); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 10px; color: var(--green-dark); }
+        .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
+        .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Mobile Responsive --- */
+        @media screen and (max-width: 768px) {
+            .logo-text { font-size: 1.8rem; }
+            .hamburger { display: block; }
+            .nav-tabs { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white); border-bottom: 3px solid var(--green-dark); z-index: 1000; gap: 0; }
+            .nav-tabs.active { display: flex; }
+            .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
+            
+            .page-title { font-size: 3rem; }
+            .intro-box { padding: 20px; font-size: 1rem; }
+
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Cortis Italia Online</span>
+            </a>
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-tabs" id="nav-menu">
+                    <li><a href="introduzione.html">INTRODUZIONE</a></li>
+                    <li><a href="musica.html">MUSICA</a></li>
+                    <li><a href="calendario.html">CALENDARIO</a></li>
+                    <li><a href="guida.html">GUIDA</a></li>
+                    <li><a href="shop.html">DOVE ACQUISTARE IN ITALIA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Intro Sezione -->
+    <section class="intro-section">
+        <h1 class="page-title">IL TEAM DI CORTIS ITALIA</h1>
+        <div class="intro-box">
+            <h3>CIAO COER! 👋💚</h3>
+            <p>Siamo la squadra dietro le quinte di <strong>Cortis Italia</strong>! La nostra pagina è nata ufficialmente a <strong>Giugno 2025</strong> con un solo obiettivo: supportare i ragazzi, tenerci aggiornati e creare un punto di ritrovo sicuro e divertente per tutte le Coer italiane. Attualmente il nostro team è composto da <strong>12 admin</strong> cariche di energia. Ecco i nostri identikit ufficiali, scorri per conoscerci tutte!</p>
+        </div>
+    </section>
+
+    <!-- Griglia Identikit Admin -->
+    <section class="container">
+        <div class="admin-grid">
+
+            <!-- 1. Ele -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/1200x/8d/22/38/8d22386c4efe8279cdeb849ef944e3cf.jpg" alt="Emoji Ele">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">ELE</div>
+                    <div class="id-role">Organizzazione e Supervisione</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Elena</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Predebut</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">James e Martin</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Wassup</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">BTS, Stray Kids, Enhypen, Ateez, The Rose</span></div>
+                </div>
+            </div>
+
+            <!-- 2. Meg -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/1200x/ec/f2/b8/ecf2b80b11b2427f47996c4fbe295b67.jpg" alt="Emoji Meg">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">MEG</div>
+                    <div class="id-role">Grafica e Comunicazioni</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Margherita</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Novembre 2025</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">James e Keonho</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Joyride e Acai</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">Stray Kids, Enhypen, Ateez, BTS, P1H, Riize</span></div>
+                </div>
+            </div>
+
+            <!-- 3. Mao -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/39/6e/d3/396ed334b5379e822923ca58270f4c8a.jpg" alt="Emoji Mao">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">MAO</div>
+                    <div class="id-role">Grafiche, Coding, Traduzioni</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Anita</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Predebut</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">James e Martin</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">FaSHioN</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">BTS, Boynextdoor, Enhypen, Le Sserafim</span></div>
+                </div>
+            </div>
+
+            <!-- 4. Lea -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/40/4a/06/404a06fc37a2591d10826bd1e42a4119.jpg" alt="Emoji Lea">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">LEA</div>
+                    <div class="id-role">Aggiornamenti IG e TikTok</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Lea</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Predebut</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">Seonghyeon</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">What you want</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">Stray Kids</span></div>
+                </div>
+            </div>
+
+            <!-- 5. Aty -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/72/1d/c0/721dc015ed54b09b51efd14b88f35878.jpg" alt="Emoji Aty">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">ATY</div>
+                    <div class="id-role">Grafiche e TikTok</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Matilda</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Dicembre 2025</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">Juhoon e Martin</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Joyride</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">Stray Kids, BTS, P1H, Kickflip</span></div>
+                </div>
+            </div>
+
+            <!-- 6. Nunu -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/ea/4f/48/ea4f4843802406750f46e756f5b33424.jpg" alt="Emoji Nunu">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">NUNU</div>
+                    <div class="id-role">Grafica e TikTok</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Eleonora</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Predebut</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">James</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Joyride</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">BTS, Ateez, Boynextdoor, Lngshot</span></div>
+                </div>
+            </div>
+
+            <!-- 7. Flo -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/8b/a2/af/8ba2af7305970ac4a376b3a36ca674b3.jpg" alt="Emoji Flo">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">FLO</div>
+                    <div class="id-role">Aggiornamenti IG</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Floriana</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Predebut</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">Martin</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Joyride</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">Stray Kids, Boynextdoor, Seventeen, P1H, Ateez, BTS, NCT, The Boyz</span></div>
+                </div>
+            </div>
+
+            <!-- 8. Emy -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/64/8b/e9/648be9918bd76aa92242b8f247139cf0.jpg" alt="Emoji Emy">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">EMY</div>
+                    <div class="id-role">Traduzioni</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Emma</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Gennaio 2026</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">Seonghyeon</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Joyride</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">Stray Kids, BTS, Nct, Txt</span></div>
+                </div>
+            </div>
+
+            <!-- 9. Jess -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/f5/09/9e/f5099e3634f1a9b55a0dcad560bdd105.jpg" alt="Emoji Jess">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">JESS</div>
+                    <div class="id-role">Comunicazioni & Broadcast</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Jessica</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Settembre 2025</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">James, Martin</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Joyride</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">Stray Kids, BTS, TXT, LNGSHOT</span></div>
+                </div>
+            </div>
+
+            <!-- 10. Emma -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/1200x/6f/a0/d5/6fa0d5670ec88d18381a19dd9ac17368.jpg" alt="Emoji Emma">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">EMMA</div>
+                    <div class="id-role">Traduzioni</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Emma</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Dicembre 2025</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">Seonghyeon</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">What you want</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">Illit, Le Sserafim, New Jeans, Twice, Red Velvet, Hearts2hearts, Aespa</span></div>
+                </div>
+            </div>
+
+            <!-- 11. Ely -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/5f/10/14/5f1014cff50fdaf3c7b4e868a4c26450.jpg" alt="Emoji Ely">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">ELY</div>
+                    <div class="id-role">Aggiornamenti X</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Elena</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Predebut</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">Martin</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Wassup</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">BigBang, Stray Kids, Enhypen, Ateez, Aespa, NCT 127, Boynextdoor</span></div>
+                </div>
+            </div>
+
+            <!-- 12. Tinis -->
+            <div class="id-card">
+                <div class="id-photo-container">
+                    <img src="https://i.pinimg.com/736x/00/df/98/00df981628641710f51d0ef3be37539e.jpg" alt="Emoji Tinis">
+                </div>
+                <div class="id-header">
+                    <div class="id-nickname">TINIS</div>
+                    <div class="id-role">Aggiornamenti X</div>
+                </div>
+                <div class="id-body">
+                    <div class="data-row"><span class="data-label">Nome Reale</span><span class="data-value">Valentina</span></div>
+                    <div class="data-row"><span class="data-label">Da quando sono fan</span><span class="data-value">Predebut</span></div>
+                    <div class="data-row"><span class="data-label">Bias</span><span class="data-value">Martin</span></div>
+                    <div class="data-row"><span class="data-label">Canzone Preferita</span><span class="data-value">Joyride</span></div>
+                    <div class="data-row"><span class="data-label">Altri gruppi che stano</span><span class="data-value">BTS, Stray Kids, Enhypen, SVT, Lngshot, BabyMonster</span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Pulito -->
+    <footer>
+        <div class="relative-footer">
+            <div class="footer-container">
+                <div class="footer-column logo-col">
+                    <a href="index.html"><span class="logo-text">Cortis Italia Online</span></a>
+                </div>
+                <div class="footer-column contacts-col">
+                    <h3>contatti</h3>
+                    <p>cortisitalia@gmail.com</p>
+                </div>
+                <div class="footer-column about-col">
+                    <h3><a href="chisiamo.html">chi siamo</a></h3>
+                </div>
+                <div class="footer-column legal-col">
+                    <p>Diritti riservati a CORTIS ITALIA</p>
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+    </script>
+</body>
+</html>
