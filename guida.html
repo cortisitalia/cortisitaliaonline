@@ -21,12 +21,13 @@
             --beige-darker: #dbd4c0;
             --text-dark: #1a1a1a;
             
-            /* Colori per i tag degli show musicali */
+            /* Colori per i tag degli show musicali e eventi */
             --color-showchamp: #5D9CEC;
             --color-mcore: #ED5565;
             --color-inkigayo: #FFCE54;
             --color-mcountdown: #AC92EC;
             --color-mbank: #4FC1E9;
+            --color-special: #FF4B4B; /* Nuovo Colore per gli Eventi Speciali! */
 
             --font-logo: 'Anton', sans-serif;
             --font-titles: 'Bebas Neue', sans-serif;
@@ -128,8 +129,19 @@
             color: var(--green-dark);
             border-bottom-color: var(--green-dark);
         }
+        /* Stile per il bottone degli eventi in corso */
+        .btn-special {
+            color: var(--color-special);
+            position: relative;
+        }
+        .btn-special::after {
+            content: '🔥';
+            position: absolute;
+            top: -10px; right: -10px;
+            font-size: 1rem;
+        }
 
-        /* --- Design a "Fasce" Orizzontali (Niente più box chiusi!) --- */
+        /* --- Design a "Fasce" Orizzontali --- */
         .guide-list {
             display: flex;
             flex-direction: column;
@@ -138,7 +150,7 @@
 
         .app-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1.5fr; /* Divide lo spazio in 3 colonne */
+            grid-template-columns: 1fr 1fr 1.5fr; 
             gap: 40px;
             padding: 50px 0;
             border-bottom: 3px dashed var(--green-light);
@@ -147,6 +159,15 @@
         }
         .app-row:last-child {
             border-bottom: none;
+        }
+
+        /* Evidenzia la riga degli Eventi Speciali */
+        .app-row[data-show="special"] {
+            background-color: rgba(255, 75, 75, 0.05); /* Leggero sfondo rosato */
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 3px solid var(--color-special);
         }
 
         /* Colonna 1: Identità App */
@@ -163,8 +184,12 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             margin-bottom: 20px;
             background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .app-icon img { width: 100%; height: 100%; object-fit: cover; }
+        /* L'object-fit: cover RITAGLIA LA FOTO DEI TMA QUADRATA AUTOMATICAMENTE! */
+        .app-icon img { width: 100%; height: 100%; object-fit: cover; } 
         
         .show-tag {
             font-size: 0.85rem;
@@ -182,6 +207,7 @@
         .tag-inkigayo { background-color: var(--color-inkigayo); color: var(--text-dark) !important; }
         .tag-mcountdown { background-color: var(--color-mcountdown); }
         .tag-mbank { background-color: var(--color-mbank); color: var(--text-dark) !important; }
+        .tag-special { background-color: var(--color-special); } 
 
         .app-name {
             font-family: var(--font-titles);
@@ -198,8 +224,9 @@
             font-size: 0.95rem;
             letter-spacing: 1px;
         }
+        .app-type.type-special { color: var(--color-special); }
 
-        /* Colonna 2: Statistiche (Riquadri puliti bianchi) */
+        /* Colonna 2: Statistiche */
         .app-stats {
             display: flex;
             flex-direction: column;
@@ -212,6 +239,8 @@
             border-left: 6px solid var(--green-light);
             box-shadow: 4px 4px 0px rgba(129, 176, 147, 0.2);
         }
+        .stat-block.stat-special { border-left-color: var(--color-special); }
+        
         .stat-label {
             font-size: 0.85rem;
             text-transform: uppercase;
@@ -220,6 +249,8 @@
             margin-bottom: 5px;
             letter-spacing: 0.5px;
         }
+        .stat-label.special-label { color: var(--color-special); }
+        
         .stat-value {
             font-size: 1.1rem;
             font-weight: 600;
@@ -260,7 +291,30 @@
             font-weight: bold;
         }
 
-        /* Box Consigli: Completamente rinnovato */
+        /* Pulsanti Vota Ora! */
+        .vote-btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .vote-btn {
+            background-color: var(--color-special);
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-family: var(--font-titles);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 0px var(--green-dark);
+        }
+        .vote-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--green-dark);
+        }
+
+        /* Box Consigli */
         .tip-box {
             background-color: var(--green-dark);
             color: var(--beige);
@@ -309,7 +363,6 @@
             
             .page-title { font-size: 3rem; }
             
-            /* Su mobile le colonne si impilano verticalmente in modo fluido */
             .app-row {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -345,7 +398,7 @@
                     <li><a href="musica.html">MUSICA</a></li>
                     <li><a href="calendario.html">CALENDARIO</a></li>
                     <li><a href="guida.html" class="active">GUIDA</a></li>
-                    <li><a href="shop.html">DOVE ACQUISTARE IN ITALIA</a></li>
+                    <li><a href="shop.html">DOVE ACQUISTARE</a></li>
                 </ul>
             </nav>
         </div>
@@ -355,9 +408,10 @@
         <h1 class="page-title">GUIDA AL VOTING</h1>
         <p class="page-subtitle">Coer, è il nostro momento! Prepara i tuoi account e fai volare i Cortis in cima alle classifiche! 🚀</p>
 
-        <!-- Filtri Moderni (Senza bordi invasivi) -->
+        <!-- Filtri Moderni -->
         <div class="filter-container">
-            <button class="filter-btn active" onclick="filterApps('all')">TUTTE LE APP</button>
+            <button class="filter-btn active" onclick="filterApps('all')">TUTTO</button>
+            <button class="filter-btn btn-special" onclick="filterApps('special')">EVENTI SPECIALI (TMA/VMA)</button>
             <button class="filter-btn" onclick="filterApps('showchamp')">SHOW CHAMPION</button>
             <button class="filter-btn" onclick="filterApps('musiccore')">MUSIC CORE</button>
             <button class="filter-btn" onclick="filterApps('inkigayo')">INKIGAYO</button>
@@ -365,12 +419,89 @@
             <button class="filter-btn" onclick="filterApps('musicbank')">MUSIC BANK</button>
         </div>
 
-        <!-- Lista App: Layout a Fasce Orizzontali -->
         <div class="guide-list" id="guideList">
             
+            <!-- --- SEZIONE NUOVA: EVENTI SPECIALI (VMA) --- -->
+            <div class="app-row" data-show="special">
+                <div class="app-identity">
+                    <div class="app-icon">
+                        <!-- VMA IMMAGINE AGGIORNATA -->
+                        <img src="https://i.pinimg.com/736x/89/8a/e0/898ae0feb66bbcaf2a4d2aa07d88b0d0.jpg" alt="MTV VMA">
+                    </div>
+                    <div>
+                        <span class="show-tag tag-special">EVENTO IN CORSO</span>
+                        <h2 class="app-name">MTV VMA</h2>
+                        <div class="app-type type-special">2 Categorie Nominate</div>
+                    </div>
+                </div>
+
+                <div class="app-stats">
+                    <div class="stat-block stat-special">
+                        <div class="stat-label special-label">Limite Voti</div>
+                        <div class="stat-value">10 Voti per Categoria</div>
+                    </div>
+                    <div class="stat-block stat-special">
+                        <div class="stat-label special-label">Scadenza</div>
+                        <div class="stat-value">Fino a chiusura ufficiale sito MTV</div>
+                    </div>
+                </div>
+
+                <div class="app-action">
+                    <h3 class="collect-title">COME VOTARE</h3>
+                    <ul class="collect-list">
+                        <li>Clicca sui bottoni qui sotto o sui link.</li>
+                        <li>Fai l'accesso con il tuo account.</li>
+                        <li>Scorri fino alle categorie <strong>BEST K-POP</strong> e <strong>BEST NEW ARTIST</strong>.</li>
+                        <li>Clicca il segno "+" per assegnare tutti e 10 i tuoi voti ai CORTIS.</li>
+                        <li>Premi <strong>CONFERMA</strong> per validare il voto!</li>
+                    </ul>
+                    <div class="vote-btn-container">
+                        <a href="https://vote.mtv.com/best-new-artist" target="_blank" class="vote-btn">🚀 VOTA BEST NEW ARTIST</a>
+                        <a href="https://vote.mtv.com/best-k-pop" target="_blank" class="vote-btn">🚀 VOTA BEST K-POP</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- SEZIONE NUOVA: EVENTI SPECIALI (TMA) --- -->
+            <div class="app-row" data-show="special">
+                <div class="app-identity">
+                    <div class="app-icon">
+                        <!-- TMA IMMAGINE AGGIORNATA (verrà tagliata quadrata dal CSS object-fit) -->
+                        <img src="https://resource.veritickets.com/sv-stg/project/prod/1785473041449-2dd0d5b51c6e4197a191024170742a15.png?x-oss-process=image%2Fquality%2Cq_60%2Fformat%2Cwebp" alt="FANNSTAR TMA">
+                    </div>
+                    <div>
+                        <span class="show-tag tag-special">EVENTO IN CORSO</span>
+                        <h2 class="app-name">TMA (FANNSTAR)</h2>
+                        <div class="app-type type-special">Popularity Award</div>
+                    </div>
+                </div>
+
+                <div class="app-stats">
+                    <div class="stat-block stat-special">
+                        <div class="stat-label special-label">Periodo di Voto</div>
+                        <div class="stat-value">Dal 18 Agosto<br>al 7 Settembre (12:00 PM KST)</div>
+                    </div>
+                    <div class="stat-block stat-special">
+                        <div class="stat-label special-label">Tipi di Punti</div>
+                        <div class="stat-value">⭐ Regular Stars (Scad. 15 gg)<br>🌈 Rainbow Stars (Scad. 1 anno)</div>
+                    </div>
+                </div>
+
+                <div class="app-action">
+                    <h3 class="collect-title">COME FARE SCORTA E VOTARE</h3>
+                    <ul class="collect-list">
+                        <li><strong>Attività Base (dopo reset giornaliero):</strong> Log-in, leggi le news, scorri la home e scrivi post.</li>
+                        <li><strong>Attività Extra:</strong> Completa le missioni per le stelle gratuite, compra punti o usa i "Video votes".</li>
+                        <li><strong>Regola d'oro sugli account:</strong> Massimo 6 account per dispositivo (es. 3 Google, 1 Apple) per evitare blocchi IP!</li>
+                    </ul>
+                    <div class="tip-box">
+                        Non tutti i punti si ottengono gratis o nello stesso giorno (es. missioni lunghe per le Rainbow Stars). <strong>Tieni d'occhio la scadenza di 15 giorni</strong> delle Regular Stars e svuotale sui CORTIS prima di perderle!
+                    </div>
+                </div>
+            </div>
+
             <!-- 1. IDOLCHAMP -->
             <div class="app-row" data-show="showchamp">
-                
                 <div class="app-identity">
                     <div class="app-icon">
                         <img src="https://tse4.mm.bing.net/th/id/OIP.MXtNhJ-AOUuHvtXkegSqLwHaHZ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Idolchamp">
@@ -381,7 +512,6 @@
                         <div class="app-type">Pre-vote</div>
                     </div>
                 </div>
-
                 <div class="app-stats">
                     <div class="stat-block">
                         <div class="stat-label">Punti Base</div>
@@ -392,7 +522,6 @@
                         <div class="stat-value">Ruby: Sempre validi<br>Time: A fine mese</div>
                     </div>
                 </div>
-
                 <div class="app-action">
                     <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
@@ -406,12 +535,10 @@
                         Nel pre-vote di Show Champion il voto è <strong>totalmente illimitato</strong>: tutto quello che accumuli lo puoi usare. Il segreto? <strong>Risparmia i Ruby</strong> in vista del comeback per scaricare una pioggia di voti!
                     </div>
                 </div>
-                
             </div>
 
             <!-- 2. MUBEAT -->
             <div class="app-row" data-show="musiccore">
-                
                 <div class="app-identity">
                     <div class="app-icon">
                         <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8a/70/8b/8a708b74-8fea-97ab-f64c-47b93ba737b5/MubeatAppIcon-0-0-1x_U007epad-0-11-0-85-220.png/246x0w.webp" alt="Mubeat">
@@ -422,7 +549,6 @@
                         <div class="app-type">Pre-vote & Live vote</div>
                     </div>
                 </div>
-
                 <div class="app-stats">
                     <div class="stat-block">
                         <div class="stat-label">Cuoricini Validi</div>
@@ -433,7 +559,6 @@
                         <div class="stat-value">Da usare entro<br>90 giorni!</div>
                     </div>
                 </div>
-
                 <div class="app-action">
                     <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
@@ -446,12 +571,10 @@
                         Per il delicatissimo voto live ti serviranno <strong>5 voti per account</strong>. Li ottieni sacrificando 150 Heart Beats in Ticket, ma attenzione: <strong>convertili solo poco prima della diretta</strong> per non sprecarli!
                     </div>
                 </div>
-
             </div>
 
             <!-- 3. MUNIVERSE -->
             <div class="app-row" data-show="musiccore">
-                
                 <div class="app-identity">
                     <div class="app-icon">
                         <img src="https://play-lh.googleusercontent.com/2NcCWZ066uCROqzoNNB3J3e_4Hndh3o0_WeD3E6kWywHuW2xOwIG_sd2TDfqsbSmgvsusxTBbDwAsn2IGT-2b24" alt="Muniverse">
@@ -462,7 +585,6 @@
                         <div class="app-type">Stage M Pick & Pre-vote</div>
                     </div>
                 </div>
-
                 <div class="app-stats">
                     <div class="stat-block">
                         <div class="stat-label">Cristalli</div>
@@ -473,25 +595,22 @@
                         <div class="stat-value">Free: 30 giorni<br>Ad: 60 giorni</div>
                     </div>
                 </div>
-
                 <div class="app-action">
                     <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
                         <li>Loggati tutti i giorni, la costanza premia!</li>
                         <li>Macina fino a 20 pubblicità quotidiane.</li>
                         <li>Gira la Lucky Wheel e le roulette.</li>
-                        <li>Svolgi le varie missioni proposte in-app.</li>
+                        <li>Svolgi le missioni proposte in-app.</li>
                     </ul>
                     <div class="tip-box">
-                        Per le votazioni speciali "Stage M Pick" attendi sempre il <strong>via libera del voting team</strong>. Per il voto live in trasmissione, tieni sempre da parte un tesoretto di <strong>250 Ad Lumy</strong> per ogni tuo account!
+                        Per le votazioni speciali "Stage M Pick" attendi sempre il <strong>via libera del voting team</strong>. Per il voto live in trasmissione, tieni sempre da parte un tesoretto di <strong>250 Ad Lumy</strong> per account!
                     </div>
                 </div>
-
             </div>
 
             <!-- 4. HIGHER -->
             <div class="app-row" data-show="inkigayo">
-                
                 <div class="app-identity">
                     <div class="app-icon">
                         <img src="https://play-lh.googleusercontent.com/6A27zyI0g6olyxqUpQiOnW1KrwX7rR94DPwfhlzHBP1Ig5IpCTUKQ6MLTfu4K5OULw" alt="Higher">
@@ -502,7 +621,6 @@
                         <div class="app-type">Live vote & Hot Stage</div>
                     </div>
                 </div>
-
                 <div class="app-stats">
                     <div class="stat-block">
                         <div class="stat-label">Pietre Preziose</div>
@@ -513,7 +631,6 @@
                         <div class="stat-value">Scadono dopo<br>90 giorni</div>
                     </div>
                 </div>
-
                 <div class="app-action">
                     <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
@@ -526,12 +643,10 @@
                         Il Live Vote qui è costosissimo: servono 250 rubini per sparare i 5 voti massimi ad account. Il consiglio d'oro? <strong>Inizia a farmare rubini mesi prima</strong> del ritorno dei ragazzi!
                     </div>
                 </div>
-
             </div>
 
             <!-- 5. LINC -->
             <div class="app-row" data-show="inkigayo">
-                
                 <div class="app-identity">
                     <div class="app-icon">
                         <img src="https://tse2.mm.bing.net/th/id/OIP.wHof-Lzc7EDHEP_Xwrl18gHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="LINC">
@@ -542,7 +657,6 @@
                         <div class="app-type">Pre-vote</div>
                     </div>
                 </div>
-
                 <div class="app-stats">
                     <div class="stat-block">
                         <div class="stat-label">Il bottino</div>
@@ -553,7 +667,6 @@
                         <div class="stat-value">Hai tempo ben<br>180 giorni</div>
                     </div>
                 </div>
-
                 <div class="app-action">
                     <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
@@ -566,12 +679,10 @@
                         Nel pre-vote di Inkigayo ti è concesso votare ben <strong>10 volte al giorno per ogni singolo account</strong>. Crea più profili e usali tutti per dominare le classifiche fin da subito!
                     </div>
                 </div>
-
             </div>
 
             <!-- 6. COOGOONG -->
             <div class="app-row" data-show="musicbank">
-                
                 <div class="app-identity">
                     <div class="app-icon">
                         <img src="https://cdn3.appshunter.io/i/Purple211/481297080390b3689316005a8e94ebe0/AppIcon-1x_U007emarketing-0-11-0-85-220-0.png/130x0w.webp" alt="Coogoong">
@@ -582,7 +693,6 @@
                         <div class="app-type">Da confermare</div>
                     </div>
                 </div>
-
                 <div class="app-stats">
                     <div class="stat-block">
                         <div class="stat-label">La Moneta</div>
@@ -593,7 +703,6 @@
                         <div class="stat-value">In attesa di<br>conferma</div>
                     </div>
                 </div>
-
                 <div class="app-action">
                     <h3 class="collect-title">COME FARE SCORTA</h3>
                     <ul class="collect-list">
@@ -606,12 +715,10 @@
                         Sul pre-vote di Music Bank non ci sono freni: <strong>il voto è totalmente illimitato!</strong> Dato che l'app è nuovissima, le regole sono volubili: tieni gli occhi aperti e controlla sempre i social della fanbase prima di agire.
                     </div>
                 </div>
-
             </div>
 
             <!-- 7. MNET PLUS -->
             <div class="app-row" data-show="mcountdown">
-                
                 <div class="app-identity">
                     <div class="app-icon">
                         <img src="https://is4-ssl.mzstatic.com/image/thumb/Purple116/v4/bd/71/3e/bd713e5b-d332-eb84-d9a1-8fd00d63a1cc/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/200x200bb.jpg" alt="Mnet Plus">
@@ -622,7 +729,6 @@
                         <div class="app-type">Pre-vote & Live vote</div>
                     </div>
                 </div>
-
                 <div class="app-stats">
                     <div class="stat-block">
                         <div class="stat-label">Zero stress</div>
@@ -633,7 +739,6 @@
                         <div class="stat-value">Conta solo<br>l'organizzazione</div>
                     </div>
                 </div>
-
                 <div class="app-action">
                     <h3 class="collect-title">STRATEGIA DI VOTO</h3>
                     <ul class="collect-list">
@@ -645,7 +750,6 @@
                         Il bello di Mnet Plus è che <strong>non devi farmare punti guardando ore di pubblicità.</strong> Fai incetta di account! Il pre-vote resta aperto fino a martedì, usa tablet, pc e vecchi telefoni perché ogni device conta!
                     </div>
                 </div>
-
             </div>
 
         </div>
@@ -663,8 +767,8 @@
                     <p>cortisitalia@gmail.com</p>
                 </div>
                 <div class="footer-column about-col">
-    <h3><a href="chisiamo.html">chi siamo</a></h3>
-</div>
+                    <h3><a href="chisiamo.html">chi siamo</a></h3>
+                </div>
                 <div class="footer-column legal-col">
                     <p>Diritti riservati a CORTIS ITALIA</p>
                     <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
@@ -679,7 +783,7 @@
         const navMenu = document.getElementById('nav-menu');
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-        // Logica per i filtri (Modificata per nascondere/mostrare le 'fasce' invece delle card)
+        // Logica per i filtri 
         function filterApps(showCategory) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -688,18 +792,16 @@
             const rows = document.querySelectorAll('.app-row');
             rows.forEach(row => {
                 if (showCategory === 'all' || row.getAttribute('data-show') === showCategory) {
-                    row.style.display = 'grid'; // Usa grid per desktop, poi css gestirà il mobile
+                    row.style.display = 'grid'; 
                 } else {
                     row.style.display = 'none';
                 }
             });
             
-            // Fix per mantenere display block/flex corretto su mobile se servisse
+            // Fix per il responsive su Mobile
             if(window.innerWidth <= 900) {
                  rows.forEach(row => {
                     if(row.style.display === 'grid') row.style.display = 'flex';
-                    // Nota: nel CSS a 900px, .app-row diventerà 1fr in CSS Grid o Flexbox 
-                    // quindi 'grid' va bene perché c'è il media query che lo fa impilare.
                  });
             }
         }
