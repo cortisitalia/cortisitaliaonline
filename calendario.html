@@ -28,6 +28,7 @@
             --color-tv: #9b59b6;      /* Viola: Programmi TV */
             --color-bday: #f1c40f;    /* Giallo: Compleanni */
             --color-perf: #e67e22;    /* Arancione: Esibizioni */
+            --color-other: #FF1493;   /* Fucsia: Altro / Varie */
             --color-more: #555555;    /* Grigio: Bottone "More" */
 
             --font-logo: 'Anton', sans-serif;
@@ -244,6 +245,7 @@
         .bg-tv { background-color: var(--color-tv); }
         .bg-bday { background-color: var(--color-bday); color: var(--text-dark); } 
         .bg-perf { background-color: var(--color-perf); }
+        .bg-other { background-color: var(--color-other); } /* Fucsia! */
         .bg-more { background-color: var(--color-more); text-align: center; }
 
         /* --- Pop-up Singolo (Modal) --- */
@@ -419,7 +421,7 @@
                     <li><a href="musica.html">MUSICA</a></li>
                     <li><a href="calendario.html" class="active">CALENDARIO</a></li>
                     <li><a href="guida.html">GUIDA</a></li>
-                    <li><a href="shop.html">DOVE ACQUISTARE IN ITALIA</a></li>
+                    <li><a href="shop.html">DOVE ACQUISTARE</a></li>
                 </ul>
             </nav>
         </div>
@@ -443,6 +445,8 @@
                     <div class="legend-item"><span class="legend-bar bg-tv">PROGRAMMI TV</span></div>
                     <div class="legend-item"><span class="legend-bar bg-bday">COMPLEANNI</span></div>
                     <div class="legend-item"><span class="legend-bar bg-perf">ESIBIZIONI</span></div>
+                    <!-- NUOVA CATEGORIA IN LEGENDA -->
+                    <div class="legend-item"><span class="legend-bar bg-other">ALTRO / VARIE</span></div>
                 </div>
             </div>
 
@@ -601,7 +605,15 @@
                     <div class="day-cell"><span class="day-number">27</span></div>
                     <div class="day-cell"><span class="day-number">28</span></div>
                     <div class="day-cell"><span class="day-number">29</span></div>
-                    <div class="day-cell"><span class="day-number">30</span></div>
+                    
+                    <!-- GIORNO 30 (INSERITO EVENTO BASEBALL) -->
+                    <div class="day-cell">
+                        <span class="day-number">30</span>
+                        <div class="events-container">
+                            <div class="event-bar bg-other" onclick="openSingleEvent('ev_aug30')">ALTRO</div>
+                        </div>
+                    </div>
+                    
                     <div class="day-cell"><span class="day-number">31</span></div>
                     
                     <div class="day-cell empty"></div>
@@ -787,6 +799,14 @@
                 category: "TOUR / LIVE",
                 colorClass: "bg-tour",
                 desc: "Seconda data per l'evento '2026 CORTIS TOUR <PUT YOUR PHONE DOWN> BIRTHDAY PARTY' a Seoul, in Corea del Sud."
+            },
+            // IL NUOVO EVENTO DI SEONGHYEON QUI!
+            ev_aug30: {
+                title: "Lancio Cerimoniale",
+                date: "30 Agosto 2026",
+                category: "ALTRO / VARIE",
+                colorClass: "bg-other",
+                desc: "Il nostro Seonghyeon farà il lancio cerimoniale per la partita di baseball della squadra Hanwha Eagles! ⚾🦅"
             }
         };
 
