@@ -29,6 +29,7 @@
             --color-bday: #f1c40f;    /* Giallo: Compleanni */
             --color-perf: #e67e22;    /* Arancione: Esibizioni */
             --color-other: #FF1493;   /* Fucsia: Altro / Varie */
+            --color-award: #D4AF37;   /* Oro: Premiazioni! */
             --color-more: #555555;    /* Grigio: Bottone "More" */
 
             --font-logo: 'Anton', sans-serif;
@@ -245,7 +246,8 @@
         .bg-tv { background-color: var(--color-tv); }
         .bg-bday { background-color: var(--color-bday); color: var(--text-dark); } 
         .bg-perf { background-color: var(--color-perf); }
-        .bg-other { background-color: var(--color-other); } /* Fucsia! */
+        .bg-other { background-color: var(--color-other); } 
+        .bg-award { background-color: var(--color-award); color: var(--text-dark); } /* Oro per i premi! */
         .bg-more { background-color: var(--color-more); text-align: center; }
 
         /* --- Pop-up Singolo (Modal) --- */
@@ -445,14 +447,15 @@
                     <div class="legend-item"><span class="legend-bar bg-tv">PROGRAMMI TV</span></div>
                     <div class="legend-item"><span class="legend-bar bg-bday">COMPLEANNI</span></div>
                     <div class="legend-item"><span class="legend-bar bg-perf">ESIBIZIONI</span></div>
-                    <!-- NUOVA CATEGORIA IN LEGENDA -->
                     <div class="legend-item"><span class="legend-bar bg-other">ALTRO / VARIE</span></div>
+                    <!-- NUOVA CATEGORIA IN LEGENDA -->
+                    <div class="legend-item"><span class="legend-bar bg-award">PREMIAZIONI</span></div>
                 </div>
             </div>
 
-            <!-- Colonna Destra: Calendario -->
+            <!-- Colonna Destra: Calendario SETTEMBRE 2026 -->
             <div class="calendar-section">
-                <div class="month-header">AGOSTO 2026</div>
+                <div class="month-header">SETTEMBRE 2026</div>
                 
                 <div class="calendar-grid">
                     <div class="day-name">LUN</div>
@@ -463,22 +466,10 @@
                     <div class="day-name">SAB</div>
                     <div class="day-name">DOM</div>
 
-                    <!-- 5 celle vuote perché Agosto 2026 inizia di Sabato -->
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
+                    <!-- Settembre 2026 inizia di Martedì, quindi 1 cella vuota -->
                     <div class="day-cell empty"></div>
                     
-                    <!-- GIORNO 1 -->
-                    <div class="day-cell">
-                        <span class="day-number">1</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_aug1_a')">ESIBIZIONI</div>
-                            <div class="event-bar bg-tv" onclick="openSingleEvent('ev_aug1_b')">PROGRAMMI TV</div>
-                        </div>
-                    </div>
-                    
+                    <div class="day-cell"><span class="day-number">1</span></div>
                     <div class="day-cell"><span class="day-number">2</span></div>
                     <div class="day-cell"><span class="day-number">3</span></div>
                     
@@ -486,8 +477,7 @@
                     <div class="day-cell">
                         <span class="day-number">4</span>
                         <div class="events-container">
-                            <div class="event-bar bg-tv" onclick="openSingleEvent('ev_aug4_a')">PROGRAMMI TV</div>
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug4_b')">TOUR / LIVE</div>
+                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep4')">TOUR / LIVE</div>
                         </div>
                     </div>
                     
@@ -495,7 +485,7 @@
                     <div class="day-cell">
                         <span class="day-number">5</span>
                         <div class="events-container">
-                            <div class="event-bar bg-tv" onclick="openSingleEvent('ev_aug5')">PROGRAMMI TV</div>
+                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep5')">TOUR / LIVE</div>
                         </div>
                     </div>
                     
@@ -503,119 +493,76 @@
                     <div class="day-cell">
                         <span class="day-number">6</span>
                         <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug6')">TOUR / LIVE</div>
+                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep6')">TOUR / LIVE</div>
                         </div>
                     </div>
                     
-                    <div class="day-cell"><span class="day-number">7</span></div>
-                    
-                    <!-- GIORNO 8 -->
+                    <!-- GIORNO 7 -->
                     <div class="day-cell">
-                        <span class="day-number">8</span>
+                        <span class="day-number">7</span>
                         <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug8')">TOUR / LIVE</div>
+                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_sep7')">ESIBIZIONI</div>
                         </div>
                     </div>
                     
+                    <div class="day-cell"><span class="day-number">8</span></div>
                     <div class="day-cell"><span class="day-number">9</span></div>
+                    <div class="day-cell"><span class="day-number">10</span></div>
+                    <div class="day-cell"><span class="day-number">11</span></div>
                     
-                    <!-- GIORNO 10 -->
+                    <!-- GIORNO 12 -->
                     <div class="day-cell">
-                        <span class="day-number">10</span>
+                        <span class="day-number">12</span>
                         <div class="events-container">
-                            <div class="event-bar bg-bday" onclick="openSingleEvent('ev_aug10')">COMPLEANNI</div>
+                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep12')">TOUR / LIVE</div>
                         </div>
                     </div>
                     
-                    <!-- GIORNO 11 -->
-                    <div class="day-cell">
-                        <span class="day-number">11</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug11')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
-                    <div class="day-cell"><span class="day-number">12</span></div>
-                    
-                    <!-- GIORNO 13 -->
-                    <div class="day-cell">
-                        <span class="day-number">13</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug13')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
-                    <!-- GIORNO 14 -->
-                    <div class="day-cell">
-                        <span class="day-number">14</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_aug14')">ESIBIZIONI</div>
-                        </div>
-                    </div>
-                    
-                    <!-- GIORNO 15 -->
-                    <div class="day-cell">
-                        <span class="day-number">15</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug15')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
-                    <!-- GIORNO 16 -->
-                    <div class="day-cell">
-                        <span class="day-number">16</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug16')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
+                    <div class="day-cell"><span class="day-number">13</span></div>
+                    <div class="day-cell"><span class="day-number">14</span></div>
+                    <div class="day-cell"><span class="day-number">15</span></div>
+                    <div class="day-cell"><span class="day-number">16</span></div>
                     <div class="day-cell"><span class="day-number">17</span></div>
+                    <div class="day-cell"><span class="day-number">18</span></div>
                     
-                    <!-- GIORNO 18 -->
+                    <!-- GIORNO 19 -->
                     <div class="day-cell">
-                        <span class="day-number">18</span>
+                        <span class="day-number">19</span>
                         <div class="events-container">
-                            <div class="event-bar bg-bday" onclick="openSingleEvent('ev_aug18')">COMPLEANNI</div>
+                            <div class="event-bar bg-award" onclick="openSingleEvent('ev_sep19')">PREMIAZIONI</div>
                         </div>
                     </div>
                     
-                    <div class="day-cell"><span class="day-number">19</span></div>
-                    <div class="day-cell"><span class="day-number">20</span></div>
+                    <!-- GIORNO 20 -->
+                    <div class="day-cell">
+                        <span class="day-number">20</span>
+                        <div class="events-container">
+                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_sep20')">ESIBIZIONI</div>
+                        </div>
+                    </div>
+                    
                     <div class="day-cell"><span class="day-number">21</span></div>
                     
                     <!-- GIORNO 22 -->
                     <div class="day-cell">
                         <span class="day-number">22</span>
                         <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug22')">TOUR / LIVE</div>
+                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_sep22')">ESIBIZIONI</div>
                         </div>
                     </div>
                     
-                    <!-- GIORNO 23 -->
-                    <div class="day-cell">
-                        <span class="day-number">23</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_aug23')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
+                    <div class="day-cell"><span class="day-number">23</span></div>
                     <div class="day-cell"><span class="day-number">24</span></div>
                     <div class="day-cell"><span class="day-number">25</span></div>
                     <div class="day-cell"><span class="day-number">26</span></div>
                     <div class="day-cell"><span class="day-number">27</span></div>
                     <div class="day-cell"><span class="day-number">28</span></div>
                     <div class="day-cell"><span class="day-number">29</span></div>
+                    <div class="day-cell"><span class="day-number">30</span></div>
                     
-                    <!-- GIORNO 30 (INSERITO EVENTO BASEBALL) -->
-                    <div class="day-cell">
-                        <span class="day-number">30</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-other" onclick="openSingleEvent('ev_aug30')">ALTRO</div>
-                        </div>
-                    </div>
-                    
-                    <div class="day-cell"><span class="day-number">31</span></div>
-                    
+                    <!-- Fine Mese -->
+                    <div class="day-cell empty"></div>
+                    <div class="day-cell empty"></div>
                     <div class="day-cell empty"></div>
                     <div class="day-cell empty"></div>
                 </div>
@@ -659,8 +606,8 @@
                     <p>cortisitalia@gmail.com</p>
                 </div>
                 <div class="footer-column about-col">
-    <h3><a href="chisiamo.html">chi siamo</a></h3>
-</div>
+                    <h3><a href="chisiamo.html">chi siamo</a></h3>
+                </div>
                 <div class="footer-column legal-col">
                     <p>Diritti riservati a CORTIS ITALIA</p>
                     <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
@@ -686,127 +633,63 @@
             }
         });
 
-        /* TUTTI GLI EVENTI DI AGOSTO 2026 */
+        /* TUTTI GLI EVENTI DI SETTEMBRE 2026 */
         const eventsData = {
-            ev_aug1_a: {
-                title: "Lollapalooza",
-                date: "1 Agosto 2026",
+            ev_sep4: {
+                title: "Tour <PUT YOUR PHONE DOWN>",
+                date: "4 Settembre 2026",
+                category: "TOUR / LIVE",
+                colorClass: "bg-tour",
+                desc: "Prima serata del 2026 CORTIS TOUR <PUT YOUR PHONE DOWN> a Kanagawa, in Giappone! 🇯🇵"
+            },
+            ev_sep5: {
+                title: "Tour <PUT YOUR PHONE DOWN> + Live Streaming",
+                date: "5 Settembre 2026",
+                category: "TOUR / LIVE",
+                colorClass: "bg-tour",
+                desc: "Seconda serata del tour a Kanagawa. Questa data sarà disponibile anche in Live Streaming per i fan internazionali! 🖥️"
+            },
+            ev_sep6: {
+                title: "Tour <PUT YOUR PHONE DOWN> + Live Streaming",
+                date: "6 Settembre 2026",
+                category: "TOUR / LIVE",
+                colorClass: "bg-tour",
+                desc: "Terza e ultima serata esplosiva a Kanagawa, anch'essa disponibile in Live Streaming!"
+            },
+            ev_sep7: {
+                title: "CDTV Live! Live!",
+                date: "7 Settembre 2026",
                 category: "ESIBIZIONI",
                 colorClass: "bg-perf",
-                desc: "Esibizione pazzesca dei Cortis al famosissimo festival Lollapalooza! Siete pronti?"
+                desc: "Debutto ufficiale sulla TV giapponese! I Cortis si esibiranno con REDRED al programma CDTV Live! Live! 🔥"
             },
-            ev_aug1_b: {
-                title: "Sumbakkokjil2",
-                date: "1 Agosto 2026",
-                category: "PROGRAMMI TV",
-                colorClass: "bg-tv",
-                desc: "Partecipazione speciale dei ragazzi al programma televisivo Sumbakkokjil2."
-            },
-            ev_aug4_a: {
-                title: "Hey Tablo",
-                date: "4 Agosto 2026",
-                category: "PROGRAMMI TV",
-                colorClass: "bg-tv",
-                desc: "I Cortis saranno ospiti speciali al programma Hey Tablo!"
-            },
-            ev_aug4_b: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "4 Agosto 2026",
+            ev_sep12: {
+                title: "Music Bank in Madrid",
+                date: "12 Settembre 2026",
                 category: "TOUR / LIVE",
                 colorClass: "bg-tour",
-                desc: "Tappa del tour nordamericano. Questa sera i ragazzi si esibiranno a Toronto, Canada!"
+                desc: "I Cortis volano in Europa per un'esibizione spettacolare al Music Bank a BARCELLONA! 🇪🇸 (Nota: L'evento si terrà a Madrid come da annuncio ufficiale)"
             },
-            ev_aug5: {
-                title: "Star Radio",
-                date: "5 Agosto 2026",
-                category: "PROGRAMMI TV",
-                colorClass: "bg-tv",
-                desc: "Il nostro Martin sarà ospite speciale al programma Star Radio. Sintonizzatevi!"
+            ev_sep19: {
+                title: "THE FACT MUSIC AWARDS 2026",
+                date: "19 Settembre 2026",
+                category: "PREMIAZIONI",
+                colorClass: "bg-award",
+                desc: "I ragazzi parteciperanno alla cerimonia dei TMAs a Busan! Incrociamo le dita per i premi! 🏆✨"
             },
-            ev_aug6: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "6 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Tappa del tour nordamericano. Questa sera i ragazzi si esibiranno a New York, USA!"
-            },
-            ev_aug8: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "8 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Tappa del tour nordamericano. Questa sera i ragazzi si esibiranno ad Atlanta, USA!"
-            },
-            ev_aug10: {
-                title: "1° Anniversario di GO!",
-                date: "10 Agosto 2026",
-                category: "COMPLEANNI",
-                colorClass: "bg-bday",
-                desc: "Oggi festeggiamo il primissimo anniversario della fantastica canzone GO! Ascoltiamola tutti insieme in streaming."
-            },
-            ev_aug11: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "11 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Tappa del tour nordamericano. Questa sera i ragazzi si esibiranno a Irving, USA!"
-            },
-            ev_aug13: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "13 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Tappa del tour nordamericano. Questa sera i ragazzi si esibiranno a Los Angeles, USA!"
-            },
-            ev_aug14: {
-                title: "LIVE VIEWING AL CINEMA",
-                date: "14 Agosto 2026",
+            ev_sep20: {
+                title: "Rock In Japan Festival 2026",
+                date: "20 Settembre 2026",
                 category: "ESIBIZIONI",
                 colorClass: "bg-perf",
-                desc: "L'evento esclusivo '2026 CORTIS TOUR <PUT YOUR PHONE DOWN> IN LA: LIVE VIEWING' sarà trasmesso in diretta in alcuni cinema italiani selezionati!"
+                desc: "Esibizione pazzesca dei Cortis sul palco del Rock In Japan Festival! 🎸"
             },
-            ev_aug15: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "15 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Tappa del tour nordamericano. Questa sera i ragazzi si esibiranno a San Francisco, USA!"
-            },
-            ev_aug16: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "16 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Seconda serata consecutiva del tour a San Francisco, USA. Fatevi sentire Coer!"
-            },
-            ev_aug18: {
-                title: "CORTIS DAY (1° Anniversario)",
-                date: "18 Agosto 2026",
-                category: "COMPLEANNI",
-                colorClass: "bg-bday",
-                desc: "È passato esattamente un anno dal debutto dei Cortis. Buon anniversario ragazzi! 🎉"
-            },
-            ev_aug22: {
-                title: "BIRTHDAY PARTY - Tour Speciale",
-                date: "22 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "L'evento speciale '2026 CORTIS TOUR <PUT YOUR PHONE DOWN> BIRTHDAY PARTY' si terrà oggi a Seoul, in Corea del Sud."
-            },
-            ev_aug23: {
-                title: "BIRTHDAY PARTY - Tour Speciale",
-                date: "23 Agosto 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Seconda data per l'evento '2026 CORTIS TOUR <PUT YOUR PHONE DOWN> BIRTHDAY PARTY' a Seoul, in Corea del Sud."
-            },
-            // IL NUOVO EVENTO DI SEONGHYEON QUI!
-            ev_aug30: {
-                title: "Lancio Cerimoniale",
-                date: "30 Agosto 2026",
-                category: "ALTRO / VARIE",
-                colorClass: "bg-other",
-                desc: "Il nostro Seonghyeon farà il lancio cerimoniale per la partita di baseball della squadra Hanwha Eagles! ⚾🦅"
+            ev_sep22: {
+                title: "Inkigayo Live in Tokyo 2026",
+                date: "22 Settembre 2026",
+                category: "ESIBIZIONI",
+                colorClass: "bg-perf",
+                desc: "I ragazzi porteranno il loro palco esplosivo all'evento Inkigayo Live a Tokyo! 🇯🇵"
             }
         };
 
@@ -826,7 +709,8 @@
             categoryBadge.className = ""; 
             categoryBadge.classList.add(data.colorClass);
             
-            if(data.colorClass === 'bg-bday') {
+            // Colore del testo nero se lo sfondo è giallo (compleanno) o oro (premiazioni)
+            if(data.colorClass === 'bg-bday' || data.colorClass === 'bg-award') {
                 categoryBadge.style.color = "var(--text-dark)";
             } else {
                 categoryBadge.style.color = "var(--white)";
@@ -847,7 +731,7 @@
                     const item = document.createElement("div");
                     item.className = "day-event-item";
                     
-                    const textColor = data.colorClass === 'bg-bday' ? 'color: var(--text-dark);' : 'color: var(--white);';
+                    const textColor = (data.colorClass === 'bg-bday' || data.colorClass === 'bg-award') ? 'color: var(--text-dark);' : 'color: var(--white);';
 
                     item.innerHTML = `
                         <span class="cat-badge ${data.colorClass}" style="${textColor}">${data.category}</span>
