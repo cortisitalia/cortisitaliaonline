@@ -238,7 +238,7 @@
             border-radius: 15px;
             width: 95%;
             max-width: 800px;
-            height: 85vh; /* Altezza fissa per permettere lo scorrimento interno */
+            height: 85vh; 
             position: relative;
             box-shadow: 15px 15px 0px var(--green-light);
             display: flex;
@@ -287,10 +287,9 @@
             font-size: 2.5rem;
             color: var(--green-dark);
             line-height: 1;
-            padding-right: 40px; /* Spazio per la X */
+            padding-right: 40px;
         }
 
-        /* L'area dei video scrollabile */
         .modal-body {
             flex: 1;
             overflow-y: auto;
@@ -298,7 +297,6 @@
             background-color: var(--beige);
         }
         
-        /* Personalizzazione Barra di Scorrimento */
         .modal-body::-webkit-scrollbar { width: 10px; }
         .modal-body::-webkit-scrollbar-track { background: var(--beige-darker); }
         .modal-body::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 10px; }
@@ -320,7 +318,7 @@
         .video-item-link:hover {
             transform: translateX(5px);
             border-color: var(--green-dark);
-            box-shadow: 6px 6px 0px rgba(129, 176, 147, 0.4); /* green-light semi-trasparente */
+            box-shadow: 6px 6px 0px rgba(129, 176, 147, 0.4);
         }
 
         .video-item-thumb {
@@ -424,8 +422,8 @@
                     <li><a href="musica.html">MUSICA</a></li>
                     <li><a href="calendario.html">CALENDARIO</a></li>
                     <li><a href="guida.html">GUIDA</a></li>
-                    <li><a href="shop.html">DOVE ACQUISTARE IN ITALIA</a></li>
-                    <li><a href="video.html" class="active">VIDEO UFFICIALI</a></li>
+                    <li><a href="video.html" class="active">CONTENT</a></li>
+                    <li><a href="shop.html">DOVE ACQUISTARE</a></li>
                 </ul>
             </nav>
         </div>
@@ -436,7 +434,7 @@
         <p class="page-subtitle">Scegli una categoria per aprire la playlist e guardare i video direttamente su YouTube! 🎬✨</p>
 
         <div class="playlist-grid" id="playlistGrid">
-            </div>
+        </div>
     </main>
 
     <div class="modal" id="playlistModal">
@@ -449,7 +447,7 @@
             </div>
             
             <div class="modal-body" id="modalVideoList">
-                </div>
+            </div>
         </div>
     </div>
 
@@ -479,18 +477,13 @@
         const navMenu = document.getElementById('nav-menu');
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-        /* ========================================================================
-        IL TUO DATABASE DELLE PLAYLIST! 📁🎥
-        Qui crei le "Cartelle" principali e ci metti dentro tutti i video che vuoi.
-        ========================================================================
-        */
         const playlistsData = {
             mv: {
                 id: "mv",
                 playlistTitle: "Music Videos Ufficiali",
                 categoryTag: "MV",
                 badgeClass: "bg-mv",
-                coverImage: "https://i.pinimg.com/1200x/a4/18/71/a41871f3d94403ff846a2a4a3e77df46.jpg", // Copertina della cartella
+                coverImage: "https://i.pinimg.com/1200x/a4/18/71/a41871f3d94403ff846a2a4a3e77df46.jpg",
                 videos: [
                     {
                         title: "CORTIS - 'GO!' Official MV",
@@ -502,14 +495,14 @@
                         title: "CORTIS - 'What You Want' Official MV",
                         date: "26 Agosto 2025",
                         thumbnail: "https://i.ytimg.com/vi/of-FAob3X9w/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLBWG49k0xC_MXs7mbsxGJA_eQuSsQ",
-                        youtubeLink: "https://www.youtube.com/watch?v=of-FAob3X9w&list=OLAK5uy_mWfQ0mJnBJariyrHqhrekQAU9LlE-oHbs" // SOSTITUISCI CON LINK VERO
+                        youtubeLink: "https://www.youtube.com/watch?v=of-FAob3X9w&list=OLAK5uy_mWfQ0mJnBJariyrHqhrekQAU9LlE-oHbs"
                     },
                     {
                         title: "CORTIS - 'GREEN GREEN' Official MV",
                         date: "10 Agosto 2026",
                         thumbnail: "https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg",
-                        youtubeLink: "https://www.youtube.com" // SOSTITUISCI CON LINK VERO
-                    },
+                        youtubeLink: "https://www.youtube.com"
+                    }
                 ]
             },
             inkigayo: {
@@ -604,7 +597,6 @@
         const playlistGrid = document.getElementById("playlistGrid");
         const modal = document.getElementById("playlistModal");
 
-        // Stampa le Cartelle/Playlist sulla pagina
         function renderPlaylists() {
             playlistGrid.innerHTML = ""; 
             
@@ -632,7 +624,6 @@
             }
         }
 
-        // Apre il pop-up e genera la lista dei video
         function openPlaylist(playlistKey) {
             const data = playlistsData[playlistKey];
             
@@ -643,14 +634,13 @@
             tagElement.className = `modal-header-tag ${data.badgeClass}`;
             
             const videoListContainer = document.getElementById("modalVideoList");
-            videoListContainer.innerHTML = ""; // Svuota la lista vecchia
+            videoListContainer.innerHTML = ""; 
             
-            // Crea un link per ogni video nella playlist
             data.videos.forEach(video => {
                 const videoLink = document.createElement("a");
                 videoLink.className = "video-item-link";
                 videoLink.href = video.youtubeLink;
-                videoLink.target = "_blank"; // Apre sempre in una nuova scheda
+                videoLink.target = "_blank"; 
                 
                 videoLink.innerHTML = `
                     <div class="video-item-thumb">
@@ -679,9 +669,7 @@
             }
         }
 
-        // Avvia la magia
         renderPlaylists();
-
     </script>
 </body>
 </html>
