@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortis Italia - Archivio Video Ufficiali</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Stili Generali --- */
+        :root {
+            --white: #ffffff;
+            --green-light: #81b093;
+            --green-dark: #30593f;
+            --black: #000000;
+            --beige: #f5f1e6;
+            --beige-darker: #dbd4c0;
+            --text-dark: #1a1a1a;
+            
+            /* Colori per le etichette delle Playlist */
+            --color-mv: #e74c3c;
+            --color-choom: #2c3e50;
+            --color-inkigayo: #FFCE54;
+            --color-mcountdown: #AC92EC;
+            --color-mbank: #4FC1E9;
+            --color-mcore: #ED5565;
+            --color-award: #D4AF37;
+            --color-dance: #8e44ad;
+            
+            --font-logo: 'Anton', sans-serif;
+            --font-titles: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--beige);
+            background-image: radial-gradient(var(--beige-darker) 2px, transparent 2px);
+            background-size: 25px 25px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--green-light);
+            position: relative;
+            z-index: 10;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-text {
+            font-family: var(--font-logo);
+            color: var(--green-light);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .logo-text:hover { transform: scale(1.05); color: var(--green-dark); }
+
+        .nav-tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .nav-tabs a {
+            padding: 8px 15px;
+            border: 2px solid var(--green-light);
+            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--black);
+            background-color: var(--white);
+            display: block;
+        }
+        .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
+        .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
+
+        /* --- Sezione Archivio Video --- */
+        .page-title {
+            text-align: center;
+            font-family: var(--font-titles);
+            font-size: 4rem;
+            color: var(--green-dark);
+            margin: 40px 0 10px;
+            text-shadow: 2px 2px 0px var(--white);
+            line-height: 1;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-weight: 600;
+            color: var(--green-dark);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        /* --- Griglia delle Playlist --- */
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            padding-bottom: 80px;
+        }
+
+        /* Card della Playlist */
+        .playlist-card {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .playlist-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Miniatura Playlist a 16:9 */
+        .playlist-thumb-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--green-dark);
+            box-shadow: 5px 5px 0px var(--green-light);
+            margin-bottom: 15px;
+            border: 3px solid var(--green-dark);
+        }
+        
+        .playlist-thumb-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        
+        .playlist-card:hover .playlist-thumb-container img {
+            transform: scale(1.05);
+            filter: brightness(0.6);
+        }
+
+        /* Badge Numero Video nella Playlist */
+        .video-count-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+
+        /* Overlay Testo "APRI PLAYLIST" */
+        .open-playlist-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--white);
+            font-family: var(--font-titles);
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            white-space: nowrap;
+        }
+        .playlist-card:hover .open-playlist-text {
+            opacity: 1;
+        }
+
+        /* Info sotto la Cartella */
+        .playlist-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0 5px;
+        }
+        .playlist-tag {
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--white);
+            text-transform: uppercase;
+            align-self: flex-start;
+        }
+        .playlist-title {
+            font-family: var(--font-titles);
+            font-size: 2rem;
+            color: var(--green-dark);
+            line-height: 1.1;
+            word-wrap: break-word;
+        }
+        
+        /* Colori Categorie */
+        .bg-mv { background-color: var(--color-mv); }
+        .bg-choom { background-color: var(--color-choom); }
+        .bg-inkigayo { background-color: var(--color-inkigayo); color: var(--text-dark) !important; }
+        .bg-mcountdown { background-color: var(--color-mcountdown); }
+        .bg-mbank { background-color: var(--color-mbank); color: var(--text-dark) !important; }
+        .bg-mcore { background-color: var(--color-mcore); }
+        .bg-award { background-color: var(--color-award); color: var(--text-dark) !important; }
+        .bg-dance { background-color: var(--color-dance); }
+
+        /* --- POP-UP PLAYLIST A SCORRIMENTO --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background-color: var(--beige);
+            border: 4px solid var(--green-dark);
+            border-radius: 15px;
+            width: 95%;
+            max-width: 800px;
+            height: 85vh; /* Altezza fissa per permettere lo scorrimento interno */
+            position: relative;
+            box-shadow: 15px 15px 0px var(--green-light);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px; 
+            width: 40px;
+            height: 40px;
+            background-color: var(--green-dark);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .close-btn:hover { background-color: var(--black); transform: scale(1.1); }
+
+        .modal-header {
+            padding: 25px 30px;
+            background-color: var(--white);
+            border-bottom: 3px solid var(--green-dark);
+        }
+        
+        .modal-header-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--white);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .modal-header-title {
+            font-family: var(--font-titles);
+            font-size: 2.5rem;
+            color: var(--green-dark);
+            line-height: 1;
+            padding-right: 40px; /* Spazio per la X */
+        }
+
+        /* L'area dei video scrollabile */
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: var(--beige);
+        }
+        
+        /* Personalizzazione Barra di Scorrimento */
+        .modal-body::-webkit-scrollbar { width: 10px; }
+        .modal-body::-webkit-scrollbar-track { background: var(--beige-darker); }
+        .modal-body::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 10px; }
+
+        /* Lista dei Singoli Video */
+        .video-item-link {
+            display: flex;
+            gap: 20px;
+            background-color: var(--white);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--green-light);
+            margin-bottom: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.05);
+            align-items: center;
+        }
+        .video-item-link:hover {
+            transform: translateX(5px);
+            border-color: var(--green-dark);
+            box-shadow: 6px 6px 0px rgba(129, 176, 147, 0.4); /* green-light semi-trasparente */
+        }
+
+        .video-item-thumb {
+            width: 160px;
+            aspect-ratio: 16 / 9;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .video-item-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-item-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0,0,0,0.7);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            padding-left: 3px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .video-item-link:hover .video-item-play { opacity: 1; }
+
+        .video-item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .video-item-date {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--green-light);
+        }
+        .video-item-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+        .video-item-link:hover .video-item-title { color: var(--green-dark); }
+
+        /* --- Piè di pagina --- */
+        footer {
+            background-color: var(--white);
+            color: var(--green-dark);
+            padding: 30px 0 10px;
+            border-top: 3px solid var(--green-dark);
+        }
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-column { flex: 1; padding: 0 15px; }
+        .footer-column h3 { font-family: var(--font-titles); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 10px; color: var(--green-dark); }
+        .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
+        .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Mobile Responsive --- */
+        @media screen and (max-width: 768px) {
+            .logo-text { font-size: 1.8rem; }
+            .hamburger { display: block; }
+            .nav-tabs { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white); border-bottom: 3px solid var(--green-dark); z-index: 1000; gap: 0; }
+            .nav-tabs.active { display: flex; }
+            .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
+            
+            .page-title { font-size: 3rem; }
+            
+            .modal-content { width: 100%; height: 100%; max-height: 100vh; border-radius: 0; border: none; }
+            .modal-header { padding: 20px; padding-right: 50px; }
+            .modal-header-title { font-size: 2rem; }
+            
+            .video-item-link { flex-direction: column; gap: 10px; }
+            .video-item-thumb { width: 100%; }
+
+            .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Cortis Italia Online</span>
+            </a>
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            <nav>
+                <ul class="nav-tabs" id="nav-menu">
+                    <li><a href="introduzione.html">INTRODUZIONE</a></li>
+                    <li><a href="musica.html">MUSICA</a></li>
+                    <li><a href="calendario.html">CALENDARIO</a></li>
+                    <li><a href="guida.html">GUIDA</a></li>
+                    <li><a href="shop.html">DOVE ACQUISTARE IN ITALIA</a></li>
+                    <li><a href="video.html" class="active">VIDEO UFFICIALI</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">ARCHIVIO VIDEO</h1>
+        <p class="page-subtitle">Scegli una categoria per aprire la playlist e guardare i video direttamente su YouTube! 🎬✨</p>
+
+        <div class="playlist-grid" id="playlistGrid">
+            </div>
+    </main>
+
+    <div class="modal" id="playlistModal">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closePlaylist()">×</div>
+            
+            <div class="modal-header">
+                <span class="modal-header-tag" id="modalTag">CATEGORIA</span>
+                <h2 class="modal-header-title" id="modalTitle">Titolo della Playlist</h2>
+            </div>
+            
+            <div class="modal-body" id="modalVideoList">
+                </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="relative-footer">
+            <div class="footer-container">
+                <div class="footer-column logo-col">
+                    <a href="index.html"><span class="logo-text">Cortis Italia Online</span></a>
+                </div>
+                <div class="footer-column contacts-col">
+                    <h3>contatti</h3>
+                    <p>cortisitalia@gmail.com</p>
+                </div>
+                <div class="footer-column about-col">
+                    <h3><a href="chisiamo.html">chi siamo</a></h3>
+                </div>
+                <div class="footer-column legal-col">
+                    <p>Diritti riservati a CORTIS ITALIA</p>
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top:10px;">coded by Mao and cortisitalia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+        /* ========================================================================
+        IL TUO DATABASE DELLE PLAYLIST! 📁🎥
+        Qui crei le "Cartelle" principali e ci metti dentro tutti i video che vuoi.
+        ========================================================================
+        */
+        const playlistsData = {
+            mv: {
+                id: "mv",
+                playlistTitle: "Music Videos Ufficiali",
+                categoryTag: "MV",
+                badgeClass: "bg-mv",
+                coverImage: "https://i.pinimg.com/1200x/a4/18/71/a41871f3d94403ff846a2a4a3e77df46.jpg", // Copertina della cartella
+                videos: [
+                    {
+                        title: "CORTIS - 'GO!' Official MV",
+                        date: "10 Agosto 2025",
+                        thumbnail: "https://i.ytimg.com/vi/WXS-o57VJ5w/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLAKfWVKk5TF2fgKUvTNqilcZGTHVw",
+                        youtubeLink: "https://www.youtube.com/watch?v=WXS-o57VJ5w&list=OLAK5uy_mWfQ0mJnBJariyrHqhrekQAU9LlE-oHbs"
+                    }
+                    {
+                        title: "CORTIS - 'What You Want' Official MV",
+                        date: "26 Agosto 2025",
+                        thumbnail: "https://i.ytimg.com/vi/of-FAob3X9w/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLBWG49k0xC_MXs7mbsxGJA_eQuSsQ",
+                        youtubeLink: "https://www.youtube.com/watch?v=of-FAob3X9w&list=OLAK5uy_mWfQ0mJnBJariyrHqhrekQAU9LlE-oHbs" // SOSTITUISCI CON LINK VERO
+                    },
+                    {
+                        title: "CORTIS - 'GREEN GREEN' Official MV",
+                        date: "10 Agosto 2026",
+                        thumbnail: "https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg",
+                        youtubeLink: "https://www.youtube.com" // SOSTITUISCI CON LINK VERO
+                    },
+                ]
+            },
+            inkigayo: {
+                id: "inkigayo",
+                playlistTitle: "SBS Inkigayo Performances",
+                categoryTag: "INKIGAYO",
+                badgeClass: "bg-inkigayo",
+                coverImage: "https://i.pinimg.com/736x/21/2e/0f/212e0fa5113bb5a0f5df7e8c33852086.jpg",
+                videos: [
+                    {
+                        title: "CORTIS - 'FaSHioN' @ SBS Inkigayo",
+                        date: "20 Agosto 2026",
+                        thumbnail: "https://i.pinimg.com/736x/21/2e/0f/212e0fa5113bb5a0f5df7e8c33852086.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    },
+                    {
+                        title: "CORTIS - 'GREEN GREEN' @ SBS Inkigayo",
+                        date: "27 Agosto 2026",
+                        thumbnail: "https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    }
+                ]
+            },
+            choom: {
+                id: "choom",
+                playlistTitle: "STUDIO CHOOM",
+                categoryTag: "STUDIO CHOOM",
+                badgeClass: "bg-choom",
+                coverImage: "https://i.pinimg.com/736x/8e/ec/fc/8eecfc42cf431cd61240c029a1b1432f.jpg",
+                videos: [
+                    {
+                        title: "[STUDIO CHOOM] CORTIS 'TNT' (4K)",
+                        date: "14 Agosto 2026",
+                        thumbnail: "https://i.pinimg.com/736x/8e/ec/fc/8eecfc42cf431cd61240c029a1b1432f.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    },
+                    {
+                        title: "[STUDIO CHOOM] CORTIS 'GO!' (4K)",
+                        date: "15 Agosto 2025",
+                        thumbnail: "https://i.pinimg.com/736x/5f/ef/37/5fef37b68c205b9542a7c79411ee9173.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    }
+                ]
+            },
+            mcountdown: {
+                id: "mcountdown",
+                playlistTitle: "Mnet M COUNTDOWN",
+                categoryTag: "M COUNTDOWN",
+                badgeClass: "bg-mcountdown",
+                coverImage: "https://i.pinimg.com/736x/5f/ef/37/5fef37b68c205b9542a7c79411ee9173.jpg",
+                videos: [
+                    {
+                        title: "CORTIS - 'GO!' @ Mnet M Countdown",
+                        date: "22 Agosto 2026",
+                        thumbnail: "https://i.pinimg.com/736x/5f/ef/37/5fef37b68c205b9542a7c79411ee9173.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    }
+                ]
+            },
+            awards: {
+                id: "awards",
+                playlistTitle: "Premiazioni & Awards Shows",
+                categoryTag: "PREMIAZIONI",
+                badgeClass: "bg-award",
+                coverImage: "https://i.pinimg.com/736x/89/8a/e0/898ae0feb66bbcaf2a4d2aa07d88b0d0.jpg",
+                videos: [
+                    {
+                        title: "[The Fact Music Awards 2026] CORTIS Win Popularity Award!",
+                        date: "19 Settembre 2026",
+                        thumbnail: "https://i.pinimg.com/736x/89/8a/e0/898ae0feb66bbcaf2a4d2aa07d88b0d0.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    }
+                ]
+            },
+            dance: {
+                id: "dance",
+                playlistTitle: "Dance Practice Ufficiali",
+                categoryTag: "DANCE PRACTICE",
+                badgeClass: "bg-dance",
+                coverImage: "https://i.pinimg.com/736x/d3/7b/9c/d37b9c4ea3cf4ed90c0dcc3b0b19abb5.jpg",
+                videos: [
+                    {
+                        title: "CORTIS - 'GREEN GREEN' Dance Practice",
+                        date: "15 Agosto 2026",
+                        thumbnail: "https://i.pinimg.com/736x/d3/7b/9c/d37b9c4ea3cf4ed90c0dcc3b0b19abb5.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    }
+                ]
+            }
+        };
+
+        const playlistGrid = document.getElementById("playlistGrid");
+        const modal = document.getElementById("playlistModal");
+
+        // Stampa le Cartelle/Playlist sulla pagina
+        function renderPlaylists() {
+            playlistGrid.innerHTML = ""; 
+            
+            for (const key in playlistsData) {
+                const list = playlistsData[key];
+                const videoCount = list.videos.length;
+                
+                const card = document.createElement("div");
+                card.className = "playlist-card";
+                card.onclick = () => openPlaylist(key); 
+                
+                card.innerHTML = `
+                    <div class="playlist-thumb-container">
+                        <img src="${list.coverImage}" alt="Cover">
+                        <div class="video-count-badge">▶ ${videoCount} VIDEO</div>
+                        <div class="open-playlist-text">APRI PLAYLIST</div>
+                    </div>
+                    <div class="playlist-info">
+                        <span class="playlist-tag ${list.badgeClass}">${list.categoryTag}</span>
+                        <h2 class="playlist-title">${list.playlistTitle}</h2>
+                    </div>
+                `;
+                
+                playlistGrid.appendChild(card);
+            }
+        }
+
+        // Apre il pop-up e genera la lista dei video
+        function openPlaylist(playlistKey) {
+            const data = playlistsData[playlistKey];
+            
+            document.getElementById("modalTitle").innerText = data.playlistTitle;
+            
+            const tagElement = document.getElementById("modalTag");
+            tagElement.innerText = data.categoryTag;
+            tagElement.className = `modal-header-tag ${data.badgeClass}`;
+            
+            const videoListContainer = document.getElementById("modalVideoList");
+            videoListContainer.innerHTML = ""; // Svuota la lista vecchia
+            
+            // Crea un link per ogni video nella playlist
+            data.videos.forEach(video => {
+                const videoLink = document.createElement("a");
+                videoLink.className = "video-item-link";
+                videoLink.href = video.youtubeLink;
+                videoLink.target = "_blank"; // Apre sempre in una nuova scheda
+                
+                videoLink.innerHTML = `
+                    <div class="video-item-thumb">
+                        <img src="${video.thumbnail}" alt="Thumb">
+                        <div class="video-item-play">▶</div>
+                    </div>
+                    <div class="video-item-info">
+                        <span class="video-item-date">${video.date}</span>
+                        <h3 class="video-item-title">${video.title}</h3>
+                    </div>
+                `;
+                
+                videoListContainer.appendChild(videoLink);
+            });
+
+            modal.classList.add("active");
+        }
+
+        function closePlaylist() {
+            modal.classList.remove("active");
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closePlaylist();
+            }
+        }
+
+        // Avvia la magia
+        renderPlaylists();
+
+    </script>
+</body>
+</html>
