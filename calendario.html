@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cortis Italia - Calendario</title>
     
-    <!-- Importazione dei font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -30,7 +29,6 @@
             --color-perf: #e67e22;    /* Arancione: Esibizioni */
             --color-other: #FF1493;   /* Fucsia: Altro / Varie */
             --color-award: #D4AF37;   /* Oro: Premiazioni! */
-            --color-more: #555555;    /* Grigio: Bottone "More" */
 
             --font-logo: 'Anton', sans-serif;
             --font-titles: 'Bebas Neue', sans-serif;
@@ -46,6 +44,7 @@
             background-size: 25px 25px;
             color: var(--text-dark);
             line-height: 1.6;
+            overflow-x: hidden; /* Blocca lo scroll orizzontale! */
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -161,6 +160,7 @@
             border-radius: 15px;
             box-shadow: 8px 8px 0px var(--green-light);
             overflow: hidden;
+            width: 100%; /* Impedisce di sbordare su mobile */
         }
         
         .month-header {
@@ -173,8 +173,10 @@
             letter-spacing: 2px;
         }
 
+        /* LA MAGIA DELLA GRIGLIA: PC VS MOBILE */
         .calendar-grid {
             display: grid;
+            /* Su PC crea 7 colonne perfette */
             grid-template-columns: repeat(7, 1fr);
             background-color: var(--green-light); 
             gap: 2px; 
@@ -198,6 +200,7 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
+            position: relative; /* Aiuta a mantenere l'ordine interno */
         }
         .day-cell.empty { background-color: #faf9f5; }
 
@@ -209,35 +212,40 @@
             margin-bottom: 5px;
         }
 
+        /* Quando su mobile la cella non ha eventi, la nascondiamo per pulizia (Opzionale, ma consigliato) */
+        .day-cell.no-events-mobile { display: flex; } 
+
         .events-container {
             display: flex;
             flex-direction: column;
-            gap: 4px; 
+            gap: 6px; 
             margin-top: auto; 
+            width: 100%;
         }
 
         /* BARRE DEGLI EVENTI */
         .event-bar {
             width: 100%;
-            padding: 4px 6px;
+            padding: 6px 8px;
             border-radius: 4px;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: var(--white);
             text-transform: uppercase;
             cursor: pointer;
+            text-align: center; /* Più leggibile */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            
+            /* Su PC taglia il testo se è troppo lungo, su mobile no */
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; 
-            text-align: left;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, opacity 0.2s ease;
         }
         .event-bar:hover {
             transform: scale(1.02);
             opacity: 0.9;
         }
-        .event-bar.center { text-align: center; }
 
         /* CLASSI DEI COLORI */
         .bg-cb { background-color: var(--color-cb); }
@@ -247,8 +255,7 @@
         .bg-bday { background-color: var(--color-bday); color: var(--text-dark); } 
         .bg-perf { background-color: var(--color-perf); }
         .bg-other { background-color: var(--color-other); } 
-        .bg-award { background-color: var(--color-award); color: var(--text-dark); } /* Oro per i premi! */
-        .bg-more { background-color: var(--color-more); text-align: center; }
+        .bg-award { background-color: var(--color-award); color: var(--text-dark); }
 
         /* --- Pop-up Singolo (Modal) --- */
         .modal {
@@ -333,42 +340,6 @@
             text-align: left;
         }
 
-        /* --- STILI PER IL MODAL "MORE" --- */
-        .day-events-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .day-event-item {
-            background-color: var(--beige);
-            border: 2px solid var(--green-light);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: left;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.05);
-        }
-        
-        .day-event-item .cat-badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 4px;
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        
-        .day-event-item h3 {
-            color: var(--green-dark);
-            font-family: var(--font-titles);
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            line-height: 1;
-        }
-
         /* --- Piè di pagina --- */
         footer {
             background-color: var(--white);
@@ -382,7 +353,9 @@
         .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
         .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* --- Mobile Responsive --- */
+        /* =========================================
+           IL TRUCCO PER I TELEFONI (MOBILE RESPONSIVE)
+           ========================================= */
         @media screen and (max-width: 768px) {
             .logo-text { font-size: 1.8rem; }
             .hamburger { display: block; }
@@ -390,19 +363,62 @@
             .nav-tabs.active { display: flex; }
             .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
             
-            .calendar-layout { flex-direction: column; gap: 20px; }
+            .page-title { font-size: 3rem; }
             
+            /* Impila la Legenda sopra il Calendario */
+            .calendar-layout { flex-direction: column; gap: 20px; }
             .legend-section { width: 100%; padding: 15px; }
             .legend-toggle-btn { display: block; }
             .legend-content { display: none; } 
             .legend-content.active { display: block; margin-top: 15px; }
             .legend-title { display: none; }
 
-            .day-cell { min-height: 90px; padding: 4px; }
-            .day-name { font-size: 0.7rem; }
-            .event-bar { font-size: 0.55rem; padding: 3px; }
+            /* TRASFORMA LA GRIGLIA IN UNA LISTA VERTICALE! */
+            .calendar-section { border-radius: 10px; }
+            
+            .calendar-grid { 
+                display: flex; /* Non più grid a colonne, ma lista a discesa! */
+                flex-direction: column; 
+                gap: 1px; 
+            }
 
+            /* Nascondiamo le etichette dei giorni della settimana (LUN, MAR...) perché non servono più in verticale */
+            .day-name { display: none; }
+
+            /* Nascondiamo i giorni vuoti del mese per tenere pulita la lista */
+            .day-cell.empty { display: none; }
+
+            /* Come appare ogni singolo giorno sul telefono */
+            .day-cell { 
+                min-height: auto; /* L'altezza si adatta agli eventi */
+                padding: 15px; 
+                flex-direction: row; /* Il numero a sinistra, gli eventi a destra */
+                align-items: center;
+                gap: 15px;
+            }
+
+            .day-number { 
+                font-size: 2rem; /* Il numero del giorno diventa bello grande */
+                margin-bottom: 0;
+                width: 40px; /* Larghezza fissa per allinearli tutti */
+                text-align: center;
+                color: var(--green-dark);
+            }
+
+            .events-container { 
+                margin-top: 0; 
+                flex: 1; /* Prende tutto lo spazio rimanente */
+            }
+
+            .event-bar { 
+                font-size: 0.8rem; 
+                padding: 10px; /* Più grande per essere "cliccabile" col dito */
+                white-space: normal; /* SU MOBILE IL TESTO VA A CAPO SE SERVE! */
+            }
+
+            .modal-content { width: 95%; max-height: 90vh; padding: 30px 20px; }
             .close-btn { top: -15px; right: -5px; width: 45px; height: 45px; font-size: 1.8rem; }
+            .modal-title { font-size: 2rem; }
 
             .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
         }
@@ -410,7 +426,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo">
@@ -421,9 +436,9 @@
                 <ul class="nav-tabs" id="nav-menu">
                     <li><a href="introduzione.html">INTRODUZIONE</a></li>
                     <li><a href="musica.html">MUSICA</a></li>
-                    <li><a href="calendario.html">CALENDARIO</a></li>
+                    <li><a href="calendario.html" class="active">CALENDARIO</a></li>
                     <li><a href="guida.html">GUIDA</a></li>
-                    <li><a href="video.html" class="active">CONTENT</a></li>
+                    <li><a href="video.html">CONTENT</a></li>
                     <li><a href="shop.html">DOVE ACQUISTARE</a></li>
                 </ul>
             </nav>
@@ -435,7 +450,6 @@
         
         <div class="calendar-layout">
             
-            <!-- Colonna Sinistra: Legenda -->
             <div class="legend-section">
                 <button class="legend-toggle-btn" id="legendToggleBtn">MOSTRA LEGENDA ▼</button>
                 
@@ -449,12 +463,10 @@
                     <div class="legend-item"><span class="legend-bar bg-bday">COMPLEANNI</span></div>
                     <div class="legend-item"><span class="legend-bar bg-perf">ESIBIZIONI</span></div>
                     <div class="legend-item"><span class="legend-bar bg-other">ALTRO / VARIE</span></div>
-                    <!-- NUOVA CATEGORIA IN LEGENDA -->
                     <div class="legend-item"><span class="legend-bar bg-award">PREMIAZIONI</span></div>
                 </div>
             </div>
 
-            <!-- Colonna Destra: Calendario SETTEMBRE 2026 -->
             <div class="calendar-section">
                 <div class="month-header">SETTEMBRE 2026</div>
                 
@@ -467,14 +479,12 @@
                     <div class="day-name">SAB</div>
                     <div class="day-name">DOM</div>
 
-                    <!-- Settembre 2026 inizia di Martedì, quindi 1 cella vuota -->
                     <div class="day-cell empty"></div>
                     
-                    <div class="day-cell"><span class="day-number">1</span></div>
-                    <div class="day-cell"><span class="day-number">2</span></div>
-                    <div class="day-cell"><span class="day-number">3</span></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">1</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">2</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">3</span><div class="events-container"></div></div>
                     
-                    <!-- GIORNO 4 -->
                     <div class="day-cell">
                         <span class="day-number">4</span>
                         <div class="events-container">
@@ -482,7 +492,6 @@
                         </div>
                     </div>
                     
-                    <!-- GIORNO 5 -->
                     <div class="day-cell">
                         <span class="day-number">5</span>
                         <div class="events-container">
@@ -490,7 +499,6 @@
                         </div>
                     </div>
                     
-                    <!-- GIORNO 6 -->
                     <div class="day-cell">
                         <span class="day-number">6</span>
                         <div class="events-container">
@@ -498,7 +506,6 @@
                         </div>
                     </div>
                     
-                    <!-- GIORNO 7 -->
                     <div class="day-cell">
                         <span class="day-number">7</span>
                         <div class="events-container">
@@ -506,12 +513,11 @@
                         </div>
                     </div>
                     
-                    <div class="day-cell"><span class="day-number">8</span></div>
-                    <div class="day-cell"><span class="day-number">9</span></div>
-                    <div class="day-cell"><span class="day-number">10</span></div>
-                    <div class="day-cell"><span class="day-number">11</span></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">8</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">9</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">10</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">11</span><div class="events-container"></div></div>
                     
-                    <!-- GIORNO 12 -->
                     <div class="day-cell">
                         <span class="day-number">12</span>
                         <div class="events-container">
@@ -519,14 +525,13 @@
                         </div>
                     </div>
                     
-                    <div class="day-cell"><span class="day-number">13</span></div>
-                    <div class="day-cell"><span class="day-number">14</span></div>
-                    <div class="day-cell"><span class="day-number">15</span></div>
-                    <div class="day-cell"><span class="day-number">16</span></div>
-                    <div class="day-cell"><span class="day-number">17</span></div>
-                    <div class="day-cell"><span class="day-number">18</span></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">13</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">14</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">15</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">16</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">17</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">18</span><div class="events-container"></div></div>
                     
-                    <!-- GIORNO 19 -->
                     <div class="day-cell">
                         <span class="day-number">19</span>
                         <div class="events-container">
@@ -534,7 +539,6 @@
                         </div>
                     </div>
                     
-                    <!-- GIORNO 20 -->
                     <div class="day-cell">
                         <span class="day-number">20</span>
                         <div class="events-container">
@@ -542,9 +546,8 @@
                         </div>
                     </div>
                     
-                    <div class="day-cell"><span class="day-number">21</span></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">21</span><div class="events-container"></div></div>
                     
-                    <!-- GIORNO 22 -->
                     <div class="day-cell">
                         <span class="day-number">22</span>
                         <div class="events-container">
@@ -552,16 +555,15 @@
                         </div>
                     </div>
                     
-                    <div class="day-cell"><span class="day-number">23</span></div>
-                    <div class="day-cell"><span class="day-number">24</span></div>
-                    <div class="day-cell"><span class="day-number">25</span></div>
-                    <div class="day-cell"><span class="day-number">26</span></div>
-                    <div class="day-cell"><span class="day-number">27</span></div>
-                    <div class="day-cell"><span class="day-number">28</span></div>
-                    <div class="day-cell"><span class="day-number">29</span></div>
-                    <div class="day-cell"><span class="day-number">30</span></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">23</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">24</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">25</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">26</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">27</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">28</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">29</span><div class="events-container"></div></div>
+                    <div class="day-cell no-events-mobile"><span class="day-number">30</span><div class="events-container"></div></div>
                     
-                    <!-- Fine Mese -->
                     <div class="day-cell empty"></div>
                     <div class="day-cell empty"></div>
                     <div class="day-cell empty"></div>
@@ -571,7 +573,6 @@
         </div>
     </div>
 
-    <!-- 1. POP-UP PER EVENTO SINGOLO -->
     <div class="modal" id="singleEventModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('singleEventModal')">&times;</span>
@@ -582,20 +583,6 @@
         </div>
     </div>
 
-    <!-- 2. POP-UP PER LA GIORNATA INTERA (TASTO MORE) -->
-    <div class="modal" id="dayListModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('dayListModal')">&times;</span>
-            <h2 class="modal-title" id="dayListTitle">Data</h2>
-            <p style="color: var(--green-dark); font-weight: bold; margin-bottom: 10px;">Tutti gli eventi di oggi:</p>
-            
-            <div class="day-events-list" id="dayEventsContainer">
-                <!-- Verrà riempito in automatico da JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer Pulito -->
     <footer>
         <div class="relative-footer">
             <div class="footer-container">
@@ -617,7 +604,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
         const hamburger = document.getElementById('hamburger-menu');
         const navMenu = document.getElementById('nav-menu');
@@ -669,7 +655,7 @@
                 date: "12 Settembre 2026",
                 category: "TOUR / LIVE",
                 colorClass: "bg-tour",
-                desc: "I Cortis volano in Europa per un'esibizione spettacolare al Music Bank a BARCELLONA! 🇪🇸 "
+                desc: "I Cortis volano in Europa per un'esibizione spettacolare al Music Bank a BARCELLONA! 🇪🇸 (Nota: L'evento si terrà a Madrid come da annuncio ufficiale)"
             },
             ev_sep19: {
                 title: "THE FACT MUSIC AWARDS 2026",
@@ -695,7 +681,6 @@
         };
 
         const singleModal = document.getElementById("singleEventModal");
-        const listModal = document.getElementById("dayListModal");
 
         // APRE IL POPUP DI UN SOLO EVENTO
         function openSingleEvent(eventId) {
@@ -720,32 +705,6 @@
             singleModal.classList.add("active");
         }
 
-        // APRE IL POPUP CON LA LISTA DI TUTTI GLI EVENTI DEL GIORNO
-        function openDayList(dateStr, eventsArray) {
-            document.getElementById("dayListTitle").innerText = dateStr;
-            const container = document.getElementById("dayEventsContainer");
-            container.innerHTML = ""; 
-            
-            eventsArray.forEach(id => {
-                const data = eventsData[id];
-                if(data) {
-                    const item = document.createElement("div");
-                    item.className = "day-event-item";
-                    
-                    const textColor = (data.colorClass === 'bg-bday' || data.colorClass === 'bg-award') ? 'color: var(--text-dark);' : 'color: var(--white);';
-
-                    item.innerHTML = `
-                        <span class="cat-badge ${data.colorClass}" style="${textColor}">${data.category}</span>
-                        <h3>${data.title}</h3>
-                        <p>${data.desc}</p>
-                    `;
-                    container.appendChild(item);
-                }
-            });
-
-            listModal.classList.add("active");
-        }
-
         // CHIUDE I POPUP
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove("active");
@@ -753,8 +712,22 @@
 
         window.onclick = function(event) {
             if (event.target == singleModal) closeModal('singleEventModal');
-            if (event.target == listModal) closeModal('dayListModal');
         }
+        
+        /* MAGIA RESPONSIVE: Nascondere i giorni vuoti su Mobile (Opzionale ma pulito) */
+        function adaptCalendarForMobile() {
+            const emptyDays = document.querySelectorAll('.day-cell.no-events-mobile');
+            if(window.innerWidth <= 768) {
+                emptyDays.forEach(day => day.style.display = 'none');
+            } else {
+                emptyDays.forEach(day => day.style.display = 'flex');
+            }
+        }
+        
+        // Esegue al caricamento e al ridimensionamento
+        window.addEventListener('load', adaptCalendarForMobile);
+        window.addEventListener('resize', adaptCalendarForMobile);
+
     </script>
 </body>
 </html>
