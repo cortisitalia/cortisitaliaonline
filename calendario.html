@@ -45,7 +45,8 @@
             background-size: 25px 25px;
             color: var(--text-dark);
             line-height: 1.6;
-            overflow-x: hidden;
+            /* BLOCCA LO SCROLL ORIZZONTALE SULL'INTERA PAGINA */
+            overflow-x: hidden; 
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -181,6 +182,7 @@
             background-color: var(--green-light); 
             gap: 2px; 
             border-top: 2px solid var(--green-light);
+            width: 100%; /* Sicurezza */
         }
 
         .day-name {
@@ -367,24 +369,35 @@
             .legend-content.active { display: block; margin-top: 15px; }
             .legend-title { display: none; }
 
-            /* Rimpiccioliamo la griglia mantenendo le 7 colonne! */
+            /* Rimpiccioliamo la griglia per adattarla allo schermo! Niente scroll! */
             .calendar-section { 
                 width: 100%; 
-                overflow-x: auto; /* Se lo schermo è microscopico, permette di scorrere un po' a destra */
+                border-radius: 8px; /* Bordi leggermente meno arrotondati su mobile */
             }
             .calendar-grid { 
-                min-width: 500px; /* Non facciamo collassare i quadratini troppo */
+                width: 100%; /* Si adatta alla grandezza dello schermo al 100% */
+                gap: 1px; /* Riduciamo lo spazio tra le celle */
             }
-            .day-cell { min-height: 80px; padding: 4px; }
-            .day-name { font-size: 0.65rem; padding: 5px 2px; }
-            .day-number { font-size: 0.9rem; margin-bottom: 2px; }
+            .day-cell { 
+                min-height: 60px; /* Altezze più basse per farci stare tutto */
+                padding: 2px; /* Meno padding */
+            }
+            .day-name { 
+                font-size: 0.55rem; /* Giorni della settimana molto più piccoli */
+                padding: 3px 1px; 
+            }
+            .day-number { 
+                font-size: 0.8rem; /* Numero più piccolo */
+                margin-bottom: 2px; 
+            }
             
-            /* Il testo dell'evento va a capo così si legge bene */
+            /* Il testo dell'evento diventa micro e va a capo! */
             .event-bar { 
-                font-size: 0.55rem; 
-                padding: 3px 2px; 
-                line-height: 1.1; 
-                white-space: normal; 
+                font-size: 0.45rem; /* Testo minuscolo */
+                padding: 2px 1px; 
+                line-height: 1.2; 
+                white-space: normal; /* VA A CAPO */
+                word-wrap: break-word; /* Spezza la parola se lunghissima */
                 text-overflow: clip; 
             }
 
