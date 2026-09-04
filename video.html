@@ -28,7 +28,7 @@
             --color-mcountdown: #AC92EC;
             --color-mbank: #4FC1E9;
             --color-mcore: #ED5565;
-            --color-award: #D4AF37;
+            --color-award: #D4AF37; /* Oro, ora usato per FESTIVAL */
             --color-dance: #8e44ad;
             
             --font-logo: 'Anton', sans-serif;
@@ -483,10 +483,8 @@
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
 
         /* ========================================================================
-        IL DATABASE DEFINITIVO E COMPLETO! 📁🎥
-        Ho ripristinato ogni singola riga che avevi scritto.
-        ========================================================================
-        */
+        DATABASE DELLE PLAYLIST 
+        ======================================================================== */
         const playlistsData = {
             mv: {
                 id: "mv",
@@ -797,6 +795,22 @@
                         date: "22 Agosto 2026",
                         sortDate: "2026-08-22",
                         thumbnail: "https://i.pinimg.com/736x/e6/23/e9/e623e9264241f5c6077a7597ff99a233.jpg",
+                        youtubeLink: "https://www.youtube.com"
+                    }
+                ]
+            },
+            awards: {
+                id: "awards",
+                playlistTitle: "Festival & Awards Shows",
+                categoryTag: "FESTIVAL",
+                badgeClass: "bg-award",
+                coverImage: "https://i.pinimg.com/736x/89/8a/e0/898ae0feb66bbcaf2a4d2aa07d88b0d0.jpg",
+                videos: [
+                    {
+                        title: "[The Fact Music Awards 2026] CORTIS Win Popularity Award!",
+                        date: "19 Settembre 2026",
+                        sortDate: "2026-09-19",
+                        thumbnail: "https://i.pinimg.com/736x/89/8a/e0/898ae0feb66bbcaf2a4d2aa07d88b0d0.jpg",
                         youtubeLink: "https://www.youtube.com"
                     }
                 ]
