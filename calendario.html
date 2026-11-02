@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cortis Italia - Calendario</title>
-    
-    <!-- Importazione dei font -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- Stili Generali --- */
         :root {
             --white: #ffffff;
             --green-light: #81b093;
@@ -20,16 +18,15 @@
             --beige: #f5f1e6;
             --beige-darker: #dbd4c0;
             --text-dark: #1a1a1a;
-            
-            /* COLORI UFFICIALI PER IL CALENDARIO */
-            --color-cb: #27ae60;      /* Verde: Comeback */
-            --color-tour: #2980b9;    /* Blu: Tour */
-            --color-yt: #e74c3c;      /* Rosso: YouTube Video */
-            --color-tv: #9b59b6;      /* Viola: Programmi TV */
-            --color-bday: #f1c40f;    /* Giallo: Compleanni */
-            --color-perf: #e67e22;    /* Arancione: Esibizioni */
-            --color-other: #FF1493;   /* Fucsia: Altro / Varie */
-            --color-award: #D4AF37;   /* Oro: Premiazioni! */
+
+            --color-cb: #27ae60;
+            --color-tour: #2980b9;
+            --color-yt: #e74c3c;
+            --color-tv: #9b59b6;
+            --color-bday: #f1c40f;
+            --color-perf: #e67e22;
+            --color-other: #FF1493;
+            --color-award: #D4AF37;
 
             --font-logo: 'Anton', sans-serif;
             --font-titles: 'Bebas Neue', sans-serif;
@@ -45,8 +42,7 @@
             background-size: 25px 25px;
             color: var(--text-dark);
             line-height: 1.6;
-            /* BLOCCA LO SCROLL ORIZZONTALE SULL'INTERA PAGINA */
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -61,7 +57,6 @@
             position: relative;
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
-        
         .logo-text {
             font-family: var(--font-logo);
             color: var(--green-light);
@@ -72,7 +67,6 @@
             transition: all 0.3s ease;
         }
         .logo-text:hover { transform: scale(1.05); color: var(--green-dark); }
-
         .nav-tabs { display: flex; gap: 10px; }
         .nav-tabs a {
             padding: 8px 15px;
@@ -88,7 +82,7 @@
         .nav-tabs a:hover, .nav-tabs a.active { background-color: var(--green-light); }
         .hamburger { display: none; font-size: 2rem; color: var(--green-dark); cursor: pointer; }
 
-        /* --- Layout Calendario (Legenda + Griglia) --- */
+        /* --- Layout --- */
         .page-title {
             text-align: center;
             font-family: var(--font-titles);
@@ -97,7 +91,6 @@
             margin: 40px 0 30px;
             text-shadow: 2px 2px 0px var(--white);
         }
-
         .calendar-layout {
             display: flex;
             gap: 40px;
@@ -105,7 +98,7 @@
             padding-bottom: 60px;
         }
 
-        /* -- Legenda (Sinistra) -- */
+        /* --- Legenda --- */
         .legend-section {
             width: 250px;
             background-color: var(--white);
@@ -113,7 +106,7 @@
             border: 3px solid var(--green-dark);
             border-radius: 15px;
             box-shadow: 8px 8px 0px var(--green-light);
-            flex-shrink: 0; 
+            flex-shrink: 0;
         }
         .legend-title {
             font-family: var(--font-titles);
@@ -123,9 +116,7 @@
             border-bottom: 2px solid var(--green-light);
             padding-bottom: 10px;
         }
-        
         .legend-item { margin-bottom: 12px; }
-        
         .legend-bar {
             display: block;
             padding: 6px 10px;
@@ -138,8 +129,6 @@
             letter-spacing: 0.5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        /* Bottone Toggle Legenda (Solo Telefono) */
         .legend-toggle-btn {
             display: none;
             width: 100%;
@@ -153,191 +142,212 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
+        .bg-cb { background-color: var(--color-cb); }
+        .bg-tour { background-color: var(--color-tour); }
+        .bg-yt { background-color: var(--color-yt); }
+        .bg-tv { background-color: var(--color-tv); }
+        .bg-bday { background-color: var(--color-bday); color: var(--text-dark); }
+        .bg-perf { background-color: var(--color-perf); }
+        .bg-other { background-color: var(--color-other); }
+        .bg-award { background-color: var(--color-award); color: var(--text-dark); }
 
-        /* -- Calendario (Destra) -- */
-        .calendar-section {
-            flex: 1; 
+        /* --- Calendario personalizzato --- */
+        .cal-box {
+            flex: 1;
+            min-width: 0;
             background-color: var(--white);
             border: 3px solid var(--green-dark);
             border-radius: 15px;
             box-shadow: 8px 8px 0px var(--green-light);
             overflow: hidden;
-            width: 100%; 
         }
-        
-        .month-header {
+        .cal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
             background-color: var(--green-dark);
             color: var(--white);
-            text-align: center;
-            padding: 15px;
-            font-family: var(--font-titles);
-            font-size: 2.5rem;
-            letter-spacing: 2px;
+            padding: 14px 20px;
         }
-
-        /* LA GRIGLIA A 7 COLONNE */
-        .calendar-grid {
+        .cal-month {
+            font-family: var(--font-titles);
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            flex: 1;
+        }
+        .cal-btn {
+            background: var(--green-light);
+            color: var(--green-dark);
+            border: none;
+            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .cal-btn:hover { background: var(--white); transform: scale(1.08); }
+        .cal-today-btn {
+            width: auto;
+            padding: 0 14px;
+            font-family: var(--font-titles);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+        .cal-weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            background-color: var(--green-light); 
-            gap: 2px; 
-            border-top: 2px solid var(--green-light);
-            width: 100%; /* Sicurezza */
-        }
-
-        .day-name {
-            background-color: var(--beige-darker);
+            background-color: var(--green-light);
             color: var(--green-dark);
-            text-align: center;
-            font-weight: bold;
-            padding: 10px 5px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .day-cell {
-            background-color: var(--white);
-            min-height: 120px;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            position: relative; 
-        }
-        .day-cell.empty { background-color: #faf9f5; }
-
-        .day-number {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            align-self: flex-start;
-            margin-bottom: 5px;
-        }
-
-        .events-container {
-            display: flex;
-            flex-direction: column;
-            gap: 4px; 
-            margin-top: auto; 
-            width: 100%;
-        }
-
-        /* BARRE DEGLI EVENTI */
-        .event-bar {
-            width: 100%;
-            padding: 4px 6px;
-            border-radius: 4px;
-            font-size: 0.65rem;
             font-weight: 700;
-            color: var(--white);
+            font-size: 0.8rem;
             text-transform: uppercase;
-            cursor: pointer;
-            text-align: center; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, opacity 0.2s ease;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis; 
-        }
-        .event-bar:hover {
-            transform: scale(1.02);
-            opacity: 0.9;
-        }
-
-        /* CLASSI DEI COLORI */
-        .bg-cb { background-color: var(--color-cb); }
-        .bg-tour { background-color: var(--color-tour); }
-        .bg-yt { background-color: var(--color-yt); }
-        .bg-tv { background-color: var(--color-tv); }
-        .bg-bday { background-color: var(--color-bday); color: var(--text-dark); } 
-        .bg-perf { background-color: var(--color-perf); }
-        .bg-other { background-color: var(--color-other); } 
-        .bg-award { background-color: var(--color-award); color: var(--text-dark); }
-
-        /* --- Pop-up Singolo (Modal) --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            align-items: center;
-            justify-content: center;
-        }
-        .modal.active { display: flex; }
-
-        .modal-content {
-            background-color: var(--white);
-            border: 4px solid var(--green-dark);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px; 
-            max-height: 85vh;
-            padding: 40px 30px;
-            position: relative;
-            box-shadow: 15px 15px 0px var(--green-light);
             text-align: center;
-            overflow-y: auto;
         }
-
-        .close-btn {
-            position: absolute;
-            top: -20px; right: -20px; 
-            width: 50px;
-            height: 50px;
-            background-color: var(--green-dark);
+        .cal-weekdays div { padding: 8px 0; }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            position: relative;
+            min-height: 300px;
+        }
+        .cal-day {
+            min-height: 105px;
+            padding: 6px;
+            border-right: 1px solid var(--beige-darker);
+            border-bottom: 1px solid var(--beige-darker);
+            background-color: var(--white);
+            cursor: pointer;
+            transition: background 0.15s ease;
+            overflow: hidden;
+        }
+        .cal-day:nth-child(7n) { border-right: none; }
+        .cal-day:hover { background-color: #f1f7f3; }
+        .cal-day.empty { background-color: var(--beige); cursor: default; }
+        .cal-day.empty:hover { background-color: var(--beige); }
+        .cal-day.today { background-color: #eaf4ee; }
+        .cal-num {
+            font-family: var(--font-titles);
+            font-size: 1.3rem;
+            color: var(--green-dark);
+            line-height: 1;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+        .cal-day.today .cal-num {
+            background: var(--green-dark);
             color: var(--white);
             border-radius: 50%;
+            min-width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            padding: 0 4px;
+        }
+        .ev-pill {
+            display: block;
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+        .ev-pill.dark-text { color: var(--text-dark); }
+        .ev-more { font-size: 0.7rem; font-weight: 700; color: var(--green-dark); }
+        .ev-dots { display: none; gap: 3px; flex-wrap: wrap; margin-top: 2px; }
+        .ev-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        .cal-status {
+            position: absolute;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-        .close-btn:hover { background-color: var(--black); transform: scale(1.1); }
-
-        #modalEventCategory {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            color: var(--white);
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-        }
-
-        .modal-title {
-            font-family: var(--font-titles);
-            font-size: 2.8rem;
-            color: var(--green-dark);
-            margin-bottom: 5px;
-            line-height: 1.1;
-        }
-
-        .modal-date {
-            font-weight: 700;
-            color: var(--green-light);
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .modal-desc {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            background-color: var(--beige);
+            text-align: center;
             padding: 20px;
-            border-radius: 10px;
-            border: 2px dashed var(--green-light);
-            text-align: left;
+            background: rgba(255,255,255,0.85);
+            font-weight: 600;
+            color: var(--green-dark);
+            z-index: 2;
         }
+        .cal-status.hidden { display: none; }
 
-        /* --- Piè di pagina --- */
+        /* --- Modale dettagli --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--white);
+            border: 3px solid var(--green-dark);
+            border-radius: 15px;
+            box-shadow: 8px 8px 0px var(--green-light);
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 22px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px; right: 14px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--green-dark);
+            cursor: pointer;
+        }
+        .modal h3 {
+            font-family: var(--font-titles);
+            font-size: 2rem;
+            color: var(--green-dark);
+            border-bottom: 2px solid var(--green-light);
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+            text-transform: capitalize;
+            padding-right: 30px;
+        }
+        .modal-event {
+            border-left: 6px solid var(--green-light);
+            background: var(--beige);
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+        }
+        .modal-event .tag {
+            display: inline-block;
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+        .modal-event .tag.dark-text { color: var(--text-dark); }
+        .modal-event h4 { font-size: 1rem; color: var(--text-dark); }
+        .modal-event p { font-size: 0.85rem; margin-top: 4px; white-space: pre-line; }
+        .modal-event .meta { font-size: 0.8rem; font-weight: 600; color: var(--green-dark); }
+        .modal-empty { font-size: 0.9rem; text-align: center; padding: 10px; }
+
+        /* --- Footer --- */
         footer {
             background-color: var(--white);
             color: var(--green-dark);
@@ -350,60 +360,29 @@
         .footer-column p { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; }
         .relative-footer { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* =========================================
-           IL TRUCCO PER LA GRIGLIA SU TELEFONO
-           ========================================= */
+        /* --- Mobile --- */
         @media screen and (max-width: 768px) {
             .logo-text { font-size: 1.8rem; }
             .hamburger { display: block; }
             .nav-tabs { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white); border-bottom: 3px solid var(--green-dark); z-index: 1000; gap: 0; }
             .nav-tabs.active { display: flex; }
             .nav-tabs a { border: none; border-bottom: 1px solid var(--beige-darker); border-radius: 0; padding: 15px 20px; text-align: center; }
-            
+
             .page-title { font-size: 3rem; }
-            
             .calendar-layout { flex-direction: column; gap: 20px; }
             .legend-section { width: 100%; padding: 15px; }
             .legend-toggle-btn { display: block; }
-            .legend-content { display: none; } 
+            .legend-content { display: none; }
             .legend-content.active { display: block; margin-top: 15px; }
             .legend-title { display: none; }
+            .cal-box { width: 100%; }
 
-            /* Rimpiccioliamo la griglia per adattarla allo schermo! Niente scroll! */
-            .calendar-section { 
-                width: 100%; 
-                border-radius: 8px; /* Bordi leggermente meno arrotondati su mobile */
-            }
-            .calendar-grid { 
-                width: 100%; /* Si adatta alla grandezza dello schermo al 100% */
-                gap: 1px; /* Riduciamo lo spazio tra le celle */
-            }
-            .day-cell { 
-                min-height: 60px; /* Altezze più basse per farci stare tutto */
-                padding: 2px; /* Meno padding */
-            }
-            .day-name { 
-                font-size: 0.55rem; /* Giorni della settimana molto più piccoli */
-                padding: 3px 1px; 
-            }
-            .day-number { 
-                font-size: 0.8rem; /* Numero più piccolo */
-                margin-bottom: 2px; 
-            }
-            
-            /* Il testo dell'evento diventa micro e va a capo! */
-            .event-bar { 
-                font-size: 0.45rem; /* Testo minuscolo */
-                padding: 2px 1px; 
-                line-height: 1.2; 
-                white-space: normal; /* VA A CAPO */
-                word-wrap: break-word; /* Spezza la parola se lunghissima */
-                text-overflow: clip; 
-            }
-
-            .modal-content { width: 95%; max-height: 90vh; padding: 30px 20px; }
-            .close-btn { top: -15px; right: -5px; width: 45px; height: 45px; font-size: 1.8rem; }
-            .modal-title { font-size: 2rem; }
+            .cal-month { font-size: 1.6rem; }
+            .cal-head { padding: 10px; }
+            .cal-day { min-height: 62px; padding: 4px; }
+            .cal-num { font-size: 1.1rem; }
+            .ev-pill, .ev-more { display: none; }
+            .ev-dots { display: flex; }
 
             .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
         }
@@ -411,7 +390,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo">
@@ -433,16 +411,14 @@
 
     <div class="container">
         <h1 class="page-title">CALENDARIO EVENTI</h1>
-        
+
         <div class="calendar-layout">
-            
-            <!-- Colonna Sinistra: Legenda -->
+
+            <!-- Legenda -->
             <div class="legend-section">
                 <button class="legend-toggle-btn" id="legendToggleBtn">MOSTRA LEGENDA ▼</button>
-                
                 <div class="legend-content" id="legendContent">
                     <h2 class="legend-title">LEGENDA</h2>
-                    
                     <div class="legend-item"><span class="legend-bar bg-cb">COMEBACK</span></div>
                     <div class="legend-item"><span class="legend-bar bg-tour">TOUR / LIVE</span></div>
                     <div class="legend-item"><span class="legend-bar bg-yt">YOUTUBE VIDEO</span></div>
@@ -451,138 +427,40 @@
                     <div class="legend-item"><span class="legend-bar bg-perf">ESIBIZIONI</span></div>
                     <div class="legend-item"><span class="legend-bar bg-other">ALTRO / VARIE</span></div>
                     <div class="legend-item"><span class="legend-bar bg-award">PREMIAZIONI</span></div>
+                    <p style="font-size: 0.75rem; margin-top: 20px; text-align: center; color: var(--green-dark);">
+                        Clicca sugli eventi per scoprire i dettagli!
+                    </p>
                 </div>
             </div>
 
-            <!-- Colonna Destra: Calendario SETTEMBRE 2026 -->
-            <div class="calendar-section">
-                <div class="month-header">SETTEMBRE 2026</div>
-                
-                <div class="calendar-grid">
-                    <div class="day-name">LUN</div>
-                    <div class="day-name">MAR</div>
-                    <div class="day-name">MER</div>
-                    <div class="day-name">GIO</div>
-                    <div class="day-name">VEN</div>
-                    <div class="day-name">SAB</div>
-                    <div class="day-name">DOM</div>
-
-                    <!-- Settembre 2026 inizia di Martedì -->
-                    <div class="day-cell empty"></div>
-                    
-                    <div class="day-cell"><span class="day-number">1</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">2</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">3</span><div class="events-container"></div></div>
-                    
-                    <!-- GIORNO 4 -->
-                    <div class="day-cell">
-                        <span class="day-number">4</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep4')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
-                    <!-- GIORNO 5 -->
-                    <div class="day-cell">
-                        <span class="day-number">5</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep5')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
-                    <!-- GIORNO 6 -->
-                    <div class="day-cell">
-                        <span class="day-number">6</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep6')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
-                    <!-- GIORNO 7 -->
-                    <div class="day-cell">
-                        <span class="day-number">7</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_sep7')">ESIBIZIONI</div>
-                        </div>
-                    </div>
-                    
-                    <div class="day-cell"><span class="day-number">8</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">9</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">10</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">11</span><div class="events-container"></div></div>
-                    
-                    <!-- GIORNO 12 -->
-                    <div class="day-cell">
-                        <span class="day-number">12</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-tour" onclick="openSingleEvent('ev_sep12')">TOUR / LIVE</div>
-                        </div>
-                    </div>
-                    
-                    <div class="day-cell"><span class="day-number">13</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">14</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">15</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">16</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">17</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">18</span><div class="events-container"></div></div>
-                    
-                    <!-- GIORNO 19 -->
-                    <div class="day-cell">
-                        <span class="day-number">19</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-award" onclick="openSingleEvent('ev_sep19')">PREMIAZIONI</div>
-                        </div>
-                    </div>
-                    
-                    <!-- GIORNO 20 -->
-                    <div class="day-cell">
-                        <span class="day-number">20</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_sep20')">ESIBIZIONI</div>
-                        </div>
-                    </div>
-                    
-                    <div class="day-cell"><span class="day-number">21</span><div class="events-container"></div></div>
-                    
-                    <!-- GIORNO 22 -->
-                    <div class="day-cell">
-                        <span class="day-number">22</span>
-                        <div class="events-container">
-                            <div class="event-bar bg-perf" onclick="openSingleEvent('ev_sep22')">ESIBIZIONI</div>
-                        </div>
-                    </div>
-                    
-                    <div class="day-cell"><span class="day-number">23</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">24</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">25</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">26</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">27</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">28</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">29</span><div class="events-container"></div></div>
-                    <div class="day-cell"><span class="day-number">30</span><div class="events-container"></div></div>
-                    
-                    <!-- Fine Mese -->
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
+            <!-- Calendario personalizzato -->
+            <div class="cal-box">
+                <div class="cal-head">
+                    <button class="cal-btn" id="prevBtn" aria-label="Mese precedente">&#8249;</button>
+                    <button class="cal-btn cal-today-btn" id="todayBtn">OGGI</button>
+                    <div class="cal-month" id="calMonth"></div>
+                    <button class="cal-btn" id="nextBtn" aria-label="Mese successivo">&#8250;</button>
+                </div>
+                <div class="cal-weekdays">
+                    <div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div>
+                </div>
+                <div class="cal-grid" id="calGrid">
+                    <div class="cal-status hidden" id="calStatus"></div>
                 </div>
             </div>
+
         </div>
     </div>
 
-    <!-- POP-UP PER EVENTO SINGOLO -->
-    <div class="modal" id="singleEventModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('singleEventModal')">&times;</span>
-            <span id="modalEventCategory" class="bg-cb">CATEGORIA</span>
-            <h2 class="modal-title" id="modalEventTitle">Titolo Evento</h2>
-            <div class="modal-date" id="modalEventDate">Data Evento</div>
-            <div class="modal-desc" id="modalEventDesc">Descrizione</div>
+    <!-- Modale dettagli -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" role="dialog" aria-modal="true">
+            <button class="modal-close" id="modalClose" aria-label="Chiudi">&times;</button>
+            <h3 id="modalTitle"></h3>
+            <div id="modalBody"></div>
         </div>
     </div>
 
-    <!-- Footer Pulito -->
     <footer>
         <div class="relative-footer">
             <div class="footer-container">
@@ -604,8 +482,229 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
+        /* =====================================================
+           CONFIGURAZIONE  (da modificare qui)
+           ===================================================== */
+        const CONFIG = {
+            calendarId: 'cortisitalia@gmail.com',
+            apiKey: 'AIzaSyDyG8G4gOBUVKedY4DsjAwCMueHU3GPatE'
+        };
+
+        // Categorie: etichetta + colore (stessi della legenda)
+        const CATEGORIES = {
+            cb:    { label: 'Comeback',      color: '#27ae60' },
+            tour:  { label: 'Tour / Live',   color: '#2980b9' },
+            yt:    { label: 'YouTube',       color: '#e74c3c' },
+            tv:    { label: 'Programmi TV',  color: '#9b59b6' },
+            bday:  { label: 'Compleanni',    color: '#f1c40f', darkText: true },
+            perf:  { label: 'Esibizioni',    color: '#e67e22' },
+            other: { label: 'Altro / Varie', color: '#FF1493' },
+            award: { label: 'Premiazioni',   color: '#D4AF37', darkText: true }
+        };
+
+        // 1) Se usi i colori degli eventi di Google Calendar, associa ogni colorId a una categoria.
+        //    (1 Lavanda, 2 Salvia, 3 Uva, 4 Fenicottero, 5 Banana, 6 Mandarino,
+        //     7 Pavone, 8 Grafite, 9 Mirtillo, 10 Basilico, 11 Pomodoro)
+        const COLOR_ID_MAP = {
+            '10': 'cb',
+            '9':  'tour',
+            '11': 'yt',
+            '3':  'tv',
+            '5':  'bday',
+            '6':  'perf',
+            '4':  'other',
+            '8':  'award'
+        };
+
+        // 2) In alternativa (o in più) riconosce la categoria da parole nel titolo.
+        //    Ha la precedenza sul colore.
+        const KEYWORDS = [
+            { cat: 'bday',  words: ['compleanno', 'birthday', '🎂'] },
+            { cat: 'cb',    words: ['comeback', 'release', 'uscita album', 'teaser'] },
+            { cat: 'tour',  words: ['tour', 'concerto', 'live', 'fanmeeting'] },
+            { cat: 'yt',    words: ['youtube', 'video', 'mv ', 'vlog'] },
+            { cat: 'tv',    words: ['programma', ' tv', 'show', 'puntata'] },
+            { cat: 'perf',  words: ['esibizione', 'performance', 'stage', 'music bank', 'inkigayo'] },
+            { cat: 'award', words: ['award', 'premio', 'premiazione'] }
+        ];
+
+        /* =====================================================
+           LOGICA
+           ===================================================== */
+        const MONTHS = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+        const grid = document.getElementById('calGrid');
+        const statusBox = document.getElementById('calStatus');
+        const monthLabel = document.getElementById('calMonth');
+        const cache = {};
+        let current = new Date(); current.setDate(1);
+        let monthEvents = {}; // 'YYYY-MM-DD' -> [eventi]
+
+        const pad = n => String(n).padStart(2, '0');
+        const key = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
+
+        function esc(s) {
+            const d = document.createElement('div');
+            d.textContent = s == null ? '' : s;
+            return d.innerHTML;
+        }
+        function plain(html) {
+            if (!html) return '';
+            const doc = new DOMParser().parseFromString(html.replace(/<br\s*\/?>/gi, '\n'), 'text/html');
+            return doc.body.textContent.trim();
+        }
+        function categoryOf(ev) {
+            const t = (' ' + (ev.summary || '') + ' ').toLowerCase();
+            for (const k of KEYWORDS) if (k.words.some(w => t.includes(w))) return k.cat;
+            if (ev.colorId && COLOR_ID_MAP[ev.colorId]) return COLOR_ID_MAP[ev.colorId];
+            return 'other';
+        }
+
+        function showStatus(msg) { statusBox.innerHTML = msg; statusBox.classList.remove('hidden'); }
+        function hideStatus() { statusBox.classList.add('hidden'); }
+
+        async function loadMonth(y, m) {
+            const ck = `${y}-${m}`;
+            if (cache[ck]) return cache[ck];
+            if (CONFIG.apiKey.startsWith('INSERISCI')) throw new Error('API key mancante');
+
+            const timeMin = new Date(y, m, 1).toISOString();
+            const timeMax = new Date(y, m + 1, 1).toISOString();
+            const url = 'https://www.googleapis.com/calendar/v3/calendars/' +
+                encodeURIComponent(CONFIG.calendarId) + '/events' +
+                `?key=${CONFIG.apiKey}&singleEvents=true&orderBy=startTime&maxResults=250` +
+                `&timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}`;
+
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Errore ' + res.status);
+            const data = await res.json();
+
+            const byDay = {};
+            (data.items || []).forEach(ev => {
+                const cat = categoryOf(ev);
+                const item = {
+                    title: ev.summary || '(senza titolo)',
+                    desc: plain(ev.description),
+                    location: ev.location || '',
+                    link: ev.htmlLink,
+                    cat,
+                    allDay: !!ev.start.date,
+                    time: ''
+                };
+                if (ev.start.date) {
+                    // tutto il giorno: la data di fine è esclusiva
+                    const s = new Date(ev.start.date + 'T00:00:00');
+                    const e = new Date(ev.end.date + 'T00:00:00');
+                    for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
+                        const k = key(d.getFullYear(), d.getMonth(), d.getDate());
+                        (byDay[k] = byDay[k] || []).push(item);
+                    }
+                } else {
+                    const s = new Date(ev.start.dateTime);
+                    const k = key(s.getFullYear(), s.getMonth(), s.getDate());
+                    const t = s.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' });
+                    (byDay[k] = byDay[k] || []).push({ ...item, time: t });
+                }
+            });
+            cache[ck] = byDay;
+            return byDay;
+        }
+
+        function render() {
+            const y = current.getFullYear(), m = current.getMonth();
+            monthLabel.textContent = `${MONTHS[m]} ${y}`;
+
+            grid.querySelectorAll('.cal-day').forEach(n => n.remove());
+            const offset = (new Date(y, m, 1).getDay() + 6) % 7; // settimana da lunedì
+            const days = new Date(y, m + 1, 0).getDate();
+            const now = new Date();
+            const frag = document.createDocumentFragment();
+
+            for (let i = 0; i < offset; i++) {
+                const e = document.createElement('div');
+                e.className = 'cal-day empty';
+                frag.appendChild(e);
+            }
+            for (let d = 1; d <= days; d++) {
+                const k = key(y, m, d);
+                const evs = monthEvents[k] || [];
+                const cell = document.createElement('div');
+                cell.className = 'cal-day';
+                if (d === now.getDate() && m === now.getMonth() && y === now.getFullYear()) cell.classList.add('today');
+                cell.dataset.date = k;
+
+                let html = `<span class="cal-num">${d}</span>`;
+                evs.slice(0, 3).forEach(ev => {
+                    const c = CATEGORIES[ev.cat];
+                    html += `<span class="ev-pill${c.darkText ? ' dark-text' : ''}" style="background:${c.color}" title="${esc(ev.title)}">${esc(ev.title)}</span>`;
+                });
+                if (evs.length > 3) html += `<span class="ev-more">+${evs.length - 3} altri</span>`;
+                if (evs.length) {
+                    html += '<div class="ev-dots">' + evs.slice(0, 6).map(ev =>
+                        `<span class="ev-dot" style="background:${CATEGORIES[ev.cat].color}"></span>`).join('') + '</div>';
+                }
+                cell.innerHTML = html;
+                cell.addEventListener('click', () => openDay(k));
+                frag.appendChild(cell);
+            }
+            grid.appendChild(frag);
+        }
+
+        async function go() {
+            const y = current.getFullYear(), m = current.getMonth();
+            monthEvents = {};
+            render();
+            showStatus('Carico gli eventi…');
+            try {
+                monthEvents = await loadMonth(y, m);
+                // evita race condition se l'utente ha cambiato mese nel frattempo
+                if (y === current.getFullYear() && m === current.getMonth()) {
+                    hideStatus();
+                    render();
+                }
+            } catch (err) {
+                showStatus('Non riesco a caricare gli eventi in questo momento.<br>Riprova più tardi!');
+                console.error(err);
+            }
+        }
+
+        /* --- Modale --- */
+        const overlay = document.getElementById('modalOverlay');
+        function openDay(k) {
+            const [y, m, d] = k.split('-').map(Number);
+            const date = new Date(y, m - 1, d);
+            document.getElementById('modalTitle').textContent =
+                date.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            const evs = monthEvents[k] || [];
+            const body = document.getElementById('modalBody');
+            if (!evs.length) {
+                body.innerHTML = '<p class="modal-empty">Nessun evento in questa data.</p>';
+            } else {
+                body.innerHTML = evs.map(ev => {
+                    const c = CATEGORIES[ev.cat];
+                    return `<div class="modal-event" style="border-left-color:${c.color}">
+                        <span class="tag${c.darkText ? ' dark-text' : ''}" style="background:${c.color}">${c.label}</span>
+                        <h4>${esc(ev.title)}</h4>
+                        ${ev.time ? `<div class="meta">🕒 ${ev.time} (ora italiana)</div>` : ''}
+                        ${ev.location ? `<div class="meta">📍 ${esc(ev.location)}</div>` : ''}
+                        ${ev.desc ? `<p>${esc(ev.desc)}</p>` : ''}
+                    </div>`;
+                }).join('');
+            }
+            overlay.classList.add('open');
+        }
+        const closeModal = () => overlay.classList.remove('open');
+        document.getElementById('modalClose').addEventListener('click', closeModal);
+        overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        /* --- Navigazione --- */
+        document.getElementById('prevBtn').addEventListener('click', () => { current.setMonth(current.getMonth() - 1); go(); });
+        document.getElementById('nextBtn').addEventListener('click', () => { current.setMonth(current.getMonth() + 1); go(); });
+        document.getElementById('todayBtn').addEventListener('click', () => { current = new Date(); current.setDate(1); go(); });
+
+        /* --- Menu mobile e legenda --- */
         const hamburger = document.getElementById('hamburger-menu');
         const navMenu = document.getElementById('nav-menu');
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
@@ -614,104 +713,10 @@
         const legendContent = document.getElementById('legendContent');
         legendToggleBtn.addEventListener('click', () => {
             legendContent.classList.toggle('active');
-            if (legendContent.classList.contains('active')) {
-                legendToggleBtn.innerText = "NASCONDI LEGENDA ▲";
-            } else {
-                legendToggleBtn.innerText = "MOSTRA LEGENDA ▼";
-            }
+            legendToggleBtn.innerText = legendContent.classList.contains('active') ? 'NASCONDI LEGENDA ▲' : 'MOSTRA LEGENDA ▼';
         });
 
-        /* TUTTI GLI EVENTI DI SETTEMBRE 2026 */
-        const eventsData = {
-            ev_sep4: {
-                title: "Tour <PUT YOUR PHONE DOWN>",
-                date: "4 Settembre 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Prima serata del 2026 CORTIS TOUR <PUT YOUR PHONE DOWN> a Kanagawa, in Giappone! 🇯🇵"
-            },
-            ev_sep5: {
-                title: "Tour <PUT YOUR PHONE DOWN> + Live Streaming",
-                date: "5 Settembre 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Seconda serata del tour a Kanagawa. Questa data sarà disponibile anche in Live Streaming per i fan internazionali! 🖥️"
-            },
-            ev_sep6: {
-                title: "Tour <PUT YOUR PHONE DOWN> + Live Streaming",
-                date: "6 Settembre 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "Terza e ultima serata esplosiva a Kanagawa, anch'essa disponibile in Live Streaming!"
-            },
-            ev_sep7: {
-                title: "CDTV Live! Live!",
-                date: "7 Settembre 2026",
-                category: "ESIBIZIONI",
-                colorClass: "bg-perf",
-                desc: "Debutto ufficiale sulla TV giapponese! I Cortis si esibiranno con REDRED al programma CDTV Live! Live! 🔥"
-            },
-            ev_sep12: {
-                title: "Music Bank in Madrid",
-                date: "12 Settembre 2026",
-                category: "TOUR / LIVE",
-                colorClass: "bg-tour",
-                desc: "I Cortis volano in Europa per un'esibizione spettacolare al Music Bank a BARCELLONA! 🇪🇸 (Nota: L'evento si terrà a Madrid come da annuncio ufficiale)"
-            },
-            ev_sep19: {
-                title: "THE FACT MUSIC AWARDS 2026",
-                date: "19 Settembre 2026",
-                category: "PREMIAZIONI",
-                colorClass: "bg-award",
-                desc: "I ragazzi parteciperanno alla cerimonia dei TMAs a Busan! Incrociamo le dita per i premi! 🏆✨"
-            },
-            ev_sep20: {
-                title: "Rock In Japan Festival 2026",
-                date: "20 Settembre 2026",
-                category: "ESIBIZIONI",
-                colorClass: "bg-perf",
-                desc: "Esibizione pazzesca dei Cortis sul palco del Rock In Japan Festival! 🎸"
-            },
-            ev_sep22: {
-                title: "Inkigayo Live in Tokyo 2026",
-                date: "22 Settembre 2026",
-                category: "ESIBIZIONI",
-                colorClass: "bg-perf",
-                desc: "I ragazzi porteranno il loro palco esplosivo all'evento Inkigayo Live a Tokyo! 🇯🇵"
-            }
-        };
-
-        const singleModal = document.getElementById("singleEventModal");
-
-        function openSingleEvent(eventId) {
-            const data = eventsData[eventId];
-            
-            document.getElementById("modalEventTitle").innerText = data.title;
-            document.getElementById("modalEventDate").innerText = data.date;
-            document.getElementById("modalEventCategory").innerText = data.category;
-            document.getElementById("modalEventDesc").innerText = data.desc;
-            
-            const categoryBadge = document.getElementById("modalEventCategory");
-            categoryBadge.className = ""; 
-            categoryBadge.classList.add(data.colorClass);
-            
-            if(data.colorClass === 'bg-bday' || data.colorClass === 'bg-award') {
-                categoryBadge.style.color = "var(--text-dark)";
-            } else {
-                categoryBadge.style.color = "var(--white)";
-            }
-
-            singleModal.classList.add("active");
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove("active");
-        }
-
-        window.onclick = function(event) {
-            if (event.target == singleModal) closeModal('singleEventModal');
-        }
-
+        go();
     </script>
 </body>
 </html>
