@@ -347,6 +347,69 @@
         .modal-event .meta { font-size: 0.8rem; font-weight: 600; color: var(--green-dark); }
         .modal-empty { font-size: 0.9rem; text-align: center; padding: 10px; }
 
+        /* --- Pulsante "Aggiungi al calendario" --- */
+        .subscribe-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            background-color: var(--beige);
+            border-bottom: 3px solid var(--green-dark);
+            padding: 12px 20px;
+        }
+        .subscribe-bar p {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        .subscribe-btn {
+            background-color: var(--green-light);
+            color: var(--green-dark);
+            border: 2px solid var(--green-dark);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-family: var(--font-titles);
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px var(--green-dark);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .subscribe-btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px var(--green-dark);
+        }
+        .subscribe-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px var(--green-dark);
+        }
+        .sub-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: var(--beige);
+            border: 2px solid var(--green-light);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+        .sub-option:hover { background: #eaf4ee; border-color: var(--green-dark); }
+        .sub-option small {
+            display: block;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--text-dark);
+            opacity: 0.75;
+        }
+        .sub-note { font-size: 0.75rem; text-align: center; margin-top: 6px; color: var(--green-dark); }
+
         /* --- Footer --- */
         footer {
             background-color: var(--white);
@@ -435,6 +498,10 @@
 
             <!-- Calendario personalizzato -->
             <div class="cal-box">
+                <div class="subscribe-bar">
+                    <p>Vuoi avere gli eventi sempre con te?</p>
+                    <button class="subscribe-btn" id="subscribeBtn">📅 AGGIUNGI AL TUO CALENDARIO</button>
+                </div>
                 <div class="cal-head">
                     <button class="cal-btn" id="prevBtn" aria-label="Mese precedente">&#8249;</button>
                     <button class="cal-btn cal-today-btn" id="todayBtn">OGGI</button>
@@ -458,6 +525,19 @@
             <button class="modal-close" id="modalClose" aria-label="Chiudi">&times;</button>
             <h3 id="modalTitle"></h3>
             <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Modale iscrizione calendario -->
+    <div class="modal-overlay" id="subOverlay">
+        <div class="modal" role="dialog" aria-modal="true">
+            <button class="modal-close" id="subClose" aria-label="Chiudi">&times;</button>
+            <h3>Aggiungi al tuo calendario</h3>
+            <button class="sub-option" id="subGoogle">Google Calendar<small>Android, Gmail e computer</small></button>
+            <button class="sub-option" id="subApple">iPhone / iPad / Mac<small>Si apre l'app Calendario</small></button>
+            <button class="sub-option" id="subOutlook">Outlook<small>Outlook.com / Microsoft 365</small></button>
+            <button class="sub-option" id="subCopy">Copia il link (altre app)<small id="subCopyMsg">Incollalo nella tua app come "iscrizione a calendario"</small></button>
+            <p class="sub-note">Gli eventi si aggiornano da soli, ma a volte ci vogliono alcune ore.</p>
         </div>
     </div>
 
@@ -714,6 +794,32 @@
         legendToggleBtn.addEventListener('click', () => {
             legendContent.classList.toggle('active');
             legendToggleBtn.innerText = legendContent.classList.contains('active') ? 'NASCONDI LEGENDA ▲' : 'MOSTRA LEGENDA ▼';
+        });
+
+        /* --- Iscrizione al calendario --- */
+        const calEnc = encodeURIComponent(CONFIG.calendarId);
+        const ICS_URL = `https://calendar.google.com/calendar/ical/${calEnc}/public/basic.ics`;
+        const WEBCAL_URL = `webcal://calendar.google.com/calendar/ical/${calEnc}/public/basic.ics`;
+        const GOOGLE_URL = `https://calendar.google.com/calendar/r?cid=${btoa(CONFIG.calendarId).replace(/=+$/, '')}`; // = Y29ydGlzaXRhbGlhQGdtYWlsLmNvbQ
+        const OUTLOOK_URL = `https://outlook.live.com/calendar/0/addfromweb?url=${encodeURIComponent(ICS_URL)}&name=${encodeURIComponent('Cortis Italia')}`;
+
+        const subOverlay = document.getElementById('subOverlay');
+        document.getElementById('subscribeBtn').addEventListener('click', () => subOverlay.classList.add('open'));
+        document.getElementById('subClose').addEventListener('click', () => subOverlay.classList.remove('open'));
+        subOverlay.addEventListener('click', e => { if (e.target === subOverlay) subOverlay.classList.remove('open'); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') subOverlay.classList.remove('open'); });
+
+        document.getElementById('subGoogle').addEventListener('click', () => window.open(GOOGLE_URL, '_blank', 'noopener'));
+        document.getElementById('subApple').addEventListener('click', () => { window.location.href = WEBCAL_URL; });
+        document.getElementById('subOutlook').addEventListener('click', () => window.open(OUTLOOK_URL, '_blank', 'noopener'));
+        document.getElementById('subCopy').addEventListener('click', async () => {
+            const msg = document.getElementById('subCopyMsg');
+            try {
+                await navigator.clipboard.writeText(ICS_URL);
+                msg.textContent = 'Link copiato! ✔';
+            } catch (e) {
+                window.prompt('Copia questo link:', ICS_URL);
+            }
         });
 
         go();
